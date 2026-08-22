@@ -1,8 +1,5 @@
-/* 1️⃣ Tailwind CSS v4 - import Tailwind first */
+/* Tailwind CSS v4 */
 @import "tailwindcss";
-
-/* 2️⃣ Bootstrap after Tailwind */
-@import "bootstrap/dist/css/bootstrap.min.css";
 
 /* 3️⃣ YOUR overrides LAST (this is the key) */
 :root {

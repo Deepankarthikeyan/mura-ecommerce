@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/components/header/CartContext";
 import { useWishlist } from "@/components/header/WishlistContext";
 import { parseMoneyAmount } from "@/lib/shopProductDisplay";
 
-type MuraiProductCardProps = {
+export type MuraiProductCardProps = {
   slug: string;
   title: string;
   category?: string;

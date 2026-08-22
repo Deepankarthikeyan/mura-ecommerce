@@ -45,12 +45,10 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href={FAVICON} type="image/png" />
         <link rel="apple-touch-icon" href={FAVICON} />
-        <link key="bootstrap" rel="stylesheet" href="/assets/css/bootstrap.min.css" />
-        <link key="plugins" rel="stylesheet" href="/assets/css/plugins.css" />
-        <link key="style" rel="stylesheet" href="/assets/css/style.css" />
         <link key="murai-style" rel="stylesheet" href="/assets/css/murai/style.css" />
         <link key="murai-header" rel="stylesheet" href="/assets/css/murai/header.css" />
         <link key="murai-home" rel="stylesheet" href="/assets/css/murai/home.css" />
+        <link key="murai-diwali" rel="stylesheet" href="/assets/css/murai/diwali-banner.css" />
         <link key="murai-responsive" rel="stylesheet" href="/assets/css/murai/responsive.css" />
         <JsonLdScript data={schemas.organization} />
         <JsonLdScript data={schemas.website} />
