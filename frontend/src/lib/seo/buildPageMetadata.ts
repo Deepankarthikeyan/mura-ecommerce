@@ -17,12 +17,19 @@ import {
 } from "./pageSeoTypes";
 import { applySeoTemplate, stripHtml, truncateText } from "./templateEngine";
 import { resolveProductListingImage } from "../shopProductDisplay";
+import {
+  MURAI_FAVICON,
+  MURAI_HOME_TITLE,
+  MURAI_OG_IMAGE,
+  MURAI_SITE_DESCRIPTION,
+  MURAI_SITE_NAME,
+} from "@/data/siteBrand";
 
 export const SEO_PAGES_CACHE_TAG = "seo-pages";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aathithyaherbal.com";
-const SITE_NAME = "Aathithya Herbal";
-const DEFAULT_OG_IMAGE = "/assets/images/logo/logo-1-jpg.jpeg";
+const SITE_NAME = MURAI_SITE_NAME;
+const DEFAULT_OG_IMAGE = MURAI_OG_IMAGE;
 
 function parseJson<T>(raw: string, fallback: T): T {
   try {
@@ -153,7 +160,7 @@ export async function buildPageMetadataForPath(
     options.variables?.siteName?.trim() ||
     pageSeo.og?.siteName?.trim() ||
     globalBasic.title?.trim() ||
-    SITE_NAME;
+    MURAI_HOME_TITLE;
 
   const vars: Record<string, string | undefined> = {
     siteName,
@@ -181,10 +188,11 @@ export async function buildPageMetadataForPath(
     vars,
   );
 
-  const title = titleRaw || (normalized === "/" ? "" : siteName);
+  const title = titleRaw || (normalized === "/" ? MURAI_HOME_TITLE : siteName);
   const description =
     truncateText(descriptionRaw, 160) ||
     truncateText(globalBasic.description, 160) ||
+    MURAI_SITE_DESCRIPTION ||
     undefined;
   const keywords = keywordsRaw || globalBasic.keywords;
 
@@ -209,6 +217,11 @@ export async function buildPageMetadataForPath(
     description,
     keywords: keywords || undefined,
     alternates: { canonical },
+    icons: {
+      icon: MURAI_FAVICON,
+      shortcut: MURAI_FAVICON,
+      apple: MURAI_FAVICON,
+    },
     openGraph: {
       title: ogTitleRaw || resolvedTitle,
       description: truncateText(ogDescriptionRaw, 200) || description,

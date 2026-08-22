@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
 import { Jost, Playfair_Display } from "next/font/google";
 
 import ClientProviders from "../components/providers/ClientProviders";
@@ -6,14 +6,27 @@ import GoogleAnalytics from "../components/seo/GoogleAnalytics";
 import PageSeoJsonLd from "../components/seo/PageSeoJsonLd";
 import JsonLdScript from "../components/seo/JsonLdScript";
 import { buildSiteMetadata, loadLiveSeoSchemas } from "../lib/seo/loadSeoSettings";
+import { MURAI_FAVICON, MURAI_HOME_TITLE, MURAI_SITE_NAME } from "../data/siteBrand";
 
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
-const FAVICON = "/assets/images/murai/mura-newlogo.png";
+const FAVICON = MURAI_FAVICON;
 
-export async function generateMetadata(): Promise<Metadata> {
-  return buildSiteMetadata();
+export async function generateMetadata() {
+  const base = await buildSiteMetadata();
+  return {
+    ...base,
+    title: {
+      default: MURAI_HOME_TITLE,
+      template: `%s | ${MURAI_SITE_NAME}`,
+    },
+    icons: {
+      icon: FAVICON,
+      shortcut: FAVICON,
+      apple: FAVICON,
+    },
+  };
 }
 
 export const viewport: Viewport = {

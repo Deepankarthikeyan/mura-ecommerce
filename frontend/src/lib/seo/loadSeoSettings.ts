@@ -13,12 +13,18 @@ import {
   serviceCatalogSchema,
   websiteSchema,
 } from "./organizationSchema";
+import {
+  MURAI_FAVICON,
+  MURAI_HOME_TITLE,
+  MURAI_OG_IMAGE,
+  MURAI_SITE_NAME,
+} from "@/data/siteBrand";
 
 export const SEO_SETTINGS_CACHE_TAG = "seo-settings";
 
-const FAVICON = "/assets/images/fav.png";
+const FAVICON = MURAI_FAVICON;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aathithyaherbal.com";
-const OG_LOGO = "/assets/images/logo/logo-1-jpg.jpeg";
+const OG_LOGO = MURAI_OG_IMAGE;
 
 type BasicConfig = {
   title?: string;
@@ -184,14 +190,14 @@ export async function buildSiteMetadata(): Promise<Metadata> {
   );
   const canonical = mergedSection(sections, "canonical");
 
-  const siteName = basic.title?.trim() || "Aathithya Herbal";
+  const siteName = basic.title?.trim() || MURAI_HOME_TITLE;
   const ogLogo = og.logo?.trim();
 
   return {
     metadataBase: new URL(SITE_URL),
     title: {
       default: siteName,
-      template: `%s | ${siteName}`,
+      template: `%s | ${MURAI_SITE_NAME}`,
     },
     description: basic.description,
     keywords: basic.keywords,
