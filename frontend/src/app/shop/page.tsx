@@ -3,6 +3,7 @@
 import HeaderOne from "@/components/header/Header";
 import FooterOne from "@/components/Footer";
 import MuraiBreadcrumb from "@/components/murai/MuraiBreadcrumb";
+import MuraiPageAttrs from "@/components/murai/MuraiPageAttrs";
 import MuraiFeaturesBar from "@/components/murai/MuraiFeaturesBar";
 import MuraiProductCard from "@/components/murai/MuraiProductCard";
 import MuraiShopSidebar from "@/components/murai/MuraiShopSidebar";
@@ -209,6 +210,7 @@ function ShopContent() {
 export default function ShopPage() {
   return (
     <div className="murai-home">
+      <MuraiPageAttrs page="shop" />
       <HeaderOne />
       <main>
         <Suspense fallback={<div className="container section">Loading shop...</div>}>

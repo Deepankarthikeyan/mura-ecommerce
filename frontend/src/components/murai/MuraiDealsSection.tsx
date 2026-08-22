@@ -5,6 +5,14 @@ import { useMuraiProducts } from "@/hooks/useMuraiProducts";
 import { useCart } from "@/components/header/CartContext";
 import { parseMoneyAmount, resolveProductListingImage } from "@/lib/shopProductDisplay";
 
+const STATIC_DEAL = {
+  title: "Banarasi Silk Saree",
+  price: 3599,
+  mrp: 5999,
+  discountPercentage: 25,
+  image: "/assets/images/murai/sarees/banarasi.webp",
+};
+
 function formatInr(value?: string | number) {
   const n = parseMoneyAmount(value);
   return n != null ? `₹${n.toLocaleString("en-IN")}` : "";
@@ -13,12 +21,14 @@ function formatInr(value?: string | number) {
 export default function MuraiDealsSection() {
   const { grouped } = useMuraiProducts();
   const { addToCart } = useCart();
-  const deal = grouped.deal;
+  const deal = grouped.deal ?? STATIC_DEAL;
   const [countdown, setCountdown] = useState({ days: "00", hours: "00", mins: "00", secs: "00" });
 
   useEffect(() => {
     const end = new Date();
-    end.setHours(23, 59, 59, 999);
+    end.setDate(end.getDate() + 3);
+    end.setHours(23, 59, 59, 0);
+
     const tick = () => {
       const diff = Math.max(0, end.getTime() - Date.now());
       const days = Math.floor(diff / 86400000);
@@ -32,15 +42,16 @@ export default function MuraiDealsSection() {
         secs: String(secs).padStart(2, "0"),
       });
     };
+
     tick();
     const id = window.setInterval(tick, 1000);
     return () => window.clearInterval(id);
   }, []);
 
-  if (!deal) return null;
-
   const image = resolveProductListingImage(deal);
-  const discount = deal.discountPercentage ? `${Math.round(Number(deal.discountPercentage))}% Off` : "Sale";
+  const discount = deal.discountPercentage
+    ? `${Math.round(Number(deal.discountPercentage))}% Off`
+    : "25% Off";
 
   return (
     <section className="deals-section">

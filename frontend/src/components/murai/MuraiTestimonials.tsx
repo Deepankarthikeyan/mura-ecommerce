@@ -1,10 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 
 const TESTIMONIALS = [
   {
@@ -43,11 +40,15 @@ export default function MuraiTestimonials() {
         </div>
         <Swiper
           className="testimonial-swiper"
-          modules={[Navigation, Pagination, Autoplay]}
+          modules={[Navigation, Pagination, Autoplay, EffectFade]}
           loop
-          autoplay={{ delay: 6000 }}
+          speed={700}
+          effect="fade"
+          fadeEffect={{ crossFade: true }}
+          autoplay={{ delay: 5500, disableOnInteraction: false }}
           navigation
           pagination={{ clickable: true }}
+          slidesPerView={1}
         >
           {TESTIMONIALS.map((item) => (
             <SwiperSlide key={item.name}>

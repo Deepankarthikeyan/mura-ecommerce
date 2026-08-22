@@ -24,6 +24,38 @@ export type MuraiCategoryTab = {
   products: MuraiProduct[];
 };
 
+const STATIC_TABS = [
+  { id: "tab-featured", label: "Silk Sarees", keywords: ["silk", "banarasi", "kanjivaram", "paithani"] },
+  { id: "tab-trending", label: "Cotton Sarees", keywords: ["cotton"] },
+  { id: "tab-newarrival", label: "Designer Sarees", keywords: ["designer", "party", "bridal", "wedding"] },
+] as const;
+
+function matchesTab(product: MuraiProduct, keywords: readonly string[]) {
+  const haystack = `${product.category ?? ""} ${product.title ?? ""}`.toLowerCase();
+  return keywords.some((keyword) => haystack.includes(keyword));
+}
+
+function distributeProducts(products: MuraiProduct[]): MuraiCategoryTab[] {
+  const buckets: MuraiProduct[][] = [[], [], []];
+  const used = new Set<string>();
+
+  for (const product of products) {
+    const key = String(product._id ?? product.productId ?? product.slug ?? product.title ?? "");
+    if (used.has(key)) continue;
+
+    const tabIndex = STATIC_TABS.findIndex((tab) => matchesTab(product, tab.keywords));
+    const target = tabIndex >= 0 ? tabIndex : buckets.findIndex((bucket) => bucket.length === Math.min(...buckets.map((b) => b.length)));
+    buckets[target >= 0 ? target : 0].push(product);
+    used.add(key);
+  }
+
+  return STATIC_TABS.map((tab, index) => ({
+    id: tab.id,
+    label: tab.label,
+    products: buckets[index].slice(0, 8),
+  }));
+}
+
 export function useMuraiProducts() {
   const [products, setProducts] = useState<MuraiProduct[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -68,45 +100,11 @@ export function useMuraiProducts() {
   }, []);
 
   const categoryTabs = useMemo((): MuraiCategoryTab[] => {
-    if (!products.length) return [];
-
-    const tabs: MuraiCategoryTab[] = [];
-    const used = new Set<string>();
-
-    for (const cat of categories) {
-      const matched = products.filter((p) => String(p.category ?? "") === cat);
-      if (matched.length > 0) {
-        tabs.push({
-          id: cat.toLowerCase().replace(/\s+/g, "-"),
-          label: cat,
-          products: matched.slice(0, 8),
-        });
-        used.add(cat);
-      }
+    if (!products.length) {
+      return STATIC_TABS.map((tab) => ({ id: tab.id, label: tab.label, products: [] }));
     }
-
-    // Products without a listed category
-    const uncategorized = products.filter((p) => !p.category || !used.has(String(p.category)));
-    if (uncategorized.length > 0 && tabs.length < 3) {
-      tabs.push({
-        id: "all-products",
-        label: "All Products",
-        products: uncategorized.slice(0, 8),
-      });
-    }
-
-    // Fallback: split products into 3 tabs if no categories
-    if (tabs.length === 0) {
-      const chunk = Math.ceil(products.length / 3) || 1;
-      return [
-        { id: "tab-1", label: "Featured", products: products.slice(0, chunk) },
-        { id: "tab-2", label: "Popular", products: products.slice(chunk, chunk * 2) },
-        { id: "tab-3", label: "New Arrivals", products: products.slice(chunk * 2, chunk * 3) },
-      ];
-    }
-
-    return tabs.slice(0, 3);
-  }, [products, categories]);
+    return distributeProducts(products);
+  }, [products]);
 
   const grouped = useMemo(() => {
     const byCategory: Record<string, MuraiProduct[]> = {};

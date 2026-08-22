@@ -2,14 +2,13 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getDashboardPrefix } from "@/lib/dashboardPaths";
 import LoginDialog from "@/components/auth/LoginDialog";
 import RegisterDialog, { type RegistrationReadyPayload } from "@/components/auth/RegisterDialog";
 import AddressDialog from "@/components/auth/AddressDialog";
 import { useCart } from "@/components/header/CartContext";
 import { useUser } from "@/components/header/UserContext";
-import BackToTop from "@/components/common/BackToTop";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home", href: "/" },
@@ -59,12 +58,23 @@ function MenuIcon() {
   );
 }
 
+function CloseIcon() {
+  return (
+    <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18" />
+    </svg>
+  );
+}
+
 export default function MuraiSiteHeader() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, isAuthenticated } = useUser();
   const { cartItems } = useCart();
+
+  const mountRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [navOpen, setNavOpen] = useState(false);
@@ -87,23 +97,66 @@ export default function MuraiSiteHeader() {
     return "";
   })();
 
+  const updateNavFixed = useCallback((scrolled: boolean) => {
+    setNavScrolled(scrolled);
+    document.body.classList.toggle("nav-is-fixed", scrolled);
+
+    const nav = navRef.current;
+    const spacer = spacerRef.current;
+    if (scrolled && window.innerWidth > 768 && nav && spacer) {
+      spacer.style.height = `${nav.offsetHeight}px`;
+    } else if (spacer) {
+      spacer.style.height = "0";
+    }
+  }, []);
+
   useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        updateNavFixed(!entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: "0px" }
+    );
+
+    observer.observe(mount);
+
     const onScroll = () => {
-      const nav = navRef.current;
-      if (!nav) return;
-      const navTop = nav.getBoundingClientRect().top + window.scrollY;
-      setNavScrolled(window.scrollY >= navTop - 1);
+      const scrolled = mount.getBoundingClientRect().bottom <= 0;
+      updateNavFixed(scrolled);
+    };
+
+    const onResize = () => {
+      if (document.body.classList.contains("nav-is-fixed")) {
+        updateNavFixed(true);
+      }
+      if (window.innerWidth > 768) {
+        setNavOpen(false);
+      }
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      document.body.classList.remove("nav-is-fixed", "menu-open");
+    };
+  }, [updateNavFixed]);
 
   useEffect(() => {
-    document.body.classList.toggle("nav-is-fixed", navScrolled);
-    return () => document.body.classList.remove("nav-is-fixed");
-  }, [navScrolled]);
+    document.body.classList.toggle("menu-open", navOpen);
+    return () => {
+      if (navOpen) document.body.classList.remove("menu-open");
+    };
+  }, [navOpen]);
+
+  const closeMenu = () => setNavOpen(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,98 +170,99 @@ export default function MuraiSiteHeader() {
   const accountHref = isAuthenticated && user ? getDashboardPrefix(user.userType) : undefined;
 
   return (
-    <div id="site-header-mount" className="site-header-sticky">
-      <div className="suruchi-topbar">
-        <div className="suruchi-topbar-inner">
-          <div className="suruchi-topbar-left">
-            <span>Big Saree Sale — Up to 70% Off</span>
-            <Link href="/shop">Shop Sale Sarees</Link>
-            <a href="mailto:murapodanur@gmail.com">murapodanur@gmail.com</a>
-          </div>
-          <div className="suruchi-topbar-right">
-            <span>English</span>
-            <span>₹ INR</span>
+    <>
+      <div id="site-header-mount" ref={mountRef}>
+        <div className="suruchi-topbar">
+          <div className="suruchi-topbar-inner">
+            <div className="suruchi-topbar-left">
+              <span>Big Saree Sale — Up to 70% Off</span>
+              <Link href="/shop">Shop Sale Sarees</Link>
+              <a href="mailto:murapodanur@gmail.com">murapodanur@gmail.com</a>
+            </div>
+            <div className="suruchi-topbar-right">
+              <a href="#">English ▾</a>
+              <a href="#">₹ INR ▾</a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="suruchi-header-main">
-        <button
-          className="suruchi-mobile-toggle"
-          type="button"
-          aria-label="Open menu"
-          aria-expanded={navOpen}
-          onClick={() => setNavOpen((open) => !open)}
-        >
-          <MenuIcon />
-        </button>
-
-        <Link href="/" className="suruchi-logo" aria-label="MuRa@23 Home">
-          <img
-            src="/assets/images/murai/mura-newlogo.png"
-            alt="MuRa@23"
-            width={129}
-            height={80}
-            decoding="async"
-          />
-        </Link>
-
-        <form className="suruchi-search" onSubmit={handleSearch}>
-          <select aria-label="Category" defaultValue="all">
-            <option value="all">All Sarees</option>
-            <option value="silk">Silk Sarees</option>
-            <option value="cotton">Cotton Sarees</option>
-            <option value="banarasi">Banarasi</option>
-            <option value="kanjivaram">Kanjivaram</option>
-          </select>
-          <input
-            type="text"
-            placeholder="Search sarees..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit" aria-label="Search">
-            <SearchIcon />
+        <div className="suruchi-header-main">
+          <button
+            className="suruchi-mobile-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={navOpen}
+            onClick={() => setNavOpen((open) => !open)}
+          >
+            <MenuIcon />
           </button>
-        </form>
 
-        <div className="suruchi-header-actions">
-          {accountHref ? (
-            <Link href={accountHref} className="suruchi-header-action">
-              <UserIcon />
-              <span>Hi, {user?.username}</span>
-            </Link>
-          ) : (
-            <button
-              type="button"
-              className="suruchi-header-action"
-              onClick={() => setIsLoginDialogOpen(true)}
-              suppressHydrationWarning
-            >
-              <UserIcon />
-              <span>My Account</span>
-            </button>
-          )}
-          <Link href="/wishlist" className="suruchi-header-action">
-            <HeartIcon />
-            <span>Wish List</span>
+          <Link href="/" className="suruchi-logo" aria-label="MuRa@23 Home">
+            <img
+              src="/assets/images/murai/mura-newlogo.png"
+              alt="MuRa@23"
+              width={129}
+              height={80}
+              decoding="async"
+            />
           </Link>
-          <Link href="/cart" className="suruchi-header-action">
-            <CartIcon />
-            <span>My Cart</span>
-            {cartItemCount > 0 && (
-              <span className="suruchi-badge cart-count" style={{ display: "flex" }}>
+
+          <form className="suruchi-search" onSubmit={handleSearch}>
+            <select aria-label="Category" defaultValue="all">
+              <option value="all">All Sarees</option>
+              <option value="silk">Silk Sarees</option>
+              <option value="cotton">Cotton Sarees</option>
+              <option value="banarasi">Banarasi</option>
+              <option value="kanjivaram">Kanjivaram</option>
+              <option value="party">Party Wear</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Search sarees..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button type="submit" aria-label="Search">
+              <SearchIcon />
+            </button>
+          </form>
+
+          <div className="suruchi-header-actions">
+            {accountHref ? (
+              <Link href={accountHref} className="suruchi-header-action">
+                <UserIcon />
+                <span>Hi, {user?.username}</span>
+              </Link>
+            ) : (
+              <button
+                type="button"
+                className="suruchi-header-action"
+                onClick={() => setIsLoginDialogOpen(true)}
+                suppressHydrationWarning
+              >
+                <UserIcon />
+                <span>My Account</span>
+              </button>
+            )}
+            <Link href="/wishlist" className="suruchi-header-action">
+              <HeartIcon />
+              <span>Wish List</span>
+            </Link>
+            <Link href="/cart" className="suruchi-header-action">
+              <CartIcon />
+              <span>My Cart</span>
+              <span className="suruchi-badge cart-count" style={{ display: cartItemCount > 0 ? "flex" : "none" }}>
                 {cartItemCount > 99 ? "99+" : cartItemCount}
               </span>
-            )}
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
 
       <div
         className={`nav-overlay${navOpen ? " open" : ""}`}
         aria-hidden="true"
-        onClick={() => setNavOpen(false)}
+        onClick={closeMenu}
       />
 
       <nav
@@ -217,16 +271,21 @@ export default function MuraiSiteHeader() {
         id="suruchi-nav"
       >
         <div className="suruchi-nav-inner">
-          <Link href="/" className="suruchi-nav-logo" aria-label="MuRa@23">
-            <img src="/assets/images/murai/mura-newlogo.png" alt="MuRa@23" width={108} height={67} />
-          </Link>
+          <div className="suruchi-nav-header">
+            <Link href="/" className="suruchi-nav-logo" aria-label="MuRa@23 Home" onClick={closeMenu}>
+              <img src="/assets/images/murai/mura-newlogo.png" alt="MuRa@23" width={97} height={60} decoding="async" />
+            </Link>
+            <button className="suruchi-nav-close" aria-label="Close menu" type="button" onClick={closeMenu}>
+              <CloseIcon />
+            </button>
+          </div>
           <ul>
             {NAV_ITEMS.map((item) => (
               <li key={item.id}>
                 <Link
                   href={item.href}
                   className={activePage === item.id ? "active" : ""}
-                  onClick={() => setNavOpen(false)}
+                  onClick={closeMenu}
                 >
                   {item.label}
                 </Link>
@@ -234,7 +293,7 @@ export default function MuraiSiteHeader() {
             ))}
             {!isAuthenticated && (
               <li>
-                <Link href="/login" className={activePage === "login" ? "active" : ""} onClick={() => setNavOpen(false)}>
+                <Link href="/login" className={activePage === "login" ? "active" : ""} onClick={closeMenu}>
                   Login
                 </Link>
               </li>
@@ -243,9 +302,7 @@ export default function MuraiSiteHeader() {
         </div>
       </nav>
 
-      <div className="suruchi-nav-spacer" aria-hidden="true" />
-
-      <BackToTop />
+      <div className="suruchi-nav-spacer" ref={spacerRef} aria-hidden="true" />
 
       <LoginDialog
         isOpen={isLoginDialogOpen}
@@ -277,6 +334,6 @@ export default function MuraiSiteHeader() {
           setIsLoginDialogOpen(true);
         }}
       />
-    </div>
+    </>
   );
 }

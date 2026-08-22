@@ -45,11 +45,21 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href={FAVICON} type="image/png" />
         <link rel="apple-touch-icon" href={FAVICON} />
+        <link
+          key="swiper-bundle"
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+        />
         <link key="murai-style" rel="stylesheet" href="/assets/css/murai/style.css" />
         <link key="murai-header" rel="stylesheet" href="/assets/css/murai/header.css" />
         <link key="murai-home" rel="stylesheet" href="/assets/css/murai/home.css" />
         <link key="murai-diwali" rel="stylesheet" href="/assets/css/murai/diwali-banner.css" />
         <link key="murai-responsive" rel="stylesheet" href="/assets/css/murai/responsive.css" />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: ":root { --font-body: 'Jost', sans-serif; --font-heading: 'Playfair Display', serif; }",
+          }}
+        />
         <JsonLdScript data={schemas.organization} />
         <JsonLdScript data={schemas.website} />
         <JsonLdScript data={schemas.localBusiness} />

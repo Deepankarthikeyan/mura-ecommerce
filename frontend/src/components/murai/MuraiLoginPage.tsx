@@ -7,6 +7,7 @@ import axios from "axios";
 import HeaderOne from "@/components/header/Header";
 import FooterOne from "@/components/Footer";
 import MuraiBreadcrumb from "@/components/murai/MuraiBreadcrumb";
+import MuraiPageAttrs from "@/components/murai/MuraiPageAttrs";
 import { useUser } from "@/components/header/UserContext";
 
 export default function MuraiLoginPage() {
@@ -47,7 +48,8 @@ export default function MuraiLoginPage() {
   };
 
   return (
-    <div className="murai-home" data-page="login">
+    <div className="murai-home">
+      <MuraiPageAttrs page="login" />
       <HeaderOne />
       <main>
         <MuraiBreadcrumb

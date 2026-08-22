@@ -3,6 +3,7 @@ import Link from "next/link";
 import HeaderOne from "@/components/header/Header";
 import FooterOne from "@/components/Footer";
 import MuraiBreadcrumb from "@/components/murai/MuraiBreadcrumb";
+import MuraiPageAttrs from "@/components/murai/MuraiPageAttrs";
 import ShortService from "@/components/service/ShortService";
 import { staticPageMetadata } from "@/lib/seo/buildPageMetadata";
 
@@ -11,6 +12,7 @@ export const generateMetadata: () => Promise<Metadata> = staticPageMetadata("/ab
 export default function AboutPage() {
   return (
     <div className="murai-home">
+      <MuraiPageAttrs page="about" />
       <HeaderOne />
       <main>
         <MuraiBreadcrumb
