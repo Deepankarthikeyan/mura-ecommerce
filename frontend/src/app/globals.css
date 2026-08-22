@@ -77,7 +77,28 @@ body {
   font-family: var(--font-heading), "Playfair Display", serif;
 }
 
-/* Murai nav mobile overlay */
+/* Murai storefront — tone down legacy RTS green/blue on customer pages */
+.murai-home .rts-btn.btn-primary,
+.murai-home .btn-primary {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.murai-home .bg_primary,
+.murai-home .bg-primary-header {
+  background: var(--color-primary) !important;
+}
+
+.murai-home .rts-navigation-area-breadcrumb,
+.murai-home .bg_light-1 {
+  background: var(--color-cream) !important;
+}
+
+.murai-home .shop-sidebar .sidebar-list button.active,
+.murai-home .shop-sidebar .sidebar-list a.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
 .nav-overlay {
   display: none;
   position: fixed;

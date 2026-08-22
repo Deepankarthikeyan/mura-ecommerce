@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import HeaderOne from "@/components/header/Header";
+import MuraiBreadcrumb from "@/components/murai/MuraiBreadcrumb";
 import ShortService from "@/components/service/ShortService";
 import RelatedProduct from "@/components/product/RelatedProduct";
 import FooterOne from "@/components/Footer";
@@ -171,45 +172,25 @@ const CompareElements: React.FC = () => {
   const adMediaUrl = resolveProductAdMediaUrl(blogPost);
 
   return (
-    <div>
-      {/* Inject keyframes for skeleton animation */}
+    <div className="murai-home">
       <style>{`
         @keyframes pulse {
-          0% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.4;
-          }
-          100% {
-            opacity: 1;
-          }
+          0% { opacity: 1; }
+          50% { opacity: 0.4; }
+          100% { opacity: 1; }
         }
       `}</style>
       <HeaderOne />
-      <div className="rts-navigation-area-breadcrumb bg_light-1">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="navigator-breadcrumb-wrapper">
-                <a href="/">Home</a>
-                <i className="fa-regular fa-chevron-right" />
-                {isLoading ? (
-                  <div style={{ width: "150px", height: "20px", backgroundColor: "#e0e0e0", borderRadius: "4px", display: "inline-block", verticalAlign: "middle", animation: "pulse 1.5s ease-in-out infinite" }} />
-                ) : (
-                  <a className="current" href="#">{blogPost?.title}</a>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="section-seperator bg_light-1">
-        <div className="container">
-          <hr className="section-seperator" />
-        </div>
-      </div>
+      <main>
+      <MuraiBreadcrumb
+        title={isLoading ? "Product" : (blogPost?.title ?? "Product")}
+        bannerImage="/assets/images/murai/banners/banner-shop.jpg"
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Shop", href: "/shop" },
+          { label: isLoading ? "Loading..." : (blogPost?.title ?? "Product") },
+        ]}
+      />
 
       <div className="rts-chop-details-area rts-section-gap bg_light-1">
         <style>{`
@@ -521,6 +502,7 @@ const CompareElements: React.FC = () => {
 
       {/* <RelatedProduct /> */}
       <ShortService />
+      </main>
       <FooterOne />
       <ToastContainer />
     </div>

@@ -1,40 +1,32 @@
-"use client"
+"use client";
+
 import HeaderOne from "@/components/header/Header";
+import FooterOne from "@/components/Footer";
+import MuraiBreadcrumb from "@/components/murai/MuraiBreadcrumb";
 import ShortService from "@/components/service/ShortService";
 import CartMain from "./CartMain";
-import FooterOne from "@/components/Footer";
 
-
-export default function Home() {
-
-    return (
-        <div className="demo-one">
-            <HeaderOne />
-            <>
-                <div className="rts-navigation-area-breadcrumb bg_light-1">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <div className="navigator-breadcrumb-wrapper">
-                                    <a href="/">Home</a>
-                                    <i className="fa-regular fa-chevron-right" />
-                                    <span className="current">My Cart</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="section-seperator bg_light-1">
-                    <div className="container">
-                        <hr className="section-seperator" />
-                    </div>
-                </div>
-            </>
-
-
+export default function CartPage() {
+  return (
+    <div className="murai-home">
+      <HeaderOne />
+      <main>
+        <MuraiBreadcrumb
+          title="My Cart"
+          bannerImage="/assets/images/murai/banners/banner-shop.jpg"
+          crumbs={[
+            { label: "Home", href: "/" },
+            { label: "My Cart" },
+          ]}
+        />
+        <section className="section">
+          <div className="container">
             <CartMain />
-            <ShortService />
-            <FooterOne />
-        </div>
-    );
+          </div>
+        </section>
+        <ShortService />
+      </main>
+      <FooterOne />
+    </div>
+  );
 }

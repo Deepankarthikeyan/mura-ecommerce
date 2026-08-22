@@ -1,129 +1,97 @@
 import type { Metadata } from "next";
 import HeaderOne from "@/components/header/Header";
-import ShortService from "@/components/service/ShortService";
 import FooterOne from "@/components/Footer";
+import MuraiBreadcrumb from "@/components/murai/MuraiBreadcrumb";
+import ContactForm from "@/components/murai/ContactForm";
+import ShortService from "@/components/service/ShortService";
 import { staticPageMetadata } from "@/lib/seo/buildPageMetadata";
 
 export const generateMetadata: () => Promise<Metadata> = staticPageMetadata("/contact");
 
-export default function Home() {
-    return (
-        <div className="demo-one">
-            <HeaderOne />
+export default function ContactPage() {
+  return (
+    <div className="murai-home">
+      <HeaderOne />
+      <main>
+        <MuraiBreadcrumb
+          title="Contact Us"
+          bannerImage="/assets/images/murai/banners/banner-contact.jpg"
+          crumbs={[
+            { label: "Home", href: "/" },
+            { label: "Contact Us" },
+          ]}
+        />
 
-            <>
-                <div className="rts-map-contact-area rts-section-gap2">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-4">
-                                <div className="contact-left-area-main-wrapper">
-                                    <h2 className="title">You can ask us questions !</h2>
-                                    <p className="disc">
-                                        Contact us for all your questions and opinions, or you can solve
-                                        your problems in a shorter time with our contact offices.
-                                    </p>
-                                    <div className="location-single-card">
-                                        <div className="icon">
-                                            <i className="fa-light fa-location-dot" />
-                                        </div>
-                                        <div className="information">
-                                            <h3 className="title">Berlin Germany Store</h3>
-                                            <p>259 Daniel Road, FKT 2589 Berlin, Germany.</p>
-                                            <a href="#" className="number">
-                                                +856 (76) 259 6328
-                                            </a>
-                                            <a href="#" className="email">
-                                                info@example.com
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="location-single-card">
-                                        <div className="icon">
-                                            <i className="fa-light fa-location-dot" />
-                                        </div>
-                                        <div className="information">
-                                            <h3 className="title">Frankfurt Germany Store</h3>
-                                            <p>259 Daniel Road, FKT 2589 Berlin, Germany.</p>
-                                            <a href="#" className="number">
-                                                +856 (76) 259 6328
-                                            </a>
-                                            <a href="#" className="email">
-                                                info@example.com
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-8 pl--50 pl_sm--5 pl_md--5">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14602.288851207937!2d90.47855065!3d23.798243149999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1716725338558!5m2!1sen!2sbd"
-                                    width={600}
-                                    height={540}
-                                    style={{ border: 0 }}
-                                    allowFullScreen={true} // Fixed here: Set to true or omitted if not needed
-                                    loading="lazy"
-                                    referrerPolicy="no-referrer-when-downgrade"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* rts contact-form area start */}
-                <div className="rts-contact-form-area rts-section-gapBottom">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <div className="bg_light-1 contact-form-wrapper-bg">
-                                    <div className="row">
-                                        <div className="col-lg-7 pr--30 pr_md--10 pr_sm--5">
-                                            <div className="contact-form-wrapper-1">
-                                                <h3 className="title mb--50">
-                                                    Fill Up The Form If You Have Any Question
-                                                </h3>
-                                                <form action="#" className="contact-form-1">
-                                                    <div className="contact-form-wrapper--half-area">
-                                                        <div className="single">
-                                                            <input type="text" placeholder="name*" />
-                                                        </div>
-                                                        <div className="single">
-                                                            <input type="text" placeholder="Email*" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="single-select">
-                                                        <select>
-                                                            <option data-display="Subject*">All Categories</option>
-                                                            <option value={1}>Some option</option>
-                                                            <option value={2}>Another option</option>
-                                                            <option value={3}>Potato</option>
-                                                        </select>
-                                                    </div>
-                                                    <textarea
-                                                        name="message"
-                                                        placeholder="Write Message Here"
-                                                        defaultValue={""}
-                                                    />
-                                                    <button className="rts-btn btn-primary mt--20">
-                                                        Send Message
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-5 mt_md--30 mt_sm--30">
-                                            <div className="thumbnail-area">
-                                                <img src="assets/images/contact/02.jpg" alt="contact_form" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* rts contact-form area end */}
-            </>
+        <section className="section">
+          <div className="container">
+            <div className="contact-grid">
+              <div>
+                <div className="contact-info-card">
+                  <h3>Get In Touch</h3>
+                  <p style={{ color: "var(--color-text-muted)", fontSize: 14, marginBottom: 24 }}>
+                    Questions about a saree, sizing, or your order? We&apos;re here to help.
+                  </p>
 
-            <ShortService />
-            <FooterOne />
-        </div>
-    );
+                  <div className="contact-item">
+                    <div className="contact-icon">
+                      <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4>Visit Our Store</h4>
+                      <p>
+                        Podanur
+                        <br />
+                        Coimbatore, Tamil Nadu 641023, India
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="contact-item">
+                    <div className="contact-icon">
+                      <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4>Call Us</h4>
+                      <p>
+                        <a href="tel:02123333444">02 123 333 444</a>
+                        <br />
+                        Mon–Sat, 9 AM – 6 PM IST
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="contact-item">
+                    <div className="contact-icon">
+                      <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4>Email Us</h4>
+                      <p>
+                        <a href="mailto:murapodanur@gmail.com">murapodanur@gmail.com</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="contact-form-card">
+                <h3>Send a Message</h3>
+                <ContactForm />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <ShortService />
+      </main>
+      <FooterOne />
+    </div>
+  );
 }

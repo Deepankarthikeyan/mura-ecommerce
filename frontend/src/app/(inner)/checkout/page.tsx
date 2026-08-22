@@ -1,17 +1,32 @@
+"use client";
+
 import HeaderOne from "@/components/header/Header";
+import FooterOne from "@/components/Footer";
+import MuraiBreadcrumb from "@/components/murai/MuraiBreadcrumb";
 import ShortService from "@/components/service/ShortService";
 import CheckOutMain from "./CheckOutMain";
-import FooterOne from "@/components/Footer";
 
-export default function Home() {
-    return (
-        <div className="demo-one">
-            <HeaderOne />
-
-
+export default function CheckoutPage() {
+  return (
+    <div className="murai-home">
+      <HeaderOne />
+      <main>
+        <MuraiBreadcrumb
+          title="Checkout"
+          bannerImage="/assets/images/murai/banners/banner-shop.jpg"
+          crumbs={[
+            { label: "Home", href: "/" },
+            { label: "Checkout" },
+          ]}
+        />
+        <section className="section">
+          <div className="container">
             <CheckOutMain />
-            <ShortService />
-            <FooterOne />
-        </div>
-    );
+          </div>
+        </section>
+        <ShortService />
+      </main>
+      <FooterOne />
+    </div>
+  );
 }
