@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { MURAI_THEME } from "@/data/theme";
 import { useCart } from './CartContext';
 import { useRouter } from 'next/navigation';
 
@@ -33,17 +32,17 @@ const CartDropdown: React.FC = () => {
         cursor: 'pointer',
         borderRadius: '4px',
         padding: '8px 16px',
-        border: '2px solid #1f72b0',
-        color: '#1f72b0'
+        border: `2px solid ${MURAI_THEME.primary}`,
+        color: MURAI_THEME.primary
       }}
       onClick={() => router.push('/cart')}
       onMouseEnter={(e) => {
-        e.currentTarget.style.backgroundColor = '#1f72b0';
+        e.currentTarget.style.backgroundColor = MURAI_THEME.primary;
         e.currentTarget.style.color = 'white';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.backgroundColor = 'transparent';
-        e.currentTarget.style.color = '#1f72b0';
+        e.currentTarget.style.color = MURAI_THEME.primary;
       }}
     >
       <i className="fa-sharp fa-regular fa-cart-shopping" />

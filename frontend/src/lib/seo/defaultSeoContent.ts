@@ -6,40 +6,35 @@ import {
   serviceCatalogSchema,
   websiteSchema,
 } from "./organizationSchema";
+import {
+  MURAI_FAVICON,
+  MURAI_HOME_TITLE,
+  MURAI_OG_IMAGE,
+  MURAI_SITE_DESCRIPTION,
+  MURAI_SITE_NAME,
+} from "@/data/siteBrand";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aathithyaherbal.com";
-const SITE_NAME = "Aathithya Herbal";
-const SITE_DESCRIPTION =
-  "Shop authentic herbal products online at Aathithya Herbal. Discover 100+ natural supplements, organic wellness products, and traditional remedies delivered worldwide since 2016.";
+const SITE_NAME = MURAI_SITE_NAME;
+const SITE_DESCRIPTION = MURAI_SITE_DESCRIPTION;
 const SITE_KEYWORDS = [
-  "Aathithya Herbal",
-  "herbal store",
-  "herbal products online",
-  "organic supplements",
-  "natural wellness",
-  "Ayurvedic herbs",
-  "herbal remedies",
-  "Coimbatore herbal shop",
-  "buy herbs online",
-  "organic products India",
-  "herbal supplements",
-  "traditional medicine",
-  "natural health products",
-  "wellness store",
-  "herbal oils",
-  "organic store",
-  "herbal medicine",
-  "immunity boosters",
-  "ayurveda products",
-  "Tamil Nadu herbal store",
-  "worldwide herbal delivery",
-  "online herbal shop",
-  "natural remedies",
-  "holistic wellness",
-  "herbal skincare",
+  MURAI_SITE_NAME,
+  "saree sale",
+  "silk sarees",
+  "cotton sarees",
+  "designer sarees",
+  "Banarasi sarees",
+  "Kanjivaram sarees",
+  "sarees online",
+  "buy sarees online",
+  "MuRa sarees",
+  "festive saree sale",
+  "handwoven sarees",
+  "Indian sarees",
+  "saree shop India",
 ].join(", ");
-const OG_IMAGE = "/assets/images/logo/logo-1-jpg.jpeg";
-const OG_LOGO = "/assets/images/logo/logo-1-jpg.jpeg";
+const OG_IMAGE = MURAI_OG_IMAGE;
+const OG_LOGO = MURAI_OG_IMAGE;
 
 export const SEO_SECTION_KEYS = [
   "basic",
@@ -104,7 +99,7 @@ export function getDefaultSeoContent(): Record<SeoSectionKey, string> {
 
   return {
     basic: prettyJson({
-      title: SITE_NAME,
+      title: MURAI_HOME_TITLE,
       description: SITE_DESCRIPTION,
       keywords: SITE_KEYWORDS,
       authors: [{ name: SITE_NAME }],
