@@ -1,121 +1,102 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
-import { Autoplay, EffectFade } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/effect-fade";
+import "swiper/css/navigation";
 
 const slides = [
   {
-    bgClass: "banner-bg_4",
-    pre: "Get offers and discounts on your purchase",
+    bgClass: "slide-1",
+    tag: "Saree Sale",
     title: (
       <>
-        Buy all Different Kinds <br />
-        of Ayurvedhic medicines
+        Handcrafted Silk
+        <br />
+        Sarees On Sale
       </>
     ),
-    description: "Don't miss these opportunities...",
-    showPerson: true,
+    description: (
+      <>
+        Up To 70% Off On Premium Sarees.
+        <br />
+        Silk, Cotton &amp; Designer Collection!
+      </>
+    ),
   },
   {
-    bgClass: "banner-bg_4 banner-bg_4-two",
-    pre: "Natural care for everyday wellness",
+    bgClass: "slide-2",
+    tag: "Saree Sale",
     title: (
       <>
-        Discover Trusted <br />
-        Ayurvedic Products
+        Handcrafted Silk
+        <br />
+        Sarees On Sale
       </>
     ),
-    description: "Shop quality herbal medicines and wellness essentials...",
-    showPerson: false,
+    description: (
+      <>
+        Up To 70% Off On Premium Sarees.
+        <br />
+        Silk, Cotton &amp; Designer Collection!
+      </>
+    ),
+  },
+  {
+    bgClass: "slide-3",
+    tag: "Saree Sale",
+    title: (
+      <>
+        Handcrafted Silk
+        <br />
+        Sarees On Sale
+      </>
+    ),
+    description: (
+      <>
+        Up To 70% Off On Premium Sarees.
+        <br />
+        Silk, Cotton &amp; Designer Collection!
+      </>
+    ),
   },
 ];
 
 function BannerFour() {
-  const [swiper, setSwiper] = useState<SwiperType | null>(null);
+  const [, setSwiper] = useState<SwiperType | null>(null);
 
   return (
-    <div className="banner-four-swiper-main-wrapper">
+    <section className="hero-slider">
       <Swiper
-        modules={[Autoplay, EffectFade]}
+        modules={[Autoplay, Navigation]}
         spaceBetween={0}
         slidesPerView={1}
-        loop={true}
+        loop
         speed={700}
-        effect="fade"
-        autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-        }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        navigation
         onSwiper={setSwiper}
-        className="banner-four-swiper"
+        className="hero-swiper"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div
-              className={`rts-banner-area rts-section-gap ${slide.bgClass} bg_image d-flex align-items-center`}
-            >
-              {slide.showPerson ? (
-                <div className="transparent-person">
-                  <img
-                    src="/assets/images/banner/transparent/01.png"
-                    alt="banner"
-                  />
-                </div>
-              ) : null}
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="banner-area-start-4">
-                      <span className="pre">{slide.pre}</span>
-                      <h1 className="title">{slide.title}</h1>
-                      <p>{slide.description}</p>
-                      <div className="rts-btn-banner-area">
-                        <Link
-                          href="/shop"
-                          className="rts-btn btn-primary radious-sm with-icon"
-                        >
-                          <div className="btn-text">Shop Now</div>
-                          <div className="arrow-icon">
-                            <i className="fa-light fa-arrow-right" />
-                          </div>
-                          <div className="arrow-icon">
-                            <i className="fa-light fa-arrow-right" />
-                          </div>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div className={`hero-slide ${slide.bgClass}`}>
+              <div className="hero-slide-content">
+                <p className="hero-slide-tag">{slide.tag}</p>
+                <h2>{slide.title}</h2>
+                <p>{slide.description}</p>
+                <Link href="/shop" className="btn btn-primary">
+                  Shop Sale Sarees →
+                </Link>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-
-      <div className="banner-four-nav">
-        <button
-          type="button"
-          className="banner-four-nav__btn banner-four-prev"
-          aria-label="Previous slide"
-          onClick={() => swiper?.slidePrev()}
-        >
-          <i className="fa-regular fa-arrow-left" aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          className="banner-four-nav__btn banner-four-next"
-          aria-label="Next slide"
-          onClick={() => swiper?.slideNext()}
-        >
-          <i className="fa-regular fa-arrow-right" aria-hidden="true" />
-        </button>
-      </div>
-    </div>
+    </section>
   );
 }
 

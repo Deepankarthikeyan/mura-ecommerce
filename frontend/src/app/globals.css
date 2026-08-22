@@ -6,14 +6,22 @@
 
 /* 3️⃣ YOUR overrides LAST (this is the key) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fffde9;
+  --foreground: #2b2a29;
+  --color-primary: #cf0653;
+  --color-primary-dark: #a00543;
+  --color-secondary: #cf0653;
+  --color-heading-1: #2b2a29;
+  --color-cream: #fffde9;
+  --color-cream-dark: #f3ece8;
+  --font-primary: var(--font-body), "Jost", sans-serif;
+  --font-secondary: var(--font-heading), "Playfair Display", serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #fffde9;
+    --foreground: #2b2a29;
   }
 }
 
@@ -49,9 +57,43 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), "Jost", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.murai-theme {
+  font-family: var(--font-body), "Jost", sans-serif;
+}
+
+.murai-theme h1,
+.murai-theme h2,
+.murai-theme h3,
+.murai-theme h4,
+.murai-theme h5,
+.murai-theme h6,
+.murai-theme .title,
+.murai-theme .section-heading h2 {
+  font-family: var(--font-heading), "Playfair Display", serif;
+}
+
+/* Murai nav mobile overlay */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1099;
+}
+
+.nav-overlay.open {
+  display: block;
+}
+
+@media (min-width: 769px) {
+  .nav-overlay {
+    display: none !important;
+  }
 }
 
 /* Tailwind already sets box-sizing — don't fight it */
@@ -68,7 +110,7 @@ a {
 
 @media (prefers-color-scheme: dark) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
 }
 
@@ -207,7 +249,7 @@ a {
   padding-left: 1.25em;
 }
 .rich-product-html a {
-  color: #1f72b0;
+  color: #cf0653;
   text-decoration: underline;
 }
 .rich-product-html mark {

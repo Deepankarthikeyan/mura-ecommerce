@@ -191,9 +191,11 @@ const WeeklyBestSelling: React.FC = () => {
   }, [debouncedSearch, selectedCategory]);
 
   return (
-    <div>
-      <div className="popular-product-col-7-area rts-section-gapBottom container">
-        <div className="container cover-card-main-over-white mt--60 ">
+    <section className="products-section">
+      <div className="products-section-inner">
+        <div className="section-heading"><h2>Sale Sarees</h2></div>
+      <div className="popular-product-col-7-area rts-section-gapBottom">
+        <div className="cover-card-main-over-white">
           <div className="row">
             <div className="col-lg-12">
               <div className="cover-card-main-over-1">
@@ -355,7 +357,8 @@ const WeeklyBestSelling: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </section>
   );
 };
 

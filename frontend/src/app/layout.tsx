@@ -1,6 +1,5 @@
-import React from "react";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Jost, Playfair_Display } from "next/font/google";
 
 import ClientProviders from "../components/providers/ClientProviders";
 import GoogleAnalytics from "../components/seo/GoogleAnalytics";
@@ -11,7 +10,7 @@ import { buildSiteMetadata, loadLiveSeoSchemas } from "../lib/seo/loadSeoSetting
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
-const FAVICON = "/assets/images/fav.png";
+const FAVICON = "/assets/images/murai/mura-newlogo.png";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildSiteMetadata();
@@ -22,14 +21,16 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
+  variable: "--font-heading",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jost = Jost({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export default async function RootLayout({
@@ -47,12 +48,16 @@ export default async function RootLayout({
         <link key="bootstrap" rel="stylesheet" href="/assets/css/bootstrap.min.css" />
         <link key="plugins" rel="stylesheet" href="/assets/css/plugins.css" />
         <link key="style" rel="stylesheet" href="/assets/css/style.css" />
+        <link key="murai-style" rel="stylesheet" href="/assets/css/murai/style.css" />
+        <link key="murai-header" rel="stylesheet" href="/assets/css/murai/header.css" />
+        <link key="murai-home" rel="stylesheet" href="/assets/css/murai/home.css" />
+        <link key="murai-responsive" rel="stylesheet" href="/assets/css/murai/responsive.css" />
         <JsonLdScript data={schemas.organization} />
         <JsonLdScript data={schemas.website} />
         <JsonLdScript data={schemas.localBusiness} />
         <PageSeoJsonLd />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${playfair.variable} ${jost.variable} murai-theme`}>
         <GoogleAnalytics />
         <ClientProviders>{children}</ClientProviders>
       </body>
