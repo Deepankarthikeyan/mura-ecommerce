@@ -234,18 +234,9 @@ export default function MuraiSiteHeader() {
             ))}
             {!isAuthenticated && (
               <li>
-                <button
-                  type="button"
-                  className={activePage === "login" ? "active" : ""}
-                  onClick={() => {
-                    setNavOpen(false);
-                    setIsLoginDialogOpen(true);
-                  }}
-                  style={{ background: "none", border: "none", width: "100%", textAlign: "left", cursor: "pointer" }}
-                  suppressHydrationWarning
-                >
+                <Link href="/login" className={activePage === "login" ? "active" : ""} onClick={() => setNavOpen(false)}>
                   Login
-                </button>
+                </Link>
               </li>
             )}
           </ul>
