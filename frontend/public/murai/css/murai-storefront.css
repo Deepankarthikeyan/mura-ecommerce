@@ -1,0 +1,195 @@
+/* MuRa@23 storefront — isolate from Bootstrap / Ekomart global styles */
+
+body.murai-storefront-active {
+  font-family: var(--font-body, "Jost", sans-serif) !important;
+  background: #fffde9 !important;
+  color: #2b2a29 !important;
+  margin: 0;
+  padding: 0;
+}
+
+body.murai-storefront-active .murai-storefront {
+  font-family: var(--font-body, "Jost", sans-serif);
+  color: #2b2a29;
+  background: #fffde9;
+  min-height: 100vh;
+}
+
+/* Bootstrap .container override */
+body.murai-storefront-active .murai-storefront .container {
+  width: 100% !important;
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+body.murai-storefront-active .murai-storefront .row {
+  display: revert !important;
+  flex-wrap: revert !important;
+  margin: revert !important;
+}
+
+body.murai-storefront-active .murai-storefront [class*="col-"] {
+  flex: revert !important;
+  width: revert !important;
+  max-width: revert !important;
+  padding: revert !important;
+}
+
+/* Product grids — match reference site columns */
+body.murai-storefront-active .murai-storefront .suruchi-products-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+  align-items: stretch !important;
+}
+
+body.murai-storefront-active .murai-storefront .shop-products.suruchi-products-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+body.murai-storefront-active .murai-storefront .bestseller-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+}
+
+body.murai-storefront-active .murai-storefront .banner-grid {
+  display: grid !important;
+  grid-template-columns: 5fr 7fr !important;
+  gap: 24px !important;
+}
+
+body.murai-storefront-active .murai-storefront .banner-right-top {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+}
+
+body.murai-storefront-active .murai-storefront .shop-layout {
+  display: grid !important;
+  grid-template-columns: 280px 1fr !important;
+  gap: 32px !important;
+  padding: 48px 0 !important;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+body.murai-storefront-active .murai-storefront .suruchi-footer-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 32px !important;
+}
+
+body.murai-storefront-active .murai-storefront .promo-banners {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+}
+
+body.murai-storefront-active .murai-storefront .blog-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+}
+
+body.murai-storefront-active .murai-storefront .service-bar-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 24px !important;
+}
+
+body.murai-storefront-active .murai-storefront .deals-inner {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 40px !important;
+  align-items: center !important;
+}
+
+body.murai-storefront-active .murai-storefront .suruchi-nav ul {
+  display: flex !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.murai-storefront-active .murai-storefront .suruchi-nav a {
+  text-decoration: none !important;
+}
+
+body.murai-storefront-active .murai-storefront .suruchi-product-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  max-width: none !important;
+}
+
+body.murai-storefront-active .murai-storefront .hero-slider .swiper-button-prev,
+body.murai-storefront-active .murai-storefront .hero-slider .swiper-button-next {
+  color: #fff !important;
+}
+
+body.murai-storefront-active .murai-storefront .btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+}
+
+@media (max-width: 1200px) {
+  body.murai-storefront-active .murai-storefront .suruchi-products-grid,
+  body.murai-storefront-active .murai-storefront .bestseller-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 991px) {
+  body.murai-storefront-active .murai-storefront .banner-grid {
+    grid-template-columns: 1fr !important;
+  }
+  body.murai-storefront-active .murai-storefront .shop-layout {
+    grid-template-columns: 1fr !important;
+  }
+  body.murai-storefront-active .murai-storefront .suruchi-products-grid,
+  body.murai-storefront-active .murai-storefront .shop-products.suruchi-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+  body.murai-storefront-active .murai-storefront .bestseller-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  body.murai-storefront-active .murai-storefront .suruchi-footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  body.murai-storefront-active .murai-storefront .suruchi-products-grid,
+  body.murai-storefront-active .murai-storefront .bestseller-grid,
+  body.murai-storefront-active .murai-storefront .blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  body.murai-storefront-active .murai-storefront .promo-banners,
+  body.murai-storefront-active .murai-storefront .deals-inner {
+    grid-template-columns: 1fr !important;
+  }
+  body.murai-storefront-active .murai-storefront .service-bar-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  body.murai-storefront-active .murai-storefront .banner-right-top {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body.murai-storefront-active .murai-storefront .suruchi-products-grid,
+  body.murai-storefront-active .murai-storefront .bestseller-grid,
+  body.murai-storefront-active .murai-storefront .blog-grid {
+    grid-template-columns: 1fr !important;
+  }
+  body.murai-storefront-active .murai-storefront .service-bar-grid,
+  body.murai-storefront-active .murai-storefront .suruchi-footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

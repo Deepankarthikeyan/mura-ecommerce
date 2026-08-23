@@ -7,39 +7,29 @@ import {
   websiteSchema,
 } from "./organizationSchema";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aathithyaherbal.com";
-const SITE_NAME = "Aathithya Herbal";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://murai-website-wine.vercel.app";
+const SITE_NAME = "MuRa@23";
 const SITE_DESCRIPTION =
-  "Shop authentic herbal products online at Aathithya Herbal. Discover 100+ natural supplements, organic wellness products, and traditional remedies delivered worldwide since 2016.";
+  "Shop premium sale sarees online at MuRa@23. Silk, cotton, Banarasi, Kanjivaram and designer sarees at up to 70% off. Handcrafted with love in India.";
 const SITE_KEYWORDS = [
-  "Aathithya Herbal",
-  "herbal store",
-  "herbal products online",
-  "organic supplements",
-  "natural wellness",
-  "Ayurvedic herbs",
-  "herbal remedies",
-  "Coimbatore herbal shop",
-  "buy herbs online",
-  "organic products India",
-  "herbal supplements",
-  "traditional medicine",
-  "natural health products",
-  "wellness store",
-  "herbal oils",
-  "organic store",
-  "herbal medicine",
-  "immunity boosters",
-  "ayurveda products",
-  "Tamil Nadu herbal store",
-  "worldwide herbal delivery",
-  "online herbal shop",
-  "natural remedies",
-  "holistic wellness",
-  "herbal skincare",
+  "MuRa@23",
+  "sale sarees online",
+  "silk sarees",
+  "cotton sarees",
+  "Banarasi sarees",
+  "Kanjivaram sarees",
+  "designer sarees",
+  "saree sale India",
+  "buy sarees online",
+  "Podanur sarees",
+  "Tamil Nadu saree shop",
+  "handwoven silk sarees",
+  "festive saree sale",
+  "wedding sarees",
+  "party wear sarees",
 ].join(", ");
-const OG_IMAGE = "/assets/images/logo/logo-1-jpg.jpeg";
-const OG_LOGO = "/assets/images/logo/logo-1-jpg.jpeg";
+const OG_IMAGE = "/murai/images/mura-newlogo.png";
+const OG_LOGO = "/murai/images/mura-newlogo.png";
 
 export const SEO_SECTION_KEYS = [
   "basic",
@@ -111,7 +101,7 @@ export function getDefaultSeoContent(): Record<SeoSectionKey, string> {
     }),
     geo: prettyJson({
       "geo.region": "IN-TN",
-      "geo.placename": "Coimbatore, Tamil Nadu, India",
+      "geo.placename": "Podanur, Tamil Nadu, India",
       language: "en-IN",
     }),
     og: prettyJson({

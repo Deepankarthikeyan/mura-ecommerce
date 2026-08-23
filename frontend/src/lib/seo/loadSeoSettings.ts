@@ -16,9 +16,9 @@ import {
 
 export const SEO_SETTINGS_CACHE_TAG = "seo-settings";
 
-const FAVICON = "/assets/images/fav.png";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aathithyaherbal.com";
-const OG_LOGO = "/assets/images/logo/logo-1-jpg.jpeg";
+const FAVICON = "/murai/images/mura-newlogo.png";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://murai-website-wine.vercel.app";
+const OG_LOGO = "/murai/images/mura-newlogo.png";
 
 type BasicConfig = {
   title?: string;

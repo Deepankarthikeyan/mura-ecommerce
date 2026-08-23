@@ -40,6 +40,22 @@ export default function MuraiHeader({ activePage }: MuraiHeaderProps) {
     return () => document.body.classList.remove("menu-open");
   }, [menuOpen]);
 
+  useEffect(() => {
+    const mount = document.getElementById("site-header-mount");
+    const nav = document.getElementById("suruchi-nav");
+    if (!mount || !nav) return;
+
+    const onScroll = () => {
+      const scrolled = mount.getBoundingClientRect().bottom <= 0;
+      nav.classList.toggle("is-scrolled", scrolled);
+      document.body.classList.toggle("nav-is-fixed", scrolled);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const onSearch = (e: FormEvent) => {
     e.preventDefault();
     const q = search.trim();
@@ -48,21 +64,22 @@ export default function MuraiHeader({ activePage }: MuraiHeaderProps) {
 
   return (
     <>
-      <div className="suruchi-topbar">
-        <div className="suruchi-topbar-inner">
-          <div className="suruchi-topbar-left">
-            <span>Big Saree Sale — Up to 70% Off</span>
-            <Link href="/shop">Shop Sale Sarees</Link>
-            <a href="mailto:murapodanur@gmail.com">murapodanur@gmail.com</a>
-          </div>
-          <div className="suruchi-topbar-right">
-            <a href="#">English ▾</a>
-            <a href="#">₹ INR ▾</a>
+      <div id="site-header-mount">
+        <div className="suruchi-topbar">
+          <div className="suruchi-topbar-inner">
+            <div className="suruchi-topbar-left">
+              <span>Big Saree Sale — Up to 70% Off</span>
+              <Link href="/shop">Shop Sale Sarees</Link>
+              <a href="mailto:murapodanur@gmail.com">murapodanur@gmail.com</a>
+            </div>
+            <div className="suruchi-topbar-right">
+              <a href="#">English ▾</a>
+              <a href="#">₹ INR ▾</a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="suruchi-header-main" id="site-header-mount">
+        <div className="suruchi-header-main">
         <button
           className="suruchi-mobile-toggle"
           type="button"
@@ -125,6 +142,7 @@ export default function MuraiHeader({ activePage }: MuraiHeaderProps) {
             </span>
           </Link>
         </div>
+      </div>
       </div>
 
       <div className={`nav-overlay ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(false)} aria-hidden />

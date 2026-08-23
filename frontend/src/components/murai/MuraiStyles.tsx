@@ -14,6 +14,7 @@ export function MuraiStyles() {
       <link rel="stylesheet" href="/murai/css/diwali-banner.css" />
       <link rel="stylesheet" href="/murai/css/responsive.css" />
       <link rel="stylesheet" href="/murai/css/product-detail.css" />
+      <link rel="stylesheet" href="/murai/css/murai-storefront.css" />
       <style>{`:root { --font-body: 'Jost', sans-serif; --font-heading: 'Playfair Display', serif; }`}</style>
     </>
   );

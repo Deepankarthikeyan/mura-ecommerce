@@ -25,9 +25,13 @@ export function formatInr(amount: string | number | undefined | null): string {
 }
 
 export function productCardImage(product: StoreProduct): string {
-  const img = resolveProductListingImage(product, "/murai/images/sarees/banarasi.webp");
+  const fallback = "/murai/images/sarees/banarasi.webp";
+  const img = resolveProductListingImage(product, fallback);
+  if (img.includes("logo-1-jpg") || img.includes("aathithya") || img.includes("/assets/images/logo/")) {
+    return fallback;
+  }
   if (img.startsWith("/murai/") || img.startsWith("http")) return img;
-  return resolveProductListingImage(product, "/murai/images/sarees/banarasi.webp");
+  return img.startsWith("/") ? img : `/${img}`;
 }
 
 export function productCategoryKey(category?: string): string {

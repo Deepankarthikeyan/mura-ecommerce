@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import { useRouter } from 'next/navigation';
 import HeaderTop from '@/components/header/HeaderTop';
 import HeaderSearch from './HeaderSearch';
+import { LegacyStyles } from '@/components/legacy/LegacyStyles';
 
 function HeaderOne() {
 
@@ -142,6 +143,7 @@ function HeaderOne() {
 
     return (
         <div className="site-header-sticky">
+            <LegacyStyles />
             <header className="header-style-two header-four bg-primary-header header-primary-sticky header--fft">
                 <HeaderTop />
                 <HeaderSearch />

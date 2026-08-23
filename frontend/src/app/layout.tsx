@@ -11,10 +11,22 @@ import { buildSiteMetadata, loadLiveSeoSchemas } from "../lib/seo/loadSeoSetting
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
-const FAVICON = "/assets/images/fav.png";
+const FAVICON = "/murai/images/mura-newlogo.png";
+const SITE_TITLE = "MuRa@23 — Sale Sarees Online";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return buildSiteMetadata();
+  const meta = await buildSiteMetadata();
+  return {
+    ...meta,
+    title: {
+      default: SITE_TITLE,
+      template: "%s | MuRa@23",
+    },
+    icons: {
+      icon: FAVICON,
+      apple: FAVICON,
+    },
+  };
 }
 
 export const viewport: Viewport = {
@@ -44,9 +56,6 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href={FAVICON} type="image/png" />
         <link rel="apple-touch-icon" href={FAVICON} />
-        <link key="bootstrap" rel="stylesheet" href="/assets/css/bootstrap.min.css" />
-        <link key="plugins" rel="stylesheet" href="/assets/css/plugins.css" />
-        <link key="style" rel="stylesheet" href="/assets/css/style.css" />
         <JsonLdScript data={schemas.organization} />
         <JsonLdScript data={schemas.website} />
         <JsonLdScript data={schemas.localBusiness} />
