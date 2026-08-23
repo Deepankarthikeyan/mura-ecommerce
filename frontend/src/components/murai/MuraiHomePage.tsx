@@ -10,19 +10,13 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import MuraiLayout from "./MuraiLayout";
 import MuraiDiwaliBanner from "./MuraiDiwaliBanner";
+import MuraiDealsProduct from "./MuraiDealsProduct";
 import MuraiProductCard from "./MuraiProductCard";
-import { useCart } from "@/components/header/CartContext";
-import { parseMoneyAmount } from "@/lib/shopProductDisplay";
 import {
   filterHomeTabProducts,
-  formatInr,
-  getProductSlug,
-  getStableProductId,
   productCardImage,
-  productPricing,
 } from "@/lib/murai/productUtils";
 import { useProducts } from "@/lib/murai/useProducts";
-import { useMuraiNotify } from "./MuraiNotification";
 
 const HOME_TABS = [
   { id: "featured", paneId: "tab-featured", gridId: "sarees-featured", label: "Silk Sarees" },
@@ -34,8 +28,6 @@ type HomeTabId = (typeof HOME_TABS)[number]["id"];
 
 export default function MuraiHomePage() {
   const { products, loading } = useProducts();
-  const { addToCart } = useCart();
-  const notify = useMuraiNotify();
   const [activeTab, setActiveTab] = useState<HomeTabId>("featured");
   const [countdown, setCountdown] = useState({ days: "00", hours: "00", mins: "00", secs: "00" });
   const tabsListRef = useRef<HTMLDivElement>(null);
@@ -115,21 +107,6 @@ export default function MuraiHomePage() {
 
   const dealProduct = products[0];
   const bestSellers = products.slice(0, 4);
-  const dealPricing = dealProduct ? productPricing(dealProduct) : null;
-
-  const handleDealAddToCart = () => {
-    if (!dealProduct) return;
-    addToCart({
-      id: getStableProductId(dealProduct),
-      slug: getProductSlug(dealProduct),
-      image: productCardImage(dealProduct),
-      title: dealProduct.title ?? "Saree",
-      price: parseMoneyAmount(dealProduct.price) ?? 0,
-      quantity: 1,
-      active: true,
-    });
-    notify(`${dealProduct.title ?? "Saree"} added to cart!`);
-  };
 
   return (
     <MuraiLayout activePage="home">
@@ -250,12 +227,12 @@ export default function MuraiHomePage() {
                 className={`tab-pane ${activeTab === tab.id ? "active" : ""}`}
               >
                 <div className="suruchi-products-grid" id={tab.gridId}>
-                  {loading ? (
-                    <p style={{ padding: 24 }}>Loading sarees...</p>
-                  ) : items.length ? (
+                  {items.length ? (
                     items.map((p) => (
                       <MuraiProductCard key={`${tab.id}-${p._id ?? p.productId}`} product={p} style="home" />
                     ))
+                  ) : loading ? (
+                    <p style={{ padding: 24 }}>Loading sarees...</p>
                   ) : (
                     <p style={{ padding: 24 }}>No sarees in this category.</p>
                   )}
@@ -279,27 +256,7 @@ export default function MuraiHomePage() {
               <div className="countdown-item"><span className="num">{countdown.secs}</span><span className="label">Secs</span></div>
             </div>
           </div>
-          {dealProduct ? (
-            <div className="deals-product">
-              <div className="deals-product-img">
-                <img src={productCardImage(dealProduct)} alt={dealProduct.title ?? ""} />
-              </div>
-              <div className="deals-product-info">
-                <span className="suruchi-product-badge" style={{ position: "static", display: "inline-block", marginBottom: 12 }}>
-                  {dealPricing?.badge ? `${dealPricing.badge}% Off` : "25% Off"}
-                </span>
-                <h3 className="suruchi-product-name" style={{ fontSize: 22 }}>{dealProduct.title}</h3>
-                <div className="suruchi-product-price" style={{ margin: "12px 0" }}>
-                  <span className="current" style={{ fontSize: 24 }}>{formatInr(dealProduct.price)}</span>
-                  {dealPricing?.showMrp ? <span className="old">{formatInr(dealProduct.mrp)}</span> : null}
-                </div>
-                <div className="suruchi-stars" style={{ marginBottom: 20 }}>★★★★★</div>
-                <button className="btn btn-primary add-to-cart" type="button" onClick={handleDealAddToCart}>
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          ) : null}
+          {dealProduct ? <MuraiDealsProduct product={dealProduct} /> : null}
         </div>
       </section>
 

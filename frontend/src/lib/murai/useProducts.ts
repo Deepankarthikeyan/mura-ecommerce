@@ -8,9 +8,9 @@ import { normalizeMuraiProducts } from "./productUtils";
 import type { StoreProduct } from "./types";
 
 export function useProducts() {
-  const [products, setProducts] = useState<StoreProduct[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [usingDemo, setUsingDemo] = useState(false);
+  const [products, setProducts] = useState<StoreProduct[]>(DEMO_SAREE_PRODUCTS);
+  const [loading, setLoading] = useState(false);
+  const [usingDemo, setUsingDemo] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -37,7 +37,9 @@ export function useProducts() {
         if (!cancelled) setLoading(false);
       }
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return { products, loading, usingDemo };
