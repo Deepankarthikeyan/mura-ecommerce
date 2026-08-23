@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getStoreProductByLookup } from "@/functions/mongodbOperations";
 import JsonLdScript from "@/components/seo/JsonLdScript";
+import { resolveMuraiProductBySlug } from "@/lib/murai/resolveMuraiProductBySlug";
 import {
   buildProductJsonLd,
   buildProductPageMetadata,
@@ -15,7 +15,7 @@ export async function generateMetadata({
   params,
 }: Pick<LayoutProps, "params">): Promise<Metadata> {
   const { slug } = await params;
-  const product = await getStoreProductByLookup(slug);
+  const product = await resolveMuraiProductBySlug(slug);
   return buildProductPageMetadata(product as Parameters<typeof buildProductPageMetadata>[0], slug);
 }
 
@@ -24,7 +24,7 @@ export default async function ShopProductLayout({
   params,
 }: LayoutProps) {
   const { slug } = await params;
-  const product = await getStoreProductByLookup(slug);
+  const product = await resolveMuraiProductBySlug(slug);
   const productSchema = product
     ? buildProductJsonLd(
         product as Parameters<typeof buildProductJsonLd>[0],

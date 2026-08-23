@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { shopProductPathSegment } from "@/lib/productSlug";
 import { DEMO_SAREE_PRODUCTS } from "./demoProducts";
+import { findMuraiProductBySlug } from "./findMuraiProductBySlug";
 import { normalizeMuraiProducts } from "./productUtils";
 import type { StoreProduct } from "./types";
 
@@ -46,18 +46,15 @@ export function useProducts() {
 }
 
 export async function fetchProductBySlug(slug: string): Promise<StoreProduct | null> {
+  const demo = findMuraiProductBySlug(slug);
+  if (demo) return demo;
+
   try {
     const { data } = await axios.get("/api/products", { params: { lookup: slug } });
     if (data?.body) return data.body as StoreProduct;
   } catch {
     /* fall through */
   }
-  const demo = DEMO_SAREE_PRODUCTS.find(
-    (p) =>
-      p.urlSlug === slug ||
-      p.slug === slug ||
-      p.productId === slug ||
-      shopProductPathSegment(p) === slug
-  );
-  return demo ?? null;
+
+  return null;
 }

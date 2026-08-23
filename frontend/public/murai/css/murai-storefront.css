@@ -223,8 +223,22 @@ body.murai-storefront-active .murai-storefront .bestseller-grid {
   }
 }
 
-@media (max-width: 480px) {
-  body.murai-storefront-active .murai-storefront .features-grid {
+body.murai-storefront-active .murai-storefront .murai-pdp-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 48px !important;
+}
+
+body.murai-storefront-active .murai-storefront .murai-pdp-actions .btn {
+  width: auto !important;
+}
+
+body.murai-storefront-active .murai-storefront .murai-pdp-qty button {
+  width: 40px !important;
+}
+
+@media (max-width: 991px) {
+  body.murai-storefront-active .murai-storefront .murai-pdp-grid {
     grid-template-columns: 1fr !important;
   }
 }
