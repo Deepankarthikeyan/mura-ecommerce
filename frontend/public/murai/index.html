@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/murai/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MuRa@23 — Sale Sarees Online</title>
+  <link rel="icon" href="images/mura-newlogo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Jost:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/diwali-banner.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="preload" as="image" href="images/banners/hero-1.jpg" fetchpriority="high">
+  <style>:root { --font-body: 'Jost', sans-serif; --font-heading: 'Playfair Display', serif; }</style>
+</head>
+<body data-page="home">
+
+  <div id="site-header-mount"></div>
+  <script src="js/site-header.js"></script>
+
+  <main>
+    <!-- Hero Slider -->
+    <section class="hero-slider">
+      <div class="swiper hero-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="hero-slide slide-1">
+              <div class="hero-slide-content">
+                <p class="hero-slide-tag">Saree Sale</p>
+                <h2>Handcrafted Silk<br>Sarees On Sale</h2>
+                <p>Up To 70% Off On Premium Sarees.<br>Silk, Cotton & Designer Collection!</p>
+                <a href="shop.html" class="btn btn-primary">Shop Sale Sarees →</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="hero-slide slide-2">
+              <div class="hero-slide-content">
+                <p class="hero-slide-tag">Saree Sale</p>
+                <h2>Handcrafted Silk<br>Sarees On Sale</h2>
+                <p>Up To 70% Off On Premium Sarees.<br>Silk, Cotton & Designer Collection!</p>
+                <a href="shop.html" class="btn btn-primary">Shop Sale Sarees →</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="hero-slide slide-3">
+              <div class="hero-slide-content">
+                <p class="hero-slide-tag">Saree Sale</p>
+                <h2>Handcrafted Silk<br>Sarees On Sale</h2>
+                <p>Up To 70% Off On Premium Sarees.<br>Silk, Cotton & Designer Collection!</p>
+                <a href="shop.html" class="btn btn-primary">Shop Sale Sarees →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </section>
+
+    <!-- Banner Grid -->
+    <section class="banner-section">
+      <div class="banner-grid">
+        <a href="shop.html" class="banner-card tall">
+          <img src="images/sarees/banarasi.webp" alt="Silk Saree Sale" loading="lazy" decoding="async">
+          <div class="banner-card-content">
+            <span class="banner-card-subtitle">40% Off</span>
+            <h3>Silk Saree<br>Sale</h3>
+            <span class="banner-card-link">View Discounts →</span>
+          </div>
+        </a>
+        <div class="banner-right">
+          <div class="banner-right-top">
+            <a href="shop.html" class="banner-card">
+              <img src="images/sarees/paithani.webp" alt="Banarasi Sarees" loading="lazy" decoding="async">
+              <div class="banner-card-content">
+                <span class="banner-card-subtitle">Banarasi</span>
+                <h3>Up to 50% Off<br>Banarasi Sarees</h3>
+                <span class="banner-card-link">View Discounts →</span>
+              </div>
+            </a>
+            <a href="shop.html" class="banner-card">
+              <img src="images/sarees/cotton-block.webp" alt="Cotton Sarees" loading="lazy" decoding="async">
+              <div class="banner-card-content">
+                <span class="banner-card-subtitle">Cotton Sarees</span>
+                <h3>Free Shipping Over<br>Order ₹999</h3>
+                <span class="banner-card-link">View Discounts →</span>
+              </div>
+            </a>
+          </div>
+          <a href="shop.html" class="banner-card">
+            <img src="images/sarees/kanjivaram.webp" alt="Kanjivaram Sarees" loading="lazy" decoding="async">
+            <div class="banner-card-content">
+              <span class="banner-card-subtitle">35% Off</span>
+              <h3>Kanjivaram Silk<br>Saree Sale</h3>
+              <span class="banner-card-link">View Discounts →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Products -->
+    <section class="products-section">
+      <div class="products-section-inner">
+        <div class="section-heading"><h2>Sale Sarees</h2></div>
+        <div class="product-tabs-wrap">
+          <button class="product-tabs-arrow product-tabs-arrow--prev" type="button" aria-label="Previous saree category">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <div class="product-tabs" role="tablist" aria-label="Saree categories">
+            <button class="product-tab active" type="button" role="tab" aria-selected="true" data-target="#tab-featured">Silk Sarees</button>
+            <button class="product-tab" type="button" role="tab" aria-selected="false" data-target="#tab-trending">Cotton Sarees</button>
+            <button class="product-tab" type="button" role="tab" aria-selected="false" data-target="#tab-newarrival">Designer Sarees</button>
+          </div>
+          <button class="product-tabs-arrow product-tabs-arrow--next" type="button" aria-label="Next saree category">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+
+        <div id="tab-featured" class="tab-pane active">
+          <div class="suruchi-products-grid" id="sarees-featured"></div>
+        </div>
+
+        <div id="tab-trending" class="tab-pane">
+          <div class="suruchi-products-grid" id="sarees-trending"></div>
+        </div>
+
+        <div id="tab-newarrival" class="tab-pane">
+          <div class="suruchi-products-grid" id="sarees-newarrival"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deals of the Day -->
+    <section class="deals-section">
+      <div class="deals-inner">
+        <div class="deals-content">
+          <p class="deals-tag">Hurry up and Get 25% Discount</p>
+          <h2>Deals Of The Day</h2>
+          <p>Don't miss out on our exclusive daily saree deals. Limited stock on handwoven silk and cotton sarees.</p>
+          <div class="countdown">
+            <div class="countdown-item"><span class="num" id="cd-days">00</span><span class="label">Days</span></div>
+            <div class="countdown-item"><span class="num" id="cd-hours">00</span><span class="label">Hours</span></div>
+            <div class="countdown-item"><span class="num" id="cd-mins">00</span><span class="label">Mins</span></div>
+            <div class="countdown-item"><span class="num" id="cd-secs">00</span><span class="label">Secs</span></div>
+          </div>
+        </div>
+        <div class="deals-product">
+          <div class="deals-product-img">
+            <img src="images/sarees/banarasi.webp" alt="Banarasi Silk Saree" loading="lazy" decoding="async">
+          </div>
+          <div class="deals-product-info">
+            <span class="suruchi-product-badge" style="position:static;display:inline-block;margin-bottom:12px">25% Off</span>
+            <h3 class="suruchi-product-name" style="font-size:22px">Banarasi Silk Saree</h3>
+            <div class="suruchi-product-price" style="margin:12px 0"><span class="current" style="font-size:24px">₹3,599</span><span class="old">₹5,999</span></div>
+            <div class="suruchi-stars" style="margin-bottom:20px">★★★★★</div>
+            <button class="btn btn-primary add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Best Seller -->
+    <section class="bestseller-section">
+      <div class="section-heading"><h2>Best Selling Sarees</h2></div>
+      <div class="bestseller-grid" id="sarees-bestseller"></div>
+    </section>
+
+    <!-- Promo Banners -->
+    <section class="promo-banners">
+      <div class="promo-banner bg-1">
+        <div>
+          <h3>Up to 50% Off<br>Sarees</h3>
+          <p>Shop Silk & Cotton</p>
+          <a href="shop.html" class="btn">Shop Now</a>
+        </div>
+      </div>
+      <div class="promo-banner bg-2">
+        <div>
+          <h3>Up to 70% Off<br>Sarees</h3>
+          <p>Limited time sale</p>
+          <a href="shop.html" class="btn">Discover Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonial-section">
+      <div class="testimonial-deco" aria-hidden="true">
+        <span class="testimonial-deco-item testimonial-deco-item--1">✦</span>
+        <span class="testimonial-deco-item testimonial-deco-item--2">★</span>
+        <span class="testimonial-deco-item testimonial-deco-item--3">✦</span>
+        <span class="testimonial-deco-item testimonial-deco-item--4">★</span>
+      </div>
+      <div class="testimonial-section-inner">
+        <div class="section-heading testimonial-heading">
+          <span class="testimonial-tag">✦ Client Love ✦</span>
+          <h2>Our Clients Say</h2>
+        </div>
+        <div class="swiper testimonial-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" data-client="priya">
+              <div class="testimonial-showcase">
+                <div class="testimonial-showcase-visual">
+                  <div class="testimonial-avatar-frame">
+                    <span class="testimonial-avatar-ring" aria-hidden="true"></span>
+                    <span class="testimonial-avatar-glow" aria-hidden="true"></span>
+                    <img src="images/avatars/priya-sharma.svg" alt="Priya Sharma" class="testimonial-avatar-img" width="180" height="198" loading="lazy" decoding="async">
+                  </div>
+                  <div class="testimonial-client-badge">Verified Client</div>
+                  <p class="testimonial-showcase-name">Priya Sharma</p>
+                  <p class="testimonial-showcase-role">Saree Lover</p>
+                </div>
+                <div class="testimonial-showcase-content">
+                  <div class="testimonial-bubble">
+                    <div class="testimonial-bubble-quote" aria-hidden="true">"</div>
+                    <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+                    <p class="testimonial-text">The Banarasi silk saree I bought on sale is absolutely stunning! Rich zari work and the fabric quality is exceptional. Best saree purchase ever!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide" data-client="laura">
+              <div class="testimonial-showcase">
+                <div class="testimonial-showcase-visual">
+                  <div class="testimonial-avatar-frame">
+                    <span class="testimonial-avatar-ring" aria-hidden="true"></span>
+                    <span class="testimonial-avatar-glow" aria-hidden="true"></span>
+                    <img src="images/avatars/laura-johnson.svg" alt="Laura Johnson" class="testimonial-avatar-img" width="180" height="198" loading="lazy" decoding="async">
+                  </div>
+                  <div class="testimonial-client-badge">Verified Client</div>
+                  <p class="testimonial-showcase-name">Laura Johnson</p>
+                  <p class="testimonial-showcase-role">Saree Lover</p>
+                </div>
+                <div class="testimonial-showcase-content">
+                  <div class="testimonial-bubble">
+                    <div class="testimonial-bubble-quote" aria-hidden="true">"</div>
+                    <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+                    <p class="testimonial-text">MuRa@23 has the best saree sale online! Got a beautiful Kanjivaram at 40% off. Fast delivery and elegant packaging. Highly recommended!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide" data-client="richard">
+              <div class="testimonial-showcase">
+                <div class="testimonial-showcase-visual">
+                  <div class="testimonial-avatar-frame">
+                    <span class="testimonial-avatar-ring" aria-hidden="true"></span>
+                    <span class="testimonial-avatar-glow" aria-hidden="true"></span>
+                    <img src="images/avatars/richard-smith.svg" alt="Richard Smith" class="testimonial-avatar-img" width="180" height="198" loading="lazy" decoding="async">
+                  </div>
+                  <div class="testimonial-client-badge">Verified Client</div>
+                  <p class="testimonial-showcase-name">Richard Smith</p>
+                  <p class="testimonial-showcase-role">Saree Lover</p>
+                </div>
+                <div class="testimonial-showcase-content">
+                  <div class="testimonial-bubble">
+                    <div class="testimonial-bubble-quote" aria-hidden="true">"</div>
+                    <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+                    <p class="testimonial-text">The silk saree I purchased exceeded my expectations. Gorgeous colors and the packaging was elegant. Perfect for gifting too.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-button-prev" aria-label="Previous testimonial"></div>
+          <div class="swiper-button-next" aria-label="Next testimonial"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Diwali Festive Saree Sale Hero Banner -->
+    <section class="diwali-sale-banner" id="diwali-sale-banner" aria-labelledby="diwali-sale-heading">
+      <!-- Background -->
+      <div class="dsb-bg" aria-hidden="true">
+        <div class="dsb-bg-gradient"></div>
+        <div class="dsb-bg-pattern"></div>
+        <div class="dsb-bg-glow"></div>
+        <div class="dsb-banner-sweep"></div>
+      </div>
+
+      <!-- Bottom rangoli corners -->
+      <div class="dsb-rangoli dsb-rangoli--bl" aria-hidden="true"></div>
+      <div class="dsb-rangoli dsb-rangoli--br" aria-hidden="true"></div>
+
+      <!-- Festive sparkles -->
+      <div class="dsb-sparkles" aria-hidden="true">
+        <span>✦</span><span>✧</span><span>⋆</span><span>✹</span><span>✺</span>
+        <span>✦</span><span>✧</span><span>⋆</span><span>✹</span><span>✺</span>
+        <span>✦</span><span>✧</span>
+      </div>
+
+      <!-- Hanging festive decorations -->
+      <div class="dsb-hangings" aria-hidden="true">
+        <div class="dsb-hang dsb-hang--1">
+          <span class="dsb-bead-string"></span><span class="dsb-bead"></span><span class="dsb-bell"></span>
+          <div class="dsb-diya"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+        </div>
+        <div class="dsb-hang dsb-hang--2">
+          <span class="dsb-bead-string"></span><span class="dsb-flower"></span><span class="dsb-bead"></span>
+          <div class="dsb-diya"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+        </div>
+        <div class="dsb-hang dsb-hang--3">
+          <span class="dsb-bead-string"></span><span class="dsb-bead"></span><span class="dsb-bead"></span>
+          <div class="dsb-diya"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+        </div>
+        <div class="dsb-hang dsb-hang--4">
+          <span class="dsb-bead-string"></span><span class="dsb-bell"></span>
+          <div class="dsb-diya"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+        </div>
+        <div class="dsb-hang dsb-hang--5">
+          <span class="dsb-bead-string"></span><span class="dsb-flower"></span><span class="dsb-bead"></span>
+          <div class="dsb-diya"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+        </div>
+        <div class="dsb-hang dsb-hang--6">
+          <span class="dsb-bead-string"></span><span class="dsb-bead"></span><span class="dsb-bell"></span>
+          <div class="dsb-diya"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+        </div>
+        <div class="dsb-hang dsb-hang--7">
+          <span class="dsb-bead-string"></span><span class="dsb-bead"></span>
+          <div class="dsb-diya"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+        </div>
+        <div class="dsb-hang dsb-hang--8">
+          <span class="dsb-bead-string"></span><span class="dsb-flower"></span>
+          <div class="dsb-diya"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+        </div>
+      </div>
+
+      <!-- Corner & panel diyas -->
+      <div class="dsb-corner-diyas" aria-hidden="true">
+        <div class="dsb-corner-diya dsb-corner-diya--tl"><div class="dsb-diya dsb-diya--sm"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div></div>
+        <div class="dsb-corner-diya dsb-corner-diya--tr"><div class="dsb-diya dsb-diya--sm"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div></div>
+        <div class="dsb-corner-diya dsb-corner-diya--bl"><div class="dsb-diya dsb-diya--sm"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div></div>
+        <div class="dsb-corner-diya dsb-corner-diya--br"><div class="dsb-diya dsb-diya--sm"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div></div>
+      </div>
+
+      <div class="dsb-layout">
+        <!-- LEFT: Premium saree showcase -->
+        <div class="dsb-sarees" aria-hidden="true">
+          <div class="dsb-saree dsb-saree--back dsb-saree--2">
+            <img src="images/sarees/banarasi.webp" alt="" loading="lazy" decoding="async">
+          </div>
+          <div class="dsb-saree dsb-saree--back dsb-saree--3">
+            <img src="images/sarees/paithani.webp" alt="" loading="lazy" decoding="async">
+          </div>
+          <div class="dsb-saree dsb-saree--hero">
+            <div class="dsb-saree-mannequin" aria-hidden="true"></div>
+            <div class="dsb-saree-shimmer" aria-hidden="true"></div>
+            <img src="images/sarees/kanjivaram.webp" alt="Kanjivaram silk saree" loading="lazy" decoding="async">
+            <div class="dsb-saree-glints" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="dsb-saree-particles" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <!-- CENTER: Ornamental sale panel -->
+        <div class="dsb-center">
+          <div class="dsb-panel-cluster">
+            <div class="dsb-panel-diyas" aria-hidden="true">
+              <div class="dsb-diya dsb-diya--xs"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+              <div class="dsb-diya dsb-diya--xs"><span class="dsb-diya-glow"></span><span class="dsb-diya-flame"></span><span class="dsb-diya-body"></span></div>
+            </div>
+            <div class="dsb-panel-stars" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="dsb-panel dsb-panel--round">
+              <div class="dsb-panel-orbit" aria-hidden="true"></div>
+              <div class="dsb-panel-ring" aria-hidden="true">
+                <div class="dsb-panel-inner">
+                  <span class="dsb-panel-sweep" aria-hidden="true"></span>
+                  <div class="dsb-panel-copy">
+                    <p class="dsb-text-happy">HAPPY</p>
+                    <h2 class="dsb-text-diwali" id="diwali-sale-heading">DIWALI</h2>
+                    <p class="dsb-text-subtitle">FESTIVE SAREE SALE</p>
+                  </div>
+                  <div class="dsb-panel-action">
+                    <p class="dsb-text-offer">UP TO 70% OFF</p>
+                    <a href="shop.html" class="dsb-cta" aria-label="Shop Diwali festive saree sale">SHOP NOW</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Fireworks -->
+        <div class="dsb-fireworks" id="dsb-fireworks" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Blog -->
+    <section class="blog-section">
+      <div class="section-heading"><h2>From The Blog</h2></div>
+      <div class="blog-grid">
+        <article class="blog-card">
+          <div class="blog-card-img"><img src="images/sarees/banarasi.webp" alt="Silk saree guide" loading="lazy" decoding="async"></div>
+          <div class="blog-card-body">
+            <p class="blog-date">February 03, 2026</p>
+            <h3><a href="#">How to Choose the Perfect Silk Saree</a></h3>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-img"><img src="images/sarees/kanjivaram.webp" alt="Banarasi vs Kanjivaram" loading="lazy" decoding="async"></div>
+          <div class="blog-card-body">
+            <p class="blog-date">February 03, 2026</p>
+            <h3><a href="#">Banarasi vs Kanjivaram: A Complete Guide</a></h3>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-img"><img src="images/sarees/georgette-party.webp" alt="Style your saree" loading="lazy" decoding="async"></div>
+          <div class="blog-card-body">
+            <p class="blog-date">February 03, 2026</p>
+            <h3><a href="#">5 Ways to Style Your Saree for Modern Occasions</a></h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+      <div class="newsletter-inner">
+        <h2>Join Our Newsletter</h2>
+        <p>Enter your email address to subscribe our notification of our new post & features by email.</p>
+        <form class="newsletter-form-large newsletter-form">
+          <input type="email" placeholder="Enter your email address" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Service Bar -->
+    <section class="service-bar">
+      <div class="service-bar-grid">
+        <div class="service-item">
+          <div class="service-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635"/></svg></div>
+          <div><h4>Shipping</h4><p>From handpicked sellers</p></div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg></div>
+          <div><h4>Payment</h4><p>Secure checkout</p></div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/></svg></div>
+          <div><h4>Return</h4><p>30-day easy returns</p></div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.15-6.24.43-.813.108-1.745.832-1.745 1.951v3.135"/></svg></div>
+          <div><h4>Support</h4><p>Dedicated help team</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="suruchi-footer">
+    <div class="suruchi-footer-grid">
+      <div>
+        <a href="index.html" class="suruchi-logo footer-logo" aria-label="MuRa@23">
+          <img src="images/mura-newlogo.png" alt="MuRa@23" width="108" height="67" loading="lazy" decoding="async">
+        </a>
+        <p style="font-size:14px;line-height:1.7;margin-bottom:16px">India's finest sale sarees — silk, cotton, Banarasi, Kanjivaram and designer sarees at unbeatable prices.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Saree Types</h4>
+        <ul>
+          <li><a href="shop.html">Silk Sarees</a></li>
+          <li><a href="shop.html">Cotton Sarees</a></li>
+          <li><a href="shop.html">Banarasi</a></li>
+          <li><a href="shop.html">Kanjivaram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:murapodanur@gmail.com">murapodanur@gmail.com</a></li>
+          <li><a href="tel:02123333444">02 123 333 444</a></li>
+          <li><a href="contact.html">Podanur, Tamil Nadu, India</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="suruchi-footer-bottom">
+      <p>&copy; 2026 MuRa@23. All rights reserved. Handcrafted with love in India.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/sarees.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/diwali-banner.js"></script>
+</body>
+</html>

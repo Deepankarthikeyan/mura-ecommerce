@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" role="img" aria-label="Priya Sharma">
+  <defs>
+    <linearGradient id="ps-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff5f8"/>
+      <stop offset="100%" stop-color="#ffe4ef"/>
+    </linearGradient>
+    <linearGradient id="ps-skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0c5a0"/>
+      <stop offset="100%" stop-color="#d9a074"/>
+    </linearGradient>
+    <linearGradient id="ps-hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a1810"/>
+      <stop offset="100%" stop-color="#120a06"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="220" fill="url(#ps-bg)"/>
+  <ellipse cx="100" cy="205" rx="78" ry="18" fill="rgba(207,6,83,0.08)"/>
+  <path d="M42 205c8-42 28-62 58-62s50 20 58 62" fill="#cf0653"/>
+  <path d="M48 205c6-34 24-50 52-50s46 16 52 50" fill="#a80543"/>
+  <path d="M56 205c4-24 18-36 44-36s40 12 44 36" fill="#8a0438"/>
+  <path d="M100 46c-32 0-50 22-52 56-2 34 14 58 52 58s54-24 52-58c-2-34-20-56-52-56z" fill="url(#ps-skin)" stroke="#2b211c" stroke-width="2.2"/>
+  <path d="M56 72c0-18 18-32 44-32s44 14 44 32c0 28-18 48-44 48s-44-20-44-48z" fill="url(#ps-hair)"/>
+  <path d="M52 88c-8 18-8 38 0 56 10-16 26-24 48-24s38 8 48 24c8-18 8-38 0-56-12 10-30 16-48 16s-36-6-48-16z" fill="url(#ps-hair)"/>
+  <circle cx="100" cy="92" r="5" fill="#cf0653"/>
+  <path d="M78 108c0-6 6-10 12-10s12 4 12 10" fill="#fff" stroke="#2b211c" stroke-width="2"/>
+  <path d="M110 108c0-6 6-10 12-10s12 4 12 10" fill="#fff" stroke="#2b211c" stroke-width="2"/>
+  <circle cx="90" cy="108" r="4" fill="#2b211c"/>
+  <circle cx="122" cy="108" r="4" fill="#2b211c"/>
+  <path d="M88 96c8-4 16-4 24 0" fill="none" stroke="#2b211c" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M90 122c6 6 14 8 22 8s16-2 22-8" fill="none" stroke="#b56d4d" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M96 126c4 2 8 2 12 0" fill="none" stroke="#cf0653" stroke-width="2" stroke-linecap="round"/>
+  <ellipse cx="78" cy="118" rx="5" ry="3" fill="rgba(207,6,83,0.18)"/>
+  <ellipse cx="122" cy="118" rx="5" ry="3" fill="rgba(207,6,83,0.18)"/>
+  <path d="M82 138c6 8 12 12 18 12s12-4 18-12" fill="none" stroke="#ffc107" stroke-width="2.5"/>
+</svg>

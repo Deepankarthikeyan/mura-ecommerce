@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — MuRa@23</title>
+  <link rel="icon" href="images/mura-newlogo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="preload" as="image" href="images/banners/banner-shop.jpg" fetchpriority="high">
+  <style>:root { --font-body: 'Jost', sans-serif; --font-heading: 'Playfair Display', serif; }</style>
+</head>
+<body data-page="shop">
+
+  <div id="site-header-mount"></div>
+  <script src="js/site-header.js"></script>
+
+  <section class="breadcrumb__section">
+    <div class="breadcrumb__bg">
+      <img class="breadcrumb__bg-image" src="images/banners/banner-shop.jpg" alt="" width="1600" height="334" decoding="async" fetchpriority="high">
+      <div class="container">
+        <div class="breadcrumb__content">
+          <h1 class="breadcrumb__content--title">Shop</h1>
+          <ul class="breadcrumb__content--menu">
+            <li class="breadcrumb__content--menu__items"><a href="index.html">Home</a></li>
+            <li class="breadcrumb__content--menu__items"><span>Shop</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container shop-layout">
+    <button class="shop-filter-toggle" type="button" aria-expanded="false" aria-label="Open filters">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
+      Filters &amp; Categories
+    </button>
+    <aside class="shop-sidebar">
+      <div class="shop-sidebar-header">
+        <h3 class="shop-sidebar-title">Filters</h3>
+        <button class="shop-sidebar-close" type="button" aria-label="Close filters">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="shop-sidebar-body">
+      <h3 class="sidebar-title">Saree Types</h3>
+      <ul class="sidebar-list">
+        <li><a href="#" data-category="all" class="active">All Sarees</a></li>
+        <li><a href="#" data-category="silk">Silk Sarees</a></li>
+        <li><a href="#" data-category="cotton">Cotton Sarees</a></li>
+        <li><a href="#" data-category="kanjivaram">Kanjivaram</a></li>
+        <li><a href="#" data-category="party">Party Wear</a></li>
+      </ul>
+
+      <h3 class="sidebar-title" style="margin-top:32px">Filter By Price</h3>
+      <div class="price-filter">
+        <input type="number" id="price-min" placeholder="Min ₹" min="0">
+        <span>—</span>
+        <input type="number" id="price-max" placeholder="Max ₹" min="0">
+      </div>
+      <button class="btn btn-primary btn-sm price-filter-btn" style="width:100%">Filter</button>
+
+      <h3 class="sidebar-title" style="margin-top:32px">Top Rated</h3>
+      <div style="margin-bottom:16px">
+        <p style="font-size:14px;font-weight:600;margin-bottom:4px">Banarasi Silk Saree</p>
+        <p style="font-size:13px;color:var(--color-primary)">₹3,599 <span style="text-decoration:line-through;color:var(--color-text-muted)">₹5,999</span></p>
+      </div>
+      <div style="margin-bottom:16px">
+        <p style="font-size:14px;font-weight:600;margin-bottom:4px">Kanjivaram Silk Saree</p>
+        <p style="font-size:13px;color:var(--color-primary)">₹4,999 <span style="text-decoration:line-through;color:var(--color-text-muted)">₹7,999</span></p>
+      </div>
+      <div>
+        <p style="font-size:14px;font-weight:600;margin-bottom:4px">Cotton Block Print Saree</p>
+        <p style="font-size:13px;color:var(--color-primary)">₹899 <span style="text-decoration:line-through;color:var(--color-text-muted)">₹1,499</span></p>
+      </div>
+      </div>
+    </aside>
+
+    <div class="shop-main">
+      <div class="shop-toolbar">
+        <p class="shop-results">Showing 15 sarees on sale</p>
+        <div class="shop-sort">
+          <select>
+            <option value="latest">Sort by latest</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name">Sort by name</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="shop-products" data-render="sarees"></div>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635"/></svg></div>
+          <h3 class="feature-title">Shipping</h3>
+          <p class="feature-text">From handpicked sellers</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg></div>
+          <h3 class="feature-title">Payment</h3>
+          <p class="feature-text">Secure checkout</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/></svg></div>
+          <h3 class="feature-title">Return</h3>
+          <p class="feature-text">30-day easy returns</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.15-6.24.43-.813.108-1.745.832-1.745 1.951v3.135"/></svg></div>
+          <h3 class="feature-title">Support</h3>
+          <p class="feature-text">Dedicated help team</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo footer-logo" aria-label="MuRa@23">
+            <img src="images/mura-newlogo.png" alt="MuRa@23" width="108" height="67" loading="lazy" decoding="async">
+          </a>
+          <p>India's finest sale sarees — silk, cotton, Banarasi, Kanjivaram and designer sarees.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="#" aria-label="Twitter"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Saree Types</h4>
+          <ul>
+            <li><a href="shop.html">Silk Sarees</a></li>
+            <li><a href="shop.html">Cotton Sarees</a></li>
+            <li><a href="shop.html">Banarasi</a></li>
+            <li><a href="shop.html">Kanjivaram</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Newsletter</h4>
+          <p style="font-size:14px;margin-bottom:8px">Subscribe for exclusive offers.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email" required>
+            <button type="submit">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MuRa@23. All rights reserved.</p>
+        <p>Handcrafted with love in India</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/sarees.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
