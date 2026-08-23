@@ -43,6 +43,33 @@ export function productCategoryKey(category?: string): string {
   return "all";
 }
 
+/** Display label on product cards — matches Murai reference `cat` field. */
+export function productCategoryLabel(category?: string): string {
+  const key = productCategoryKey(category);
+  switch (key) {
+    case "silk":
+      return "Silk Saree";
+    case "cotton":
+      return "Cotton Saree";
+    case "kanjivaram":
+      return "Kanjivaram";
+    case "party":
+      return category?.toLowerCase().includes("designer") ? "Designer Saree" : "Party Wear";
+    default:
+      return category?.trim() || "Saree";
+  }
+}
+
+/** Homepage tab panes — silk / cotton / designer+kanjivaram (reference sarees.js). */
+export function filterHomeTabProducts(list: StoreProduct[], tab: "featured" | "trending" | "newarrival"): StoreProduct[] {
+  if (tab === "featured") return filterProducts(list, { category: "silk" });
+  if (tab === "trending") return filterProducts(list, { category: "cotton" });
+  return list.filter((p) => {
+    const key = productCategoryKey(p.category);
+    return key === "party" || key === "kanjivaram";
+  });
+}
+
 export function productPricing(product: StoreProduct) {
   const sale = parseMoneyAmount(product.price);
   const mrp = parseMoneyAmount(product.mrp);

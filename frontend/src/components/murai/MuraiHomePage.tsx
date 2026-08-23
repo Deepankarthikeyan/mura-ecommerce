@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -9,19 +9,62 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import MuraiLayout from "./MuraiLayout";
 import MuraiProductCard from "./MuraiProductCard";
-import { filterProducts, productCategoryKey } from "@/lib/murai/productUtils";
+import { filterHomeTabProducts, productCardImage } from "@/lib/murai/productUtils";
 import { useProducts } from "@/lib/murai/useProducts";
 
-const TABS = [
-  { id: "silk", label: "Silk Sarees" },
-  { id: "cotton", label: "Cotton Sarees" },
-  { id: "party", label: "Designer Sarees" },
-];
+const HOME_TABS = [
+  { id: "featured", paneId: "tab-featured", gridId: "sarees-featured", label: "Silk Sarees" },
+  { id: "trending", paneId: "tab-trending", gridId: "sarees-trending", label: "Cotton Sarees" },
+  { id: "newarrival", paneId: "tab-newarrival", gridId: "sarees-newarrival", label: "Designer Sarees" },
+] as const;
+
+type HomeTabId = (typeof HOME_TABS)[number]["id"];
 
 export default function MuraiHomePage() {
   const { products, loading } = useProducts();
-  const [activeTab, setActiveTab] = useState("silk");
+  const [activeTab, setActiveTab] = useState<HomeTabId>("featured");
   const [countdown, setCountdown] = useState({ days: "00", hours: "00", mins: "00", secs: "00" });
+  const tabsListRef = useRef<HTMLDivElement>(null);
+  const [arrowState, setArrowState] = useState({ prevDisabled: true, nextDisabled: false });
+
+  const tabProducts = useMemo(
+    () =>
+      HOME_TABS.reduce(
+        (acc, tab) => {
+          acc[tab.id] = filterHomeTabProducts(products, tab.id);
+          return acc;
+        },
+        {} as Record<HomeTabId, typeof products>
+      ),
+    [products]
+  );
+
+  const updateArrowState = useCallback(() => {
+    const list = tabsListRef.current;
+    if (!list) return;
+    const maxScroll = list.scrollWidth - list.clientWidth;
+    setArrowState({
+      prevDisabled: list.scrollLeft <= 4,
+      nextDisabled: list.scrollLeft >= maxScroll - 4,
+    });
+  }, []);
+
+  const scrollTabs = (direction: -1 | 1) => {
+    const list = tabsListRef.current;
+    if (!list) return;
+    const step = Math.max(120, Math.round(list.clientWidth * 0.65));
+    list.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
+
+  const selectTab = (tabId: HomeTabId, button?: HTMLButtonElement | null) => {
+    setActiveTab(tabId);
+    if (button && tabsListRef.current) {
+      const listRect = tabsListRef.current.getBoundingClientRect();
+      const tabRect = button.getBoundingClientRect();
+      const offset = tabRect.left - listRect.left - (listRect.width - tabRect.width) / 2;
+      tabsListRef.current.scrollBy({ left: offset, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const end = new Date();
@@ -44,9 +87,17 @@ export default function MuraiHomePage() {
     return () => window.clearInterval(id);
   }, []);
 
-  const tabProducts = useMemo(() => {
-    return filterProducts(products, { category: activeTab });
-  }, [products, activeTab]);
+  useEffect(() => {
+    const list = tabsListRef.current;
+    if (!list) return;
+    updateArrowState();
+    list.addEventListener("scroll", updateArrowState, { passive: true });
+    window.addEventListener("resize", updateArrowState);
+    return () => {
+      list.removeEventListener("scroll", updateArrowState);
+      window.removeEventListener("resize", updateArrowState);
+    };
+  }, [updateArrowState]);
 
   const dealProduct = products[0];
   const bestSellers = products.slice(0, 4);
@@ -121,30 +172,66 @@ export default function MuraiHomePage() {
         <div className="products-section-inner">
           <div className="section-heading"><h2>Sale Sarees</h2></div>
           <div className="product-tabs-wrap">
-            <div className="product-tabs" role="tablist">
-              {TABS.map((tab) => (
+            <button
+              className="product-tabs-arrow product-tabs-arrow--prev"
+              type="button"
+              aria-label="Previous saree category"
+              disabled={arrowState.prevDisabled}
+              onClick={() => scrollTabs(-1)}
+            >
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <div className="product-tabs" role="tablist" aria-label="Saree categories" ref={tabsListRef}>
+              {HOME_TABS.map((tab) => (
                 <button
                   key={tab.id}
                   className={`product-tab ${activeTab === tab.id ? "active" : ""}`}
                   type="button"
-                  onClick={() => setActiveTab(tab.id)}
+                  role="tab"
+                  aria-selected={activeTab === tab.id}
+                  onClick={(e) => selectTab(tab.id, e.currentTarget)}
                 >
                   {tab.label}
                 </button>
               ))}
             </div>
+            <button
+              className="product-tabs-arrow product-tabs-arrow--next"
+              type="button"
+              aria-label="Next saree category"
+              disabled={arrowState.nextDisabled}
+              onClick={() => scrollTabs(1)}
+            >
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
           </div>
-          <div className="suruchi-products-grid">
-            {loading ? (
-              <p style={{ padding: 24 }}>Loading sarees...</p>
-            ) : tabProducts.length ? (
-              tabProducts.slice(0, 8).map((p) => (
-                <MuraiProductCard key={p._id ?? p.productId} product={p} style="home" />
-              ))
-            ) : (
-              <p style={{ padding: 24 }}>No sarees in this category.</p>
-            )}
-          </div>
+
+          {HOME_TABS.map((tab) => {
+            const items = tabProducts[tab.id];
+            return (
+              <div
+                key={tab.paneId}
+                id={tab.paneId}
+                className={`tab-pane ${activeTab === tab.id ? "active" : ""}`}
+              >
+                <div className="suruchi-products-grid" id={tab.gridId}>
+                  {loading ? (
+                    <p style={{ padding: 24 }}>Loading sarees...</p>
+                  ) : items.length ? (
+                    items.map((p) => (
+                      <MuraiProductCard key={`${tab.id}-${p._id ?? p.productId}`} product={p} style="home" />
+                    ))
+                  ) : (
+                    <p style={{ padding: 24 }}>No sarees in this category.</p>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -164,10 +251,10 @@ export default function MuraiHomePage() {
           {dealProduct ? (
             <div className="deals-product">
               <div className="deals-product-img">
-                <img src={dealProduct.image ?? "/murai/images/sarees/banarasi.webp"} alt={dealProduct.title ?? ""} />
+                <img src={productCardImage(dealProduct)} alt={dealProduct.title ?? ""} />
               </div>
               <div className="deals-product-info">
-                <span className="suruchi-product-badge" style={{ position: "static", display: "inline-block", marginBottom: 12 }}>25% Off</span>
+                <span className="suruchi-product-badge" style={{ position: "static", display: "inline-block", marginBottom: 12 }}>Sale</span>
                 <h3 className="suruchi-product-name" style={{ fontSize: 22 }}>{dealProduct.title}</h3>
                 <div className="suruchi-product-price" style={{ margin: "12px 0" }}>
                   <span className="current" style={{ fontSize: 24 }}>₹{Number(dealProduct.price).toLocaleString("en-IN")}</span>
@@ -183,7 +270,7 @@ export default function MuraiHomePage() {
 
       <section className="bestseller-section">
         <div className="section-heading"><h2>Best Selling Sarees</h2></div>
-        <div className="bestseller-grid suruchi-products-grid">
+        <div className="bestseller-grid suruchi-products-grid" id="sarees-bestseller">
           {bestSellers.map((p) => (
             <MuraiProductCard key={`best-${p._id ?? p.productId}`} product={p} style="bestseller" />
           ))}
