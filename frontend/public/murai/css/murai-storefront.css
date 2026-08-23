@@ -202,6 +202,33 @@ body.murai-storefront-active .murai-storefront .tab-pane.active {
   display: block !important;
 }
 
+body.murai-storefront-active .murai-storefront .features-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 24px !important;
+}
+
+body.murai-storefront-active .murai-storefront .bestseller-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  body.murai-storefront-active .murai-storefront .features-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body.murai-storefront-active .murai-storefront .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 body.murai-storefront-active .murai-storefront .hero-slider .swiper-button-prev,
 body.murai-storefront-active .murai-storefront .hero-slider .swiper-button-next {
   color: #fff !important;

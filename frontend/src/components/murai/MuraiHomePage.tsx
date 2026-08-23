@@ -3,14 +3,26 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import MuraiLayout from "./MuraiLayout";
+import MuraiDiwaliBanner from "./MuraiDiwaliBanner";
 import MuraiProductCard from "./MuraiProductCard";
-import { filterHomeTabProducts, productCardImage } from "@/lib/murai/productUtils";
+import { useCart } from "@/components/header/CartContext";
+import { parseMoneyAmount } from "@/lib/shopProductDisplay";
+import {
+  filterHomeTabProducts,
+  formatInr,
+  getProductSlug,
+  getStableProductId,
+  productCardImage,
+  productPricing,
+} from "@/lib/murai/productUtils";
 import { useProducts } from "@/lib/murai/useProducts";
+import { useMuraiNotify } from "./MuraiNotification";
 
 const HOME_TABS = [
   { id: "featured", paneId: "tab-featured", gridId: "sarees-featured", label: "Silk Sarees" },
@@ -22,6 +34,8 @@ type HomeTabId = (typeof HOME_TABS)[number]["id"];
 
 export default function MuraiHomePage() {
   const { products, loading } = useProducts();
+  const { addToCart } = useCart();
+  const notify = useMuraiNotify();
   const [activeTab, setActiveTab] = useState<HomeTabId>("featured");
   const [countdown, setCountdown] = useState({ days: "00", hours: "00", mins: "00", secs: "00" });
   const tabsListRef = useRef<HTMLDivElement>(null);
@@ -101,13 +115,30 @@ export default function MuraiHomePage() {
 
   const dealProduct = products[0];
   const bestSellers = products.slice(0, 4);
+  const dealPricing = dealProduct ? productPricing(dealProduct) : null;
+
+  const handleDealAddToCart = () => {
+    if (!dealProduct) return;
+    addToCart({
+      id: getStableProductId(dealProduct),
+      slug: getProductSlug(dealProduct),
+      image: productCardImage(dealProduct),
+      title: dealProduct.title ?? "Saree",
+      price: parseMoneyAmount(dealProduct.price) ?? 0,
+      quantity: 1,
+      active: true,
+    });
+    notify(`${dealProduct.title ?? "Saree"} added to cart!`);
+  };
 
   return (
     <MuraiLayout activePage="home">
       <section className="hero-slider">
         <Swiper
-          modules={[Autoplay, Navigation]}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          modules={[Autoplay, Navigation, EffectFade]}
+          effect="fade"
+          fadeEffect={{ crossFade: true }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
           loop
           navigation
           className="hero-swiper"
@@ -254,14 +285,18 @@ export default function MuraiHomePage() {
                 <img src={productCardImage(dealProduct)} alt={dealProduct.title ?? ""} />
               </div>
               <div className="deals-product-info">
-                <span className="suruchi-product-badge" style={{ position: "static", display: "inline-block", marginBottom: 12 }}>Sale</span>
+                <span className="suruchi-product-badge" style={{ position: "static", display: "inline-block", marginBottom: 12 }}>
+                  {dealPricing?.badge ? `${dealPricing.badge}% Off` : "25% Off"}
+                </span>
                 <h3 className="suruchi-product-name" style={{ fontSize: 22 }}>{dealProduct.title}</h3>
                 <div className="suruchi-product-price" style={{ margin: "12px 0" }}>
-                  <span className="current" style={{ fontSize: 24 }}>₹{Number(dealProduct.price).toLocaleString("en-IN")}</span>
-                  {dealProduct.mrp ? <span className="old">₹{Number(dealProduct.mrp).toLocaleString("en-IN")}</span> : null}
+                  <span className="current" style={{ fontSize: 24 }}>{formatInr(dealProduct.price)}</span>
+                  {dealPricing?.showMrp ? <span className="old">{formatInr(dealProduct.mrp)}</span> : null}
                 </div>
                 <div className="suruchi-stars" style={{ marginBottom: 20 }}>★★★★★</div>
-                <Link href={`/shop/${dealProduct.urlSlug ?? ""}`} className="btn btn-primary">View &amp; Add to Cart</Link>
+                <button className="btn btn-primary add-to-cart" type="button" onClick={handleDealAddToCart}>
+                  Add to Cart
+                </button>
               </div>
             </div>
           ) : null}
@@ -270,7 +305,7 @@ export default function MuraiHomePage() {
 
       <section className="bestseller-section">
         <div className="section-heading"><h2>Best Selling Sarees</h2></div>
-        <div className="bestseller-grid suruchi-products-grid" id="sarees-bestseller">
+        <div className="bestseller-grid" id="sarees-bestseller">
           {bestSellers.map((p) => (
             <MuraiProductCard key={`best-${p._id ?? p.productId}`} product={p} style="bestseller" />
           ))}
@@ -295,28 +330,48 @@ export default function MuraiHomePage() {
       </section>
 
       <section className="testimonial-section">
+        <div className="testimonial-deco" aria-hidden="true">
+          <span className="testimonial-deco-item testimonial-deco-item--1">✦</span>
+          <span className="testimonial-deco-item testimonial-deco-item--2">★</span>
+          <span className="testimonial-deco-item testimonial-deco-item--3">✦</span>
+          <span className="testimonial-deco-item testimonial-deco-item--4">★</span>
+        </div>
         <div className="testimonial-section-inner">
           <div className="section-heading testimonial-heading">
             <span className="testimonial-tag">✦ Client Love ✦</span>
             <h2>Our Clients Say</h2>
           </div>
-          <Swiper modules={[Navigation, Pagination, Autoplay]} navigation pagination loop autoplay={{ delay: 5000 }} className="testimonial-swiper">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay, EffectFade]}
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
+            navigation
+            pagination
+            loop
+            autoplay={{ delay: 5500 }}
+            className="testimonial-swiper"
+          >
             {[
-              { name: "Priya Sharma", img: "/murai/images/avatars/priya-sharma.svg", text: "The Banarasi silk saree I bought on sale is absolutely stunning! Rich zari work and exceptional fabric quality." },
-              { name: "Laura Johnson", img: "/murai/images/avatars/laura-johnson.svg", text: "MuRa@23 has the best saree sale online! Got a beautiful Kanjivaram at 40% off. Highly recommended!" },
-              { name: "Richard Smith", img: "/murai/images/avatars/richard-smith.svg", text: "The silk saree exceeded my expectations. Gorgeous colors and elegant packaging. Perfect for gifting." },
+              { name: "Priya Sharma", img: "/murai/images/avatars/priya-sharma.svg", text: "The Banarasi silk saree I bought on sale is absolutely stunning! Rich zari work and the fabric quality is exceptional. Best saree purchase ever!" },
+              { name: "Laura Johnson", img: "/murai/images/avatars/laura-johnson.svg", text: "MuRa@23 has the best saree sale online! Got a beautiful Kanjivaram at 40% off. Fast delivery and elegant packaging. Highly recommended!" },
+              { name: "Richard Smith", img: "/murai/images/avatars/richard-smith.svg", text: "The silk saree I purchased exceeded my expectations. Gorgeous colors and the packaging was elegant. Perfect for gifting too." },
             ].map((t) => (
               <SwiperSlide key={t.name}>
                 <div className="testimonial-showcase">
                   <div className="testimonial-showcase-visual">
-                    <img src={t.img} alt={t.name} className="testimonial-avatar-img" width={180} height={198} />
+                    <div className="testimonial-avatar-frame">
+                      <span className="testimonial-avatar-ring" aria-hidden="true" />
+                      <span className="testimonial-avatar-glow" aria-hidden="true" />
+                      <img src={t.img} alt={t.name} className="testimonial-avatar-img" width={180} height={198} loading="lazy" />
+                    </div>
                     <div className="testimonial-client-badge">Verified Client</div>
                     <p className="testimonial-showcase-name">{t.name}</p>
                     <p className="testimonial-showcase-role">Saree Lover</p>
                   </div>
                   <div className="testimonial-showcase-content">
                     <div className="testimonial-bubble">
-                      <div className="testimonial-stars">★★★★★</div>
+                      <div className="testimonial-bubble-quote" aria-hidden="true">&quot;</div>
+                      <div className="testimonial-stars" aria-label="5 stars">★★★★★</div>
                       <p className="testimonial-text">{t.text}</p>
                     </div>
                   </div>
@@ -326,6 +381,12 @@ export default function MuraiHomePage() {
           </Swiper>
         </div>
       </section>
+
+      <MuraiDiwaliBanner
+        heroImage={productCardImage(products[1] ?? products[0] ?? {})}
+        backImage1={productCardImage(products[0] ?? {})}
+        backImage2={productCardImage(products[2] ?? products[0] ?? {})}
+      />
 
       <section className="blog-section">
         <div className="section-heading"><h2>From The Blog</h2></div>

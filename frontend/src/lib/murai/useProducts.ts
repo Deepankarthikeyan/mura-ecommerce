@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { shopProductPathSegment } from "@/lib/productSlug";
 import { DEMO_SAREE_PRODUCTS } from "./demoProducts";
+import { normalizeMuraiProducts } from "./productUtils";
 import type { StoreProduct } from "./types";
 
 export function useProducts() {
@@ -20,7 +21,7 @@ export function useProducts() {
         const list = Array.isArray(data?.body) ? data.body : [];
         if (!cancelled) {
           if (list.length > 0) {
-            setProducts(list);
+            setProducts(normalizeMuraiProducts(list));
             setUsingDemo(false);
           } else {
             setProducts(DEMO_SAREE_PRODUCTS);

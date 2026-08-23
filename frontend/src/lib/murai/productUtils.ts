@@ -78,6 +78,22 @@ export function productPricing(product: StoreProduct) {
   return { sale, mrp, showMrp, badge };
 }
 
+/** Map admin-panel product fields to Murai storefront card schema. */
+export function normalizeMuraiProducts(list: StoreProduct[]): StoreProduct[] {
+  return list
+    .filter((p) => p.title && !String(p.title).toLowerCase().includes("[deleted]"))
+    .map((p) => ({
+      ...p,
+      title: String(p.title ?? "").trim(),
+      category: String(p.category ?? "Saree").trim(),
+      price: p.price ?? "0",
+      mrp: p.mrp ?? p.price ?? "0",
+      stock: p.stock ?? 0,
+      ratings: p.ratings ?? 5,
+      reviews: p.reviews ?? 0,
+    }));
+}
+
 export function sortProducts(list: StoreProduct[], sort: string): StoreProduct[] {
   const copy = [...list];
   switch (sort) {

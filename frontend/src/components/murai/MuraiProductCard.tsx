@@ -31,6 +31,7 @@ export default function MuraiProductCard({ product, style = "shop" }: MuraiProdu
   const { showMrp } = productPricing(product);
   const inWishlist = wishlistItems.some((w) => w.id === id);
   const dataAttrs = style === "shop";
+  const showActions = style !== "bestseller";
 
   const handleAddToCart = () => {
     addToCart({
@@ -89,19 +90,21 @@ export default function MuraiProductCard({ product, style = "shop" }: MuraiProdu
           {showMrp ? <span className="old">{formatInr(product.mrp)}</span> : null}
         </div>
         <div className="suruchi-stars">★★★★★</div>
-        <div className="suruchi-product-actions">
-          <button className="suruchi-action-btn primary add-to-cart" type="button" onClick={handleAddToCart}>
-            + Add to cart
-          </button>
-          <button
-            className={`suruchi-action-btn wishlist-btn ${inWishlist ? "active" : ""}`}
-            type="button"
-            onClick={toggleWishlist}
-            aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
-          >
-            {inWishlist ? "♥" : "♡"}
-          </button>
-        </div>
+        {showActions ? (
+          <div className="suruchi-product-actions">
+            <button className="suruchi-action-btn primary add-to-cart" type="button" onClick={handleAddToCart}>
+              + Add to cart
+            </button>
+            <button
+              className={`suruchi-action-btn wishlist-btn ${inWishlist ? "active" : ""}`}
+              type="button"
+              onClick={toggleWishlist}
+              aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
+            >
+              {inWishlist ? "♥" : "♡"}
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
