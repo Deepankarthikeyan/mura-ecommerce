@@ -1,0 +1,21 @@
+export type StoreProduct = {
+  _id?: string;
+  id?: number;
+  productId?: string;
+  slug?: string;
+  urlSlug?: string;
+  title?: string;
+  category?: string;
+  quantity?: string;
+  price?: string | number;
+  mrp?: string | number;
+  discountPercentage?: string | number;
+  description?: string;
+  image?: string;
+  bannerImg?: string | string[];
+  productAdMediaUrl?: string;
+  stock?: number;
+  reviews?: number;
+  ratings?: number;
+  tags?: string[];
+};

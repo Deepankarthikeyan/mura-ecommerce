@@ -8,7 +8,8 @@ function normalizeWishlistUnitPrice(raw: unknown): number {
 }
 
 interface WishlistItem {
-  id: number;
+  id: string;
+  slug?: string;
   image: string;
   title: string;
   price: number;
@@ -18,8 +19,8 @@ interface WishlistItem {
 interface WishlistContextProps {
   wishlistItems: WishlistItem[];
   addToWishlist: (item: WishlistItem) => void;
-  removeFromWishlist: (id: number) => void;
-  updateItemQuantity: (id: number, quantity: number) => void;
+  removeFromWishlist: (id: string) => void;
+  updateItemQuantity: (id: string, quantity: number) => void;
   isWishlistLoaded: boolean;
 }
 
@@ -78,12 +79,12 @@ export const WishlistProvider = ({ children }: { children: React.ReactNode }) =>
   };
 
   // Remove from wishlist
-  const removeFromWishlist = (id: number) => {
+  const removeFromWishlist = (id: string) => {
     setWishlistItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   // Update quantity
-  const updateItemQuantity = (id: number, quantity: number) => {
+  const updateItemQuantity = (id: string, quantity: number) => {
     setWishlistItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item

@@ -8,7 +8,8 @@ function normalizeCartUnitPrice(raw: unknown): number {
 }
 
 interface CartItem {
-  id: number;
+  id: string;
+  slug?: string;
   image: string;
   title: string;
   price: number;
@@ -20,8 +21,8 @@ interface CartContextProps {
   cartItems: CartItem[];
   addToCart: (item: CartItem) => void;
   addToWishlist: (item: CartItem) => void;
-  removeFromCart: (id: number) => void;
-  updateItemQuantity: (id: number, quantity: number) => void;
+  removeFromCart: (id: string) => void;
+  updateItemQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   isCartLoaded: boolean;
 }
@@ -106,12 +107,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   // Remove item by ID
-  const removeFromCart = (id: number) => {
+  const removeFromCart = (id: string) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   // Update quantity (cart or wishlist)
-  const updateItemQuantity = (id: number, quantity: number) => {
+  const updateItemQuantity = (id: string, quantity: number) => {
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
