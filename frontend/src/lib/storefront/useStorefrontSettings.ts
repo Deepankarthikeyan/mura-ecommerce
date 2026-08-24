@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import type { StorefrontSettings } from "./types";
-import { getDefaultStorefrontSettings, mergeStorefrontSettings } from "./defaultStorefrontSettings";
+import { getEmptyStorefrontSettings, mergeStorefrontSettings } from "./defaultStorefrontSettings";
 
 export function useStorefrontSettings() {
-  const [settings, setSettings] = useState<StorefrontSettings>(getDefaultStorefrontSettings());
+  const [settings, setSettings] = useState<StorefrontSettings>(getEmptyStorefrontSettings());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export function useStorefrontSettings() {
           setSettings(mergeStorefrontSettings(data.settings));
         }
       } catch {
-        if (!cancelled) setSettings(getDefaultStorefrontSettings());
+        if (!cancelled) setSettings(getEmptyStorefrontSettings());
       } finally {
         if (!cancelled) setLoading(false);
       }

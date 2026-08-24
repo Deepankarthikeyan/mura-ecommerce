@@ -1,6 +1,60 @@
 import type { StorefrontSettings } from "./types";
 
-export function getDefaultStorefrontSettings(): StorefrontSettings {
+/** Minimal shell shown on a fresh deploy before staff saves storefront settings. */
+export function getEmptyStorefrontSettings(): StorefrontSettings {
+  return {
+    site: {
+      name: "My Store",
+      logo: "/murai/images/mura-newlogo.png",
+      tagline: "",
+      email: "",
+      phone: "",
+      address: "",
+      currency: "₹ INR",
+      language: "English",
+      copyright: "© My Store. All rights reserved.",
+    },
+    topbar: {
+      promoText: "",
+      promoLink: "/shop",
+      promoLinkLabel: "Shop Now",
+    },
+    heroSlides: [],
+    promoBanners: [],
+    homeTabs: [{ id: "all", label: "All Products", filter: "all" }],
+    homeSections: {
+      saleTitle: "Products",
+      dealsTag: "",
+      dealsTitle: "Deals Of The Day",
+      dealsDescription: "",
+      dealsEndDate: "",
+      dealsProductTag: "deal-of-day",
+      bestSellerTitle: "Best Sellers",
+      bestSellerTag: "bestseller",
+      testimonialTag: "",
+      testimonialTitle: "Testimonials",
+      blogTitle: "Blog",
+      newsletterTitle: "Newsletter",
+      newsletterDescription: "",
+    },
+    promoBlocks: [],
+    testimonials: [],
+    blogPosts: [],
+    serviceBar: [],
+    footer: {
+      description: "",
+      quickLinks: [
+        { label: "Home", href: "/" },
+        { label: "Shop", href: "/shop" },
+        { label: "Contact", href: "/contact" },
+      ],
+      categoryLinks: [],
+    },
+  };
+}
+
+/** Rich MuRa template staff can load from the dashboard when setting up. */
+export function getStorefrontTemplateSettings(): StorefrontSettings {
   return {
     site: {
       name: "MuRa@23",
@@ -181,30 +235,33 @@ export function getDefaultStorefrontSettings(): StorefrontSettings {
   };
 }
 
+/** @deprecated Use getEmptyStorefrontSettings or getStorefrontTemplateSettings */
+export function getDefaultStorefrontSettings(): StorefrontSettings {
+  return getEmptyStorefrontSettings();
+}
+
 export function mergeStorefrontSettings(
   saved: Partial<StorefrontSettings> | null | undefined
 ): StorefrontSettings {
-  const defaults = getDefaultStorefrontSettings();
-  if (!saved || typeof saved !== "object") return defaults;
+  const empty = getEmptyStorefrontSettings();
+  if (!saved || typeof saved !== "object") return empty;
 
   return {
-    site: { ...defaults.site, ...saved.site },
-    topbar: { ...defaults.topbar, ...saved.topbar },
-    heroSlides: saved.heroSlides?.length ? saved.heroSlides : defaults.heroSlides,
-    promoBanners: saved.promoBanners?.length ? saved.promoBanners : defaults.promoBanners,
-    homeTabs: saved.homeTabs?.length ? saved.homeTabs : defaults.homeTabs,
-    homeSections: { ...defaults.homeSections, ...saved.homeSections },
-    promoBlocks: saved.promoBlocks?.length ? saved.promoBlocks : defaults.promoBlocks,
-    testimonials: saved.testimonials?.length ? saved.testimonials : defaults.testimonials,
-    blogPosts: saved.blogPosts?.length ? saved.blogPosts : defaults.blogPosts,
-    serviceBar: saved.serviceBar?.length ? saved.serviceBar : defaults.serviceBar,
+    site: { ...empty.site, ...saved.site },
+    topbar: { ...empty.topbar, ...saved.topbar },
+    heroSlides: saved.heroSlides ?? empty.heroSlides,
+    promoBanners: saved.promoBanners ?? empty.promoBanners,
+    homeTabs: saved.homeTabs?.length ? saved.homeTabs : empty.homeTabs,
+    homeSections: { ...empty.homeSections, ...saved.homeSections },
+    promoBlocks: saved.promoBlocks ?? empty.promoBlocks,
+    testimonials: saved.testimonials ?? empty.testimonials,
+    blogPosts: saved.blogPosts ?? empty.blogPosts,
+    serviceBar: saved.serviceBar ?? empty.serviceBar,
     footer: {
-      ...defaults.footer,
+      ...empty.footer,
       ...saved.footer,
-      quickLinks: saved.footer?.quickLinks?.length ? saved.footer.quickLinks : defaults.footer.quickLinks,
-      categoryLinks: saved.footer?.categoryLinks?.length
-        ? saved.footer.categoryLinks
-        : defaults.footer.categoryLinks,
+      quickLinks: saved.footer?.quickLinks?.length ? saved.footer.quickLinks : empty.footer.quickLinks,
+      categoryLinks: saved.footer?.categoryLinks ?? empty.footer.categoryLinks,
     },
   };
 }

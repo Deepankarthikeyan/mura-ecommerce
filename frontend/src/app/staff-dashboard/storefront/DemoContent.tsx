@@ -12,7 +12,7 @@ import type {
   StorefrontSettings,
   Testimonial,
 } from "@/lib/storefront/types";
-import { getDefaultStorefrontSettings } from "@/lib/storefront/defaultStorefrontSettings";
+import { getEmptyStorefrontSettings, getStorefrontTemplateSettings } from "@/lib/storefront/defaultStorefrontSettings";
 
 type Tab = "site" | "hero" | "banners" | "home" | "content" | "footer";
 
@@ -77,7 +77,7 @@ function Field({
 
 export default function DemoContent() {
   const [tab, setTab] = useState<Tab>("site");
-  const [settings, setSettings] = useState<StorefrontSettings>(getDefaultStorefrontSettings());
+  const [settings, setSettings] = useState<StorefrontSettings>(getEmptyStorefrontSettings());
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -183,6 +183,18 @@ export default function DemoContent() {
           </div>
           <button type="button" className="rts-btn btn-primary" disabled={saving} onClick={save}>
             {saving ? "Saving..." : "Save changes"}
+          </button>
+          <button
+            type="button"
+            className="rts-btn"
+            disabled={saving}
+            onClick={() => {
+              if (window.confirm("Load the MuRa demo template? This replaces unsaved form values.")) {
+                setSettings(getStorefrontTemplateSettings());
+              }
+            }}
+          >
+            Load MuRa template
           </button>
         </div>
 

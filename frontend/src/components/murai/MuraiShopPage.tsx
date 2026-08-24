@@ -6,6 +6,7 @@ import { Suspense, useMemo, useState } from "react";
 import MuraiLayout from "./MuraiLayout";
 import MuraiFeaturesBar from "./MuraiFeaturesBar";
 import MuraiProductCard from "./MuraiProductCard";
+import { StorefrontEmptyState } from "@/lib/storefront/emptyState";
 import { filterProducts, formatInr, sortProducts } from "@/lib/murai/productUtils";
 import { useProducts } from "@/lib/murai/useProducts";
 import { useCategories } from "@/lib/storefront/useCategories";
@@ -141,7 +142,12 @@ function ShopContent() {
             ) : filtered.length ? (
               filtered.map((p) => <MuraiProductCard key={p._id ?? p.productId} product={p} style="shop" />)
             ) : (
-              <p>No sarees match your filters.</p>
+              <StorefrontEmptyState
+                title="No products yet"
+                message="Add products in Staff Dashboard → Inventory to populate your shop."
+                actionHref="/staff-dashboard/inventory"
+                actionLabel="Open Inventory"
+              />
             )}
           </div>
         </div>

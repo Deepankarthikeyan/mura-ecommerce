@@ -26,7 +26,7 @@ export function filterHomeTabByConfig(
   tab: HomeTab
 ): StoreProduct[] {
   const filter = tab.filter.trim().toLowerCase();
-  if (!filter || filter === "all") return products;
+  if (filter === "all") return products;
 
   if (filter === "silk" || filter === "cotton" || filter === "kanjivaram" || filter === "party") {
     return filterHomeTabProducts(

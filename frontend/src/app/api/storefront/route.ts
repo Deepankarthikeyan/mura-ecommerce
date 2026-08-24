@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getStorefrontSettingsRaw, upsertStorefrontSettings } from "@/functions/mongodbOperations";
 import {
-  getDefaultStorefrontSettings,
+  getEmptyStorefrontSettings,
+  getStorefrontTemplateSettings,
   mergeStorefrontSettings,
 } from "@/lib/storefront/defaultStorefrontSettings";
 import type { StorefrontSettings } from "@/lib/storefront/types";
@@ -37,12 +38,11 @@ export async function PUT(request: Request) {
     }
 
     const merged = mergeStorefrontSettings(body.settings as Partial<StorefrontSettings>);
-    const defaults = getDefaultStorefrontSettings();
     const content = JSON.stringify(merged, null, 2);
     await upsertStorefrontSettings(content);
     revalidatePath("/", "layout");
     revalidatePath("/shop");
-    return NextResponse.json({ success: true, settings: merged, defaults });
+    return NextResponse.json({ success: true, settings: merged, template: getStorefrontTemplateSettings() });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to save storefront settings";
     return NextResponse.json({ success: false, message }, { status: 500 });

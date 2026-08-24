@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/components/header/CartContext";
 import { useWishlist } from "@/components/header/WishlistContext";
 import { parseMoneyAmount, resolveProductGalleryImages } from "@/lib/shopProductDisplay";
 import { sanitizeProductDescriptionHtml } from "@/lib/sanitizeProductHtml";
-import { findMuraiProductBySlug } from "@/lib/murai/findMuraiProductBySlug";
+import { fetchProductBySlug, useProducts } from "@/lib/murai/useProducts";
 import {
   formatInr,
   getProductSlug,
@@ -17,7 +17,6 @@ import {
   productCategoryLabel,
   productPricing,
 } from "@/lib/murai/productUtils";
-import { fetchProductBySlug, useProducts } from "@/lib/murai/useProducts";
 import type { StoreProduct } from "@/lib/murai/types";
 import MuraiFeaturesBar from "./MuraiFeaturesBar";
 import MuraiLayout from "./MuraiLayout";
@@ -260,9 +259,8 @@ function ProductDetailBody({ product }: { product: StoreProduct }) {
 export default function MuraiProductDetailPage() {
   const params = useParams();
   const slug = typeof params?.slug === "string" ? params.slug : Array.isArray(params?.slug) ? params.slug[0] : "";
-  const initialProduct = useMemo(() => findMuraiProductBySlug(slug), [slug]);
-  const [product, setProduct] = useState<StoreProduct | null>(initialProduct);
-  const [loading, setLoading] = useState(!initialProduct);
+  const [product, setProduct] = useState<StoreProduct | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -271,11 +269,6 @@ export default function MuraiProductDetailPage() {
         setProduct(null);
         setLoading(false);
         return;
-      }
-      const local = findMuraiProductBySlug(slug);
-      if (local && !cancelled) {
-        setProduct(local);
-        setLoading(false);
       }
       const p = await fetchProductBySlug(slug);
       if (!cancelled) {

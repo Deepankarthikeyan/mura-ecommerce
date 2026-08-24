@@ -16,6 +16,7 @@ import { productCardImage } from "@/lib/murai/productUtils";
 import { useProducts } from "@/lib/murai/useProducts";
 import { useStorefrontSettings } from "@/lib/storefront/useStorefrontSettings";
 import { filterHomeTabByConfig, pickBestSellers, pickDealProduct } from "@/lib/storefront/productSections";
+import { StorefrontEmptyState } from "@/lib/storefront/emptyState";
 import { renderMultiline } from "@/lib/storefront/renderMultiline";
 import type { HomeTab } from "@/lib/storefront/types";
 
@@ -122,6 +123,7 @@ export default function MuraiHomePage() {
 
   return (
     <MuraiLayout activePage="home">
+      {settings.heroSlides.length > 0 ? (
       <section className="hero-slider">
         <Swiper
           modules={[Autoplay, Navigation, EffectFade]}
@@ -146,7 +148,14 @@ export default function MuraiHomePage() {
           ))}
         </Swiper>
       </section>
+      ) : (
+        <StorefrontEmptyState
+          title="Homepage hero not configured"
+          message="Add hero slides in Staff Dashboard → Storefront to show your banner here."
+        />
+      )}
 
+      {settings.promoBanners.length > 0 ? (
       <section className="banner-section">
         <div className="banner-grid">
           {tallBanner ? renderBanner(tallBanner, "banner-card tall") : null}
@@ -160,6 +169,7 @@ export default function MuraiHomePage() {
           </div>
         </div>
       </section>
+      ) : null}
 
       <section className="products-section">
         <div className="products-section-inner">
@@ -217,9 +227,14 @@ export default function MuraiHomePage() {
                       <MuraiProductCard key={`${tab.id}-${p._id ?? p.productId}`} product={p} style="home" />
                     ))
                   ) : loading ? (
-                    <p style={{ padding: 24 }}>Loading sarees...</p>
+                    <p style={{ padding: 24 }}>Loading products...</p>
                   ) : (
-                    <p style={{ padding: 24 }}>No sarees in this category.</p>
+                    <StorefrontEmptyState
+                      title="No products yet"
+                      message="Add products in Staff Dashboard → Inventory. They will appear here automatically."
+                      actionHref="/staff-dashboard/inventory"
+                      actionLabel="Open Inventory"
+                    />
                   )}
                 </div>
               </div>
@@ -228,6 +243,7 @@ export default function MuraiHomePage() {
         </div>
       </section>
 
+      {dealProduct ? (
       <section className="deals-section">
         <div className="deals-inner">
           <div className="deals-content">
@@ -244,7 +260,9 @@ export default function MuraiHomePage() {
           {dealProduct ? <MuraiDealsProduct product={dealProduct} /> : null}
         </div>
       </section>
+      ) : null}
 
+      {bestSellers.length > 0 ? (
       <section className="bestseller-section">
         <div className="section-heading"><h2>{settings.homeSections.bestSellerTitle}</h2></div>
         <div className="bestseller-grid" id="sarees-bestseller">
@@ -253,7 +271,9 @@ export default function MuraiHomePage() {
           ))}
         </div>
       </section>
+      ) : null}
 
+      {settings.promoBlocks.length > 0 ? (
       <section className="promo-banners">
         {settings.promoBlocks.map((block) => (
           <div key={block.bgClass + block.title} className={`promo-banner ${block.bgClass}`}>
@@ -265,7 +285,9 @@ export default function MuraiHomePage() {
           </div>
         ))}
       </section>
+      ) : null}
 
+      {settings.testimonials.length > 0 ? (
       <section className="testimonial-section">
         <div className="testimonial-deco" aria-hidden="true">
           <span className="testimonial-deco-item testimonial-deco-item--1">✦</span>
@@ -314,13 +336,17 @@ export default function MuraiHomePage() {
           </Swiper>
         </div>
       </section>
+      ) : null}
 
+      {products.length > 0 ? (
       <MuraiDiwaliBanner
         heroImage={productCardImage(products[1] ?? products[0] ?? {})}
         backImage1={productCardImage(products[0] ?? {})}
         backImage2={productCardImage(products[2] ?? products[0] ?? {})}
       />
+      ) : null}
 
+      {settings.blogPosts.length > 0 ? (
       <section className="blog-section">
         <div className="section-heading"><h2>{settings.homeSections.blogTitle}</h2></div>
         <div className="blog-grid">
@@ -335,7 +361,9 @@ export default function MuraiHomePage() {
           ))}
         </div>
       </section>
+      ) : null}
 
+      {(settings.homeSections.newsletterTitle || settings.homeSections.newsletterDescription) ? (
       <section className="newsletter-section">
         <div className="newsletter-inner">
           <h2>{settings.homeSections.newsletterTitle}</h2>
@@ -346,7 +374,9 @@ export default function MuraiHomePage() {
           </form>
         </div>
       </section>
+      ) : null}
 
+      {settings.serviceBar.length > 0 ? (
       <section className="service-bar">
         <div className="service-bar-grid">
           {settings.serviceBar.map((s, i) => (
@@ -357,6 +387,7 @@ export default function MuraiHomePage() {
           ))}
         </div>
       </section>
+      ) : null}
     </MuraiLayout>
   );
 }

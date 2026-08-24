@@ -22,7 +22,7 @@ The Next.js storefront lives in **`frontend/`**.
 
 6. Click **Deploy**
 
-Without `MONGODB_URI`, the site still works with demo saree products.
+Without `MONGODB_URI`, the site still loads with the same MuRa UI but shows empty product sections until you add inventory in the staff dashboard.
 
 ## GitHub Actions (auto deploy on push)
 
