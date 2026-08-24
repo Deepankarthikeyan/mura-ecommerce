@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/components/header/CartContext";
 import { useWishlist } from "@/components/header/WishlistContext";
 import { parseMoneyAmount, resolveProductGalleryImages } from "@/lib/shopProductDisplay";

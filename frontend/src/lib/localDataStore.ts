@@ -2,7 +2,7 @@ import { randomBytes } from "crypto";
 import fs from "fs/promises";
 import path from "path";
 import { productTitleToUrlSlug } from "./productSlug";
-import { mergeStorefrontSettings } from "./storefront/defaultStorefrontSettings";
+import { mergeStorefrontSettings, getStorefrontTemplateSettings } from "./storefront/defaultStorefrontSettings";
 import type { StorefrontSettings } from "./storefront/types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -57,9 +57,20 @@ function parseStorefront(raw: string | null): StorefrontSettings {
   }
 }
 
+const LEGACY_STORE_NAMES = new Set(["My Store", "MuRa Test Store", "Aathithya Herbal"]);
+
 export async function localGetStorefrontSettings(): Promise<StorefrontSettings> {
   const db = await readDb();
-  return parseStorefront(db.storefront);
+  let settings = parseStorefront(db.storefront);
+
+  const name = settings.site.name?.trim() ?? "";
+  if (!db.storefront?.trim() || LEGACY_STORE_NAMES.has(name)) {
+    settings = mergeStorefrontSettings(getStorefrontTemplateSettings());
+    db.storefront = JSON.stringify(settings, null, 2);
+    await writeDb(db);
+  }
+
+  return settings;
 }
 
 export async function localSaveStorefrontSettings(settings: StorefrontSettings): Promise<StorefrontSettings> {

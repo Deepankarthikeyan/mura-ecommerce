@@ -19,6 +19,7 @@ import {
   promoBannerSizeHint,
   normalizePromoBanners,
 } from "@/lib/storefront/promoBannerSlots";
+import { notifyStorefrontSettingsUpdated } from "@/lib/storefront/storefrontEvents";
 
 type Tab = "site" | "hero" | "banners" | "home" | "content" | "footer";
 
@@ -117,8 +118,11 @@ export default function DemoContent() {
     try {
       const { data } = await axios.put("/api/storefront", { settings });
       if (data?.success) {
-        toast.success("Storefront settings saved");
-        if (data.settings) setSettings(data.settings);
+        toast.success("Storefront settings saved. Homepage header updates automatically.");
+        if (data.settings) {
+          setSettings(data.settings);
+          notifyStorefrontSettingsUpdated(data.settings);
+        }
         if (data.storage === "local" || data.storage === "mongodb") {
           setStorageMode(data.storage);
         }
