@@ -19,7 +19,7 @@ function AnalyticsCard({
                 {showGrowth ? (
                     <div className="right-primary">
                         <div className="increase">
-                            <i className="fa-light fa-arrow-up" />
+                            <i className="fa-solid fa-arrow-up" />
                             <span>{percentage}%</span>
                         </div>
                         <img src="/assets/images-dashboard/avatar/05.png" alt="ekomart" />

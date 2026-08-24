@@ -1,0 +1,48 @@
+/**
+ * plugins.css ships Font Awesome Pro class rules without font files.
+ * Load this stylesheet last so dashboard icons use Font Awesome 6 Free.
+ */
+.dashboard-wrapper .fa,
+.dashboard-wrapper .fas,
+.dashboard-wrapper .far,
+.dashboard-wrapper .fab,
+.dashboard-wrapper .fa-solid,
+.dashboard-wrapper .fa-regular,
+.dashboard-wrapper .fa-brands,
+.dashboard-wrapper .fa-light,
+.dashboard-wrapper .fa-thin,
+.dashboard-wrapper .fa-duotone,
+.dashboard-wrapper .fa-sharp,
+.dashboard-wrapper i[class*="fa-"] {
+  font-family: "Font Awesome 6 Free", "Font Awesome 5 Free" !important;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dashboard-wrapper .fa-regular,
+.dashboard-wrapper .far,
+.dashboard-wrapper .fa-sharp.fa-regular {
+  font-weight: 400 !important;
+}
+
+.dashboard-wrapper .fa-solid,
+.dashboard-wrapper .fas,
+.dashboard-wrapper .fa-light,
+.dashboard-wrapper .fa-thin,
+.dashboard-wrapper .fa-duotone,
+.dashboard-wrapper .fa-sharp,
+.dashboard-wrapper i[class*="fa-solid"],
+.dashboard-wrapper i[class*="fa-light"],
+.dashboard-wrapper i[class*="fa-thin"] {
+  font-weight: 900 !important;
+}
+
+.dashboard-wrapper .fa-brands,
+.dashboard-wrapper .fab {
+  font-family: "Font Awesome 6 Brands", "Font Awesome 5 Brands" !important;
+  font-weight: 400 !important;
+}

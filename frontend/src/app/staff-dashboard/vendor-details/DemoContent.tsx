@@ -170,10 +170,10 @@ const VendorDetailsPage = () => {
                     <a href="#" className="shop-now-goshop-btn">
                       <span className="text">Shop Now</span>
                       <div className="plus-icon">
-                        <i className="fa-sharp fa-regular fa-plus" />
+                        <i className="fa-solid fa-plus" />
                       </div>
                       <div className="plus-icon">
-                        <i className="fa-sharp fa-regular fa-plus" />
+                        <i className="fa-solid fa-plus" />
                       </div>
                     </a>
                   </div>

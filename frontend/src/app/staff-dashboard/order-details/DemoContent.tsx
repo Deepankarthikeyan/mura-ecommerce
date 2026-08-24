@@ -184,10 +184,10 @@ const DemoContent: React.FC = () => {
             >
               <div className="btn-text">Print Now</div>
               <div className="arrow-icon">
-                <i className="fa-regular fa-print" />
+                <i className="fa-solid fa-print" />
               </div>
               <div className="arrow-icon">
-                <i className="fa-regular fa-print" />
+                <i className="fa-solid fa-print" />
               </div>
             </button>
             <Link
@@ -197,10 +197,10 @@ const DemoContent: React.FC = () => {
             >
               <div className="btn-text">Download</div>
               <div className="arrow-icon">
-                <i className="fa-thin fa-download" />
+                <i className="fa-solid fa-download" />
               </div>
               <div className="arrow-icon">
-                <i className="fa-thin fa-download" />
+                <i className="fa-solid fa-download" />
               </div>
             </Link>
           </div>
