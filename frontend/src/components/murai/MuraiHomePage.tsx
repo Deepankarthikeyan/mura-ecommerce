@@ -9,6 +9,7 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import MuraiLayout from "./MuraiLayout";
+import MuraiBannerGrid from "./MuraiBannerGrid";
 import MuraiDiwaliBanner from "./MuraiDiwaliBanner";
 import MuraiDealsProduct from "./MuraiDealsProduct";
 import MuraiProductCard from "./MuraiProductCard";
@@ -106,25 +107,12 @@ export default function MuraiHomePage() {
   const dealProduct = pickDealProduct(products, settings.homeSections.dealsProductTag);
   const bestSellers = pickBestSellers(products, settings.homeSections.bestSellerTag);
 
-  const tallBanner = settings.promoBanners.find((b) => b.layout === "tall");
-  const smallBanners = settings.promoBanners.filter((b) => b.layout === "small");
-  const wideBanner = settings.promoBanners.find((b) => b.layout === "wide");
-
-  const renderBanner = (banner: (typeof settings.promoBanners)[number], className: string) => (
-    <Link href={banner.href} className={className}>
-      <img src={banner.image} alt={banner.subtitle} loading="lazy" />
-      <div className="banner-card-content">
-        <span className="banner-card-subtitle">{banner.subtitle}</span>
-        <h3>{renderMultiline(banner.title)}</h3>
-        <span className="banner-card-link">{banner.linkLabel}</span>
-      </div>
-    </Link>
-  );
+  const heroSlideClasses = ["slide-1", "slide-2", "slide-3"];
 
   return (
     <MuraiLayout activePage="home">
-      {settings.heroSlides.length > 0 ? (
       <section className="hero-slider">
+        {settings.heroSlides.length > 0 ? (
         <Swiper
           modules={[Autoplay, Navigation, EffectFade]}
           effect="fade"
@@ -138,35 +126,36 @@ export default function MuraiHomePage() {
             <SwiperSlide key={`${slide.slideClass}-${n}`}>
               <div className={`hero-slide ${slide.slideClass}`}>
                 <div className="hero-slide-content">
-                  <p className="hero-slide-tag">{slide.tag}</p>
-                  <h2>{renderMultiline(slide.title)}</h2>
-                  <p>{renderMultiline(slide.subtitle)}</p>
-                  <Link href={slide.ctaLink} className="btn btn-primary">{slide.ctaLabel}</Link>
+                  {slide.tag ? <p className="hero-slide-tag">{slide.tag}</p> : null}
+                  {slide.title ? <h2>{renderMultiline(slide.title)}</h2> : null}
+                  {slide.subtitle ? <p>{renderMultiline(slide.subtitle)}</p> : null}
+                  {slide.ctaLabel ? (
+                    <Link href={slide.ctaLink || "/shop"} className="btn btn-primary">{slide.ctaLabel}</Link>
+                  ) : null}
                 </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
+        ) : (
+        <Swiper
+          modules={[Navigation, EffectFade]}
+          effect="fade"
+          fadeEffect={{ crossFade: true }}
+          loop
+          navigation
+          className="hero-swiper"
+        >
+          {heroSlideClasses.map((slideClass) => (
+            <SwiperSlide key={slideClass}>
+              <div className={`hero-slide ${slideClass}`} aria-hidden />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        )}
       </section>
-      ) : (
-        <section className="hero-slider" aria-hidden />
-      )}
 
-      <section className="banner-section">
-        {settings.promoBanners.length > 0 ? (
-        <div className="banner-grid">
-          {tallBanner ? renderBanner(tallBanner, "banner-card tall") : null}
-          <div className="banner-right">
-            <div className="banner-right-top">
-              {smallBanners.map((banner) => (
-                <span key={banner.href + banner.title}>{renderBanner(banner, "banner-card")}</span>
-              ))}
-            </div>
-            {wideBanner ? renderBanner(wideBanner, "banner-card") : null}
-          </div>
-        </div>
-        ) : null}
-      </section>
+      <MuraiBannerGrid banners={settings.promoBanners} />
 
       <section className="products-section">
         <div className="products-section-inner">
@@ -262,15 +251,24 @@ export default function MuraiHomePage() {
       </section>
 
       <section className="promo-banners">
-        {settings.promoBlocks.map((block) => (
-          <div key={block.bgClass + block.title} className={`promo-banner ${block.bgClass}`}>
-            <div>
-              <h3>{renderMultiline(block.title)}</h3>
-              <p>{block.subtitle}</p>
-              <Link href={block.ctaLink} className="btn">{block.ctaLabel}</Link>
+        {settings.promoBlocks.length > 0 ? (
+          settings.promoBlocks.map((block) => (
+            <div key={block.bgClass + block.title} className={`promo-banner ${block.bgClass}`}>
+              <div>
+                {block.title ? <h3>{renderMultiline(block.title)}</h3> : null}
+                {block.subtitle ? <p>{block.subtitle}</p> : null}
+                {block.ctaLabel ? (
+                  <Link href={block.ctaLink || "/shop"} className="btn">{block.ctaLabel}</Link>
+                ) : null}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <>
+            <div className="promo-banner bg-1 promo-banner--empty" aria-hidden />
+            <div className="promo-banner bg-2 promo-banner--empty" aria-hidden />
+          </>
+        )}
       </section>
 
       <section className="testimonial-section">

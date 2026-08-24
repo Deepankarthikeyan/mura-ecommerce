@@ -15,7 +15,11 @@ export function MuraiStyles() {
       <link rel="stylesheet" href="/murai/css/responsive.css" />
       <link rel="stylesheet" href="/murai/css/product-detail.css" />
       <link rel="stylesheet" href="/murai/css/murai-storefront.css" />
-      <style>{`:root { --font-body: 'Jost', sans-serif; --font-heading: 'Playfair Display', serif; }`}</style>
+      <style>{`:root { --font-body: 'Jost', sans-serif; --font-heading: 'Playfair Display', serif; }
+.banner-card--empty { background: linear-gradient(135deg, #f3f3f3 0%, #e8e8e8 100%); pointer-events: none; }
+.banner-card--empty::after { opacity: 0.15; }
+.promo-banner--empty { min-height: 220px; }
+`}</style>
     </>
   );
 }

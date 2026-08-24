@@ -37,22 +37,7 @@ export function getEmptyStorefrontSettings(): StorefrontSettings {
       newsletterTitle: "Join Our Newsletter",
       newsletterDescription: "Enter your email address to subscribe our notification of our new post & features by email.",
     },
-    promoBlocks: [
-      {
-        title: "Up to 50% Off\nSarees",
-        subtitle: "Shop Silk & Cotton",
-        ctaLabel: "Shop Now",
-        ctaLink: "/shop",
-        bgClass: "bg-1",
-      },
-      {
-        title: "Up to 70% Off\nSarees",
-        subtitle: "Limited time sale",
-        ctaLabel: "Discover Now",
-        ctaLink: "/shop",
-        bgClass: "bg-2",
-      },
-    ],
+    promoBlocks: [],
     testimonials: [],
     blogPosts: [],
     serviceBar: [
