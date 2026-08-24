@@ -16,7 +16,8 @@ import { productCardImage } from "@/lib/murai/productUtils";
 import { useProducts } from "@/lib/murai/useProducts";
 import { useStorefrontSettings } from "@/lib/storefront/useStorefrontSettings";
 import { filterHomeTabByConfig, pickBestSellers, pickDealProduct } from "@/lib/storefront/productSections";
-import { StorefrontEmptyState } from "@/lib/storefront/emptyState";
+import { StorefrontEmptyState, SectionPlaceholder } from "@/lib/storefront/emptyState";
+import { SERVICE_BAR_ICONS } from "@/lib/storefront/serviceBarIcons";
 import { renderMultiline } from "@/lib/storefront/renderMultiline";
 import type { HomeTab } from "@/lib/storefront/types";
 
@@ -169,7 +170,11 @@ export default function MuraiHomePage() {
           </div>
         </div>
       </section>
-      ) : null}
+      ) : (
+        <section className="banner-section">
+          <SectionPlaceholder message="Promo banners will appear here." />
+        </section>
+      )}
 
       <section className="products-section">
         <div className="products-section-inner">
@@ -243,7 +248,6 @@ export default function MuraiHomePage() {
         </div>
       </section>
 
-      {dealProduct ? (
       <section className="deals-section">
         <div className="deals-inner">
           <div className="deals-content">
@@ -257,23 +261,27 @@ export default function MuraiHomePage() {
               <div className="countdown-item"><span className="num">{countdown.secs}</span><span className="label">Secs</span></div>
             </div>
           </div>
-          {dealProduct ? <MuraiDealsProduct product={dealProduct} /> : null}
+          {dealProduct ? (
+            <MuraiDealsProduct product={dealProduct} />
+          ) : (
+            <SectionPlaceholder message="Tag a product with deal-of-day in Inventory to feature it here." />
+          )}
         </div>
       </section>
-      ) : null}
 
-      {bestSellers.length > 0 ? (
       <section className="bestseller-section">
         <div className="section-heading"><h2>{settings.homeSections.bestSellerTitle}</h2></div>
         <div className="bestseller-grid" id="sarees-bestseller">
-          {bestSellers.map((p) => (
-            <MuraiProductCard key={`best-${p._id ?? p.productId}`} product={p} style="bestseller" />
-          ))}
+          {bestSellers.length > 0 ? (
+            bestSellers.map((p) => (
+              <MuraiProductCard key={`best-${p._id ?? p.productId}`} product={p} style="bestseller" />
+            ))
+          ) : (
+            <SectionPlaceholder message="Tag products with bestseller in Inventory to show them here." />
+          )}
         </div>
       </section>
-      ) : null}
 
-      {settings.promoBlocks.length > 0 ? (
       <section className="promo-banners">
         {settings.promoBlocks.map((block) => (
           <div key={block.bgClass + block.title} className={`promo-banner ${block.bgClass}`}>
@@ -285,9 +293,7 @@ export default function MuraiHomePage() {
           </div>
         ))}
       </section>
-      ) : null}
 
-      {settings.testimonials.length > 0 ? (
       <section className="testimonial-section">
         <div className="testimonial-deco" aria-hidden="true">
           <span className="testimonial-deco-item testimonial-deco-item--1">✦</span>
@@ -300,6 +306,7 @@ export default function MuraiHomePage() {
             <span className="testimonial-tag">{settings.homeSections.testimonialTag}</span>
             <h2>{settings.homeSections.testimonialTitle}</h2>
           </div>
+          {settings.testimonials.length > 0 ? (
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectFade]}
             effect="fade"
@@ -334,21 +341,21 @@ export default function MuraiHomePage() {
               </SwiperSlide>
             ))}
           </Swiper>
+          ) : (
+            <SectionPlaceholder message="Client testimonials will appear here." />
+          )}
         </div>
       </section>
-      ) : null}
 
-      {products.length > 0 ? (
       <MuraiDiwaliBanner
-        heroImage={productCardImage(products[1] ?? products[0] ?? {})}
-        backImage1={productCardImage(products[0] ?? {})}
-        backImage2={productCardImage(products[2] ?? products[0] ?? {})}
+        heroImage={productCardImage(products[1] ?? products[0] ?? {}) || "/murai/images/sarees/kanjivaram.webp"}
+        backImage1={productCardImage(products[0] ?? {}) || "/murai/images/sarees/banarasi.webp"}
+        backImage2={productCardImage(products[2] ?? products[0] ?? {}) || "/murai/images/sarees/paithani.webp"}
       />
-      ) : null}
 
-      {settings.blogPosts.length > 0 ? (
       <section className="blog-section">
         <div className="section-heading"><h2>{settings.homeSections.blogTitle}</h2></div>
+        {settings.blogPosts.length > 0 ? (
         <div className="blog-grid">
           {settings.blogPosts.map((b) => (
             <article key={b.title} className="blog-card">
@@ -360,10 +367,11 @@ export default function MuraiHomePage() {
             </article>
           ))}
         </div>
+        ) : (
+          <SectionPlaceholder message="Blog posts will appear here." />
+        )}
       </section>
-      ) : null}
 
-      {(settings.homeSections.newsletterTitle || settings.homeSections.newsletterDescription) ? (
       <section className="newsletter-section">
         <div className="newsletter-inner">
           <h2>{settings.homeSections.newsletterTitle}</h2>
@@ -374,20 +382,17 @@ export default function MuraiHomePage() {
           </form>
         </div>
       </section>
-      ) : null}
 
-      {settings.serviceBar.length > 0 ? (
       <section className="service-bar">
         <div className="service-bar-grid">
           {settings.serviceBar.map((s, i) => (
             <div key={`${s.title}-${i}`} className="service-item">
-              <div className="service-icon" />
+              <div className="service-icon">{SERVICE_BAR_ICONS[i % SERVICE_BAR_ICONS.length]}</div>
               <div><h4>{s.title}</h4><p>{s.text}</p></div>
             </div>
           ))}
         </div>
       </section>
-      ) : null}
     </MuraiLayout>
   );
 }

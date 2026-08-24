@@ -1,5 +1,3 @@
-import { getEmptyStorefrontSettings } from "./defaultStorefrontSettings";
-
 export function StorefrontEmptyState({
   title,
   message,
@@ -32,11 +30,13 @@ export function StorefrontEmptyState({
   );
 }
 
-export function hasStorefrontContent(settings: ReturnType<typeof getEmptyStorefrontSettings>) {
+export function SectionPlaceholder({ message }: { message: string }) {
   return (
-    settings.heroSlides.length > 0 ||
-    settings.promoBanners.length > 0 ||
-    settings.testimonials.length > 0 ||
-    settings.blogPosts.length > 0
+    <p style={{ padding: "24px 16px", textAlign: "center", color: "#888", fontSize: 15, lineHeight: 1.6 }}>
+      {message}{" "}
+      <a href="/staff-dashboard/storefront" style={{ color: "var(--suruchi-primary, #cf0653)" }}>
+        Configure in Storefront
+      </a>
+    </p>
   );
 }
