@@ -16,7 +16,6 @@ import { productCardImage } from "@/lib/murai/productUtils";
 import { useProducts } from "@/lib/murai/useProducts";
 import { useStorefrontSettings } from "@/lib/storefront/useStorefrontSettings";
 import { filterHomeTabByConfig, pickBestSellers, pickDealProduct } from "@/lib/storefront/productSections";
-import { StorefrontEmptyState, SectionPlaceholder } from "@/lib/storefront/emptyState";
 import { SERVICE_BAR_ICONS } from "@/lib/storefront/serviceBarIcons";
 import { renderMultiline } from "@/lib/storefront/renderMultiline";
 import type { HomeTab } from "@/lib/storefront/types";
@@ -150,14 +149,11 @@ export default function MuraiHomePage() {
         </Swiper>
       </section>
       ) : (
-        <StorefrontEmptyState
-          title="Homepage hero not configured"
-          message="Add hero slides in Staff Dashboard → Storefront to show your banner here."
-        />
+        <section className="hero-slider" aria-hidden />
       )}
 
-      {settings.promoBanners.length > 0 ? (
       <section className="banner-section">
+        {settings.promoBanners.length > 0 ? (
         <div className="banner-grid">
           {tallBanner ? renderBanner(tallBanner, "banner-card tall") : null}
           <div className="banner-right">
@@ -169,12 +165,8 @@ export default function MuraiHomePage() {
             {wideBanner ? renderBanner(wideBanner, "banner-card") : null}
           </div>
         </div>
+        ) : null}
       </section>
-      ) : (
-        <section className="banner-section">
-          <SectionPlaceholder message="Promo banners will appear here." />
-        </section>
-      )}
 
       <section className="products-section">
         <div className="products-section-inner">
@@ -233,14 +225,7 @@ export default function MuraiHomePage() {
                     ))
                   ) : loading ? (
                     <p style={{ padding: 24 }}>Loading products...</p>
-                  ) : (
-                    <StorefrontEmptyState
-                      title="No products yet"
-                      message="Add products in Staff Dashboard → Inventory. They will appear here automatically."
-                      actionHref="/staff-dashboard/inventory"
-                      actionLabel="Open Inventory"
-                    />
-                  )}
+                  ) : null}
                 </div>
               </div>
             );
@@ -261,24 +246,18 @@ export default function MuraiHomePage() {
               <div className="countdown-item"><span className="num">{countdown.secs}</span><span className="label">Secs</span></div>
             </div>
           </div>
-          {dealProduct ? (
-            <MuraiDealsProduct product={dealProduct} />
-          ) : (
-            <SectionPlaceholder message="Tag a product with deal-of-day in Inventory to feature it here." />
-          )}
+          {dealProduct ? <MuraiDealsProduct product={dealProduct} /> : null}
         </div>
       </section>
 
       <section className="bestseller-section">
         <div className="section-heading"><h2>{settings.homeSections.bestSellerTitle}</h2></div>
         <div className="bestseller-grid" id="sarees-bestseller">
-          {bestSellers.length > 0 ? (
-            bestSellers.map((p) => (
-              <MuraiProductCard key={`best-${p._id ?? p.productId}`} product={p} style="bestseller" />
-            ))
-          ) : (
-            <SectionPlaceholder message="Tag products with bestseller in Inventory to show them here." />
-          )}
+          {bestSellers.length > 0
+            ? bestSellers.map((p) => (
+                <MuraiProductCard key={`best-${p._id ?? p.productId}`} product={p} style="bestseller" />
+              ))
+            : null}
         </div>
       </section>
 
@@ -341,9 +320,7 @@ export default function MuraiHomePage() {
               </SwiperSlide>
             ))}
           </Swiper>
-          ) : (
-            <SectionPlaceholder message="Client testimonials will appear here." />
-          )}
+          ) : null}
         </div>
       </section>
 
@@ -367,9 +344,7 @@ export default function MuraiHomePage() {
             </article>
           ))}
         </div>
-        ) : (
-          <SectionPlaceholder message="Blog posts will appear here." />
-        )}
+        ) : null}
       </section>
 
       <section className="newsletter-section">
