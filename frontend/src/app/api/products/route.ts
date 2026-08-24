@@ -6,7 +6,16 @@ import {
   getProductByMongoId,
   getStoreProductByLookup,
   updateProductFields,
-} from '../../../functions/mongodbOperations';
+} from "../../../functions/mongodbOperations";
+import {
+  isMongoConfigured,
+  localCreateProduct,
+  localGetProductByMongoId,
+  localGetProductCategories,
+  localGetProductsListing,
+  localGetStoreProductByLookup,
+  localUpdateProductFields,
+} from "@/lib/localDataStore";
 import {
   isLegacyLocalProductImagePath,
   normalizeProductImagePath,
@@ -33,6 +42,10 @@ const UPDATABLE_KEYS = new Set([
   "author",
   "publishedDate",
 ]);
+
+function isValidProductId(id: string): boolean {
+  return /^[0-9a-fA-F]{24}$/.test(id);
+}
 
 function sanitizeProductUpdates(raw: Record<string, unknown>): Record<string, unknown> {
   const out: Record<string, unknown> = {};
@@ -77,7 +90,6 @@ function sanitizeProductUpdates(raw: Record<string, unknown>): Record<string, un
         continue;
       }
       const s = v.trim();
-      // Allow clearing ad media so the storefront hides the promo block.
       if (key === "productAdMediaUrl") {
         if (!s || isLegacyLocalProductImagePath(s)) {
           out[key] = "";
@@ -115,9 +127,14 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!isMongoConfigured()) {
+      const { mongoId } = await localCreateProduct(sanitized);
+      return NextResponse.json({ success: true, id: mongoId, storage: "local" });
+    }
+
     const { createProduct } = await import("../../../functions/mongodbOperations");
     const { mongoId } = await createProduct(sanitized);
-    return NextResponse.json({ success: true, id: mongoId });
+    return NextResponse.json({ success: true, id: mongoId, storage: "mongodb" });
   } catch (error: any) {
     return NextResponse.json({ success: false, message: error.message || "Create failed" }, { status: 500 });
   }
@@ -128,7 +145,7 @@ export async function PATCH(request: Request) {
     const body = await request.json();
     const id = typeof body?.id === "string" ? body.id : "";
 
-    if (!id || !ObjectId.isValid(id)) {
+    if (!id || !isValidProductId(id)) {
       return NextResponse.json({ success: false, message: "Valid product id is required" }, { status: 400 });
     }
 
@@ -140,6 +157,15 @@ export async function PATCH(request: Request) {
           { status: 400 }
         );
       }
+
+      if (!isMongoConfigured()) {
+        const result = await localUpdateProductFields(id, sanitized);
+        if (result.matchedCount === 0) {
+          return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
+        }
+        return NextResponse.json({ success: true, modifiedCount: result.modifiedCount, storage: "local" });
+      }
+
       const result = await updateProductFields(id, sanitized);
       if (result.matchedCount === 0) {
         return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
@@ -148,15 +174,23 @@ export async function PATCH(request: Request) {
         const { assignUrlSlugForProduct } = await import("../../../functions/mongodbOperations");
         await assignUrlSlugForProduct(id, sanitized.title);
       }
-      return NextResponse.json({ success: true, modifiedCount: result.modifiedCount });
+      return NextResponse.json({ success: true, modifiedCount: result.modifiedCount, storage: "mongodb" });
     }
 
     if (typeof body?.isDeleted === "boolean") {
+      if (!isMongoConfigured()) {
+        const result = await localUpdateProductFields(id, { isDeleted: body.isDeleted });
+        if (result.matchedCount === 0) {
+          return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
+        }
+        return NextResponse.json({ success: true, modifiedCount: result.modifiedCount, storage: "local" });
+      }
+
       const result = await updateProductFields(id, { isDeleted: body.isDeleted });
       if (result.matchedCount === 0) {
         return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
       }
-      return NextResponse.json({ success: true, modifiedCount: result.modifiedCount });
+      return NextResponse.json({ success: true, modifiedCount: result.modifiedCount, storage: "mongodb" });
     }
 
     return NextResponse.json(
@@ -182,7 +216,35 @@ export async function GET(request: Request) {
     const mongoId = searchParams.get("mongoId")?.trim() ?? "";
     const lookup = searchParams.get("lookup")?.trim() ?? searchParams.get("id")?.trim() ?? "";
 
-    // Staff: load one product by Mongo _id (includes soft-deleted).
+    if (!isMongoConfigured()) {
+      if (mongoId) {
+        if (!isValidProductId(mongoId)) {
+          return NextResponse.json({ success: false, message: "Valid mongoId is required" }, { status: 400 });
+        }
+        const product = await localGetProductByMongoId(mongoId);
+        if (!product) {
+          return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
+        }
+        return NextResponse.json({ success: true, body: product, storage: "local" });
+      }
+
+      if (lookup && (searchParams.has("lookup") || searchParams.has("id"))) {
+        const product = await localGetStoreProductByLookup(lookup);
+        if (!product) {
+          return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
+        }
+        return NextResponse.json({ success: true, body: product, storage: "local" });
+      }
+
+      if (categoriesOnly) {
+        const categories = await localGetProductCategories(includeDisabled);
+        return NextResponse.json({ success: true, body: categories, storage: "local" });
+      }
+
+      const products = await localGetProductsListing(includeDisabled, { search, category });
+      return NextResponse.json({ success: true, body: products, storage: "local" });
+    }
+
     if (mongoId) {
       if (!ObjectId.isValid(mongoId)) {
         return NextResponse.json({ success: false, message: "Valid mongoId is required" }, { status: 400 });
@@ -194,7 +256,6 @@ export async function GET(request: Request) {
       return NextResponse.json({ success: true, body: product });
     }
 
-    // Storefront: load one product by productId / slug / urlSlug.
     if (lookup && (searchParams.has("lookup") || searchParams.has("id"))) {
       const product = await getStoreProductByLookup(lookup);
       if (!product) {

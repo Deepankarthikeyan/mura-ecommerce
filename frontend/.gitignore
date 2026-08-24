@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local dev data (when MongoDB is not configured)
+/data/
+/public/uploads/

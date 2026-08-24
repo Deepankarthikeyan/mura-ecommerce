@@ -86,6 +86,7 @@ export default function DemoContent() {
   const [settings, setSettings] = useState<StorefrontSettings>(getEmptyStorefrontSettings());
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [storageMode, setStorageMode] = useState<"mongodb" | "local" | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -96,6 +97,9 @@ export default function DemoContent() {
           ...data.settings,
           promoBanners: normalizePromoBanners(data.settings.promoBanners),
         });
+        if (data.storage === "local" || data.storage === "mongodb") {
+          setStorageMode(data.storage);
+        }
       }
     } catch {
       toast.error("Failed to load storefront settings");
@@ -115,6 +119,9 @@ export default function DemoContent() {
       if (data?.success) {
         toast.success("Storefront settings saved");
         if (data.settings) setSettings(data.settings);
+        if (data.storage === "local" || data.storage === "mongodb") {
+          setStorageMode(data.storage);
+        }
       } else {
         toast.error(data?.message || "Save failed");
       }
@@ -190,6 +197,11 @@ export default function DemoContent() {
             <h3 className="title">Storefront</h3>
             <p style={{ margin: "4px 0 0", fontSize: 14, color: "#666" }}>
               Control the MuRa@23 homepage, header, footer, and promotional content. Products are managed in Inventory.
+              {storageMode === "local" ? (
+                <span style={{ display: "block", marginTop: 6, color: "#b45309" }}>
+                  Saving to local file storage (MongoDB not configured). Changes persist on this server until you connect MongoDB.
+                </span>
+              ) : null}
             </p>
           </div>
           <button type="button" className="rts-btn btn-primary" disabled={saving} onClick={save}>

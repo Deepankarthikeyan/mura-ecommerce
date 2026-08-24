@@ -5,20 +5,21 @@ import { createEmptyPromoBannerSlots, normalizePromoBanners } from "./promoBanne
 export function getEmptyStorefrontSettings(): StorefrontSettings {
   return {
     site: {
-      name: "My Store",
+      name: "MuRa@23",
       logo: "/murai/images/mura-newlogo.png",
-      tagline: "",
-      email: "",
-      phone: "",
-      address: "",
+      tagline:
+        "India's finest sale sarees — silk, cotton, Banarasi, Kanjivaram and designer sarees at unbeatable prices.",
+      email: "murapodanur@gmail.com",
+      phone: "02 123 333 444",
+      address: "Podanur, Coimbatore, Tamil Nadu 641023, India",
       currency: "₹ INR",
       language: "English",
-      copyright: "© My Store. All rights reserved.",
+      copyright: "© 2026 MuRa@23. All rights reserved. Handcrafted with love in India.",
     },
     topbar: {
-      promoText: "",
+      promoText: "Big Saree Sale — Up to 70% Off",
       promoLink: "/shop",
-      promoLinkLabel: "Shop Now",
+      promoLinkLabel: "Shop Sale Sarees",
     },
     heroSlides: [],
     promoBanners: createEmptyPromoBannerSlots(),

@@ -184,7 +184,7 @@ export async function buildSiteMetadata(): Promise<Metadata> {
   );
   const canonical = mergedSection(sections, "canonical");
 
-  const siteName = basic.title?.trim() || "Aathithya Herbal";
+  const siteName = basic.title?.trim() || "MuRa@23";
   const ogLogo = og.logo?.trim();
 
   return {

@@ -128,36 +128,35 @@ export function getDefaultPageSeoConfig(path: string): {
   > = {
     "/": {
       description:
-        "Shop authentic herbal products online at Aathithya Herbal. Natural supplements and wellness products delivered worldwide.",
+        "Shop premium sale sarees online at MuRa@23. Silk, cotton, Banarasi, Kanjivaram and designer sarees at up to 70% off.",
     },
     "/about": {
       title: "About Us",
-      description:
-        "Learn about Aathithya Herbal — your trusted herbal store since 2016.",
+      description: "Learn about MuRa@23 — India's finest sale sarees from Podanur, Coimbatore.",
     },
     "/contact": {
       title: "Contact Us",
-      description: "Contact Aathithya Herbal in Coimbatore for herbal product support.",
+      description: "Contact MuRa@23 in Podanur, Coimbatore for saree orders and support.",
     },
     "/blog": {
       title: "Blog",
-      description: "Herbal wellness tips and articles from Aathithya Herbal.",
+      description: "Saree styling tips and updates from MuRa@23.",
     },
     "/shop": {
-      title: "Shop Herbal Products",
-      description: "Browse authentic herbal products at Aathithya Herbal.",
+      title: "Shop Sale Sarees",
+      description: "Browse silk, cotton, Banarasi and Kanjivaram sarees on sale at MuRa@23.",
     },
     "/store": {
       title: "Our Store",
-      description: "Visit Aathithya Herbal online store.",
+      description: "Visit MuRa@23 online saree store.",
     },
-    "/privacy-policy": { title: "Privacy Policy", description: "Privacy policy for Aathithya Herbal." },
-    "/terms-condition": { title: "Terms & Conditions", description: "Terms for Aathithya Herbal online store." },
-    "/cookies-policy": { title: "Cookies Policy", description: "Cookies policy for Aathithya Herbal." },
-    "/shipping-policy": { title: "Shipping Policy", description: "Shipping information for Aathithya Herbal orders." },
+    "/privacy-policy": { title: "Privacy Policy", description: "Privacy policy for MuRa@23." },
+    "/terms-condition": { title: "Terms & Conditions", description: "Terms for MuRa@23 online store." },
+    "/cookies-policy": { title: "Cookies Policy", description: "Cookies policy for MuRa@23." },
+    "/shipping-policy": { title: "Shipping Policy", description: "Shipping information for MuRa@23 orders." },
     "/return-refund-replacement-policy": {
       title: "Return & Refund Policy",
-      description: "Return and refund policy for Aathithya Herbal.",
+      description: "Return and refund policy for MuRa@23.",
     },
     [PRODUCT_SEO_TEMPLATE_PATH]: {
       title: "{title}",

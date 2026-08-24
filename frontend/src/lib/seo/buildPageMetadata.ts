@@ -20,9 +20,9 @@ import { resolveProductListingImage } from "../shopProductDisplay";
 
 export const SEO_PAGES_CACHE_TAG = "seo-pages";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aathithyaherbal.com";
-const SITE_NAME = "Aathithya Herbal";
-const DEFAULT_OG_IMAGE = "/assets/images/logo/logo-1-jpg.jpeg";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://murai-website-wine.vercel.app";
+const SITE_NAME = "MuRa@23";
+const DEFAULT_OG_IMAGE = "/murai/images/mura-newlogo.png";
 
 function parseJson<T>(raw: string, fallback: T): T {
   try {

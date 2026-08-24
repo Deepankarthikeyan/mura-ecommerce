@@ -2,14 +2,23 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getStorefrontSettingsRaw, upsertStorefrontSettings } from "@/functions/mongodbOperations";
 import {
-  getEmptyStorefrontSettings,
   getStorefrontTemplateSettings,
   mergeStorefrontSettings,
 } from "@/lib/storefront/defaultStorefrontSettings";
+import {
+  isMongoConfigured,
+  localGetStorefrontSettings,
+  localSaveStorefrontSettings,
+} from "@/lib/localDataStore";
 import type { StorefrontSettings } from "@/lib/storefront/types";
 
 export async function GET() {
   try {
+    if (!isMongoConfigured()) {
+      const settings = await localGetStorefrontSettings();
+      return NextResponse.json({ success: true, settings, storage: "local" });
+    }
+
     const raw = await getStorefrontSettingsRaw();
     let saved: Partial<StorefrontSettings> | null = null;
     if (raw) {
@@ -20,7 +29,7 @@ export async function GET() {
       }
     }
     const settings = mergeStorefrontSettings(saved);
-    return NextResponse.json({ success: true, settings });
+    return NextResponse.json({ success: true, settings, storage: "mongodb" });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to load storefront settings";
     return NextResponse.json({ success: false, message }, { status: 500 });
@@ -38,11 +47,29 @@ export async function PUT(request: Request) {
     }
 
     const merged = mergeStorefrontSettings(body.settings as Partial<StorefrontSettings>);
+
+    if (!isMongoConfigured()) {
+      const settings = await localSaveStorefrontSettings(merged);
+      revalidatePath("/", "layout");
+      revalidatePath("/shop");
+      return NextResponse.json({
+        success: true,
+        settings,
+        template: getStorefrontTemplateSettings(),
+        storage: "local",
+      });
+    }
+
     const content = JSON.stringify(merged, null, 2);
     await upsertStorefrontSettings(content);
     revalidatePath("/", "layout");
     revalidatePath("/shop");
-    return NextResponse.json({ success: true, settings: merged, template: getStorefrontTemplateSettings() });
+    return NextResponse.json({
+      success: true,
+      settings: merged,
+      template: getStorefrontTemplateSettings(),
+      storage: "mongodb",
+    });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to save storefront settings";
     return NextResponse.json({ success: false, message }, { status: 500 });
