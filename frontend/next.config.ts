@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   // Keep standalone for SSR support
   output: 'standalone',
 
+  // Allow Cloudflare tunnel previews to load dev assets (trycloudflare.com changes each session)
+  allowedDevOrigins: ['*.trycloudflare.com'],
+
   // Native MongoDB driver must not be bundled for server routes (fixes broken MongoClient/.db() in prod)
   serverExternalPackages: ["mongodb"],
 

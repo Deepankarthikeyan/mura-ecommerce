@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import DashboardRouteGuard from "@/components/dashboard/DashboardRouteGuard";
 
 export const metadata: Metadata = {
-    title: "Staff Dashboard - Aathithya Herbal",
-    description: "Staff dashboard for managing account and orders",
+    title: "Staff Dashboard - MuRa@23",
+    description: "Staff dashboard for managing MuRa@23 inventory and storefront",
 };
 
 export default function StaffLayout({
