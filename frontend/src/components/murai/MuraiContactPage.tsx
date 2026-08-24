@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 import MuraiLayout from "./MuraiLayout";
-import { useMuraiNotify } from "./MuraiNotification";
 import { useStorefrontSettings } from "@/lib/storefront/useStorefrontSettings";
 
 const DEFAULT_ADDRESS = "Podanur\nCoimbatore, Tamil Nadu 641023, India";
@@ -11,8 +11,7 @@ const DEFAULT_PHONE = "02 123 333 444";
 const DEFAULT_EMAIL = "murapodanur@gmail.com";
 const DEFAULT_MAP_QUERY = "Podanur Coimbatore Tamil Nadu";
 
-export default function MuraiContactPage() {
-  const notify = useMuraiNotify();
+function MuraiContactContent() {
   const { settings } = useStorefrontSettings();
   const { site } = settings;
 
@@ -28,12 +27,12 @@ export default function MuraiContactPage() {
     e.preventDefault();
     setSubmitting(true);
     e.currentTarget.reset();
-    notify("Thank you! Your message has been sent.");
+    toast.success("Thank you! Your message has been sent.");
     setSubmitting(false);
   };
 
   return (
-    <MuraiLayout activePage="contact">
+    <>
       <section className="breadcrumb__section">
         <div className="breadcrumb__bg">
           <img
@@ -226,6 +225,14 @@ export default function MuraiContactPage() {
           </div>
         </div>
       </section>
+    </>
+  );
+}
+
+export default function MuraiContactPage() {
+  return (
+    <MuraiLayout activePage="contact">
+      <MuraiContactContent />
     </MuraiLayout>
   );
 }
