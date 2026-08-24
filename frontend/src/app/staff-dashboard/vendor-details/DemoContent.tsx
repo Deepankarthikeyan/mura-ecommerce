@@ -219,10 +219,10 @@ const VendorDetailsPage = () => {
                 <button type="submit" className="rts-btn btn-primary radious-sm with-icon">
                   <div className="btn-text">Search</div>
                   <div className="arrow-icon">
-                    <i className="fa-light fa-magnifying-glass" />
+                    <i className="fa-solid fa-magnifying-glass" />
                   </div>
                   <div className="arrow-icon">
-                    <i className="fa-light fa-magnifying-glass" />
+                    <i className="fa-solid fa-magnifying-glass" />
                   </div>
                 </button>
               </form>
@@ -254,7 +254,7 @@ const VendorDetailsPage = () => {
               </a>
               <div className="body-content">
                 <div className="time-tag">
-                  <i className="fa-light fa-clock" />{product.time}
+                  <i className="fa-solid fa-clock" />{product.time}
                 </div>
                 <a href="#">
                   <h4 className="title">{product.name}</h4>

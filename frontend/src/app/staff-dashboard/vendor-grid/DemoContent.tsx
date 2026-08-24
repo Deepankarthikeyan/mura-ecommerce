@@ -134,10 +134,10 @@ const VendorGrid = () => {
           <button type="submit" className="rts-btn btn-primary radious-sm with-icon">
             <div className="btn-text">Search</div>
             <div className="arrow-icon">
-              <i className="fa-light fa-magnifying-glass" />
+              <i className="fa-solid fa-magnifying-glass" />
             </div>
             <div className="arrow-icon">
-              <i className="fa-light fa-magnifying-glass" />
+              <i className="fa-solid fa-magnifying-glass" />
             </div>
           </button>
         </form>
@@ -177,10 +177,10 @@ const VendorGrid = () => {
               >
                 <div className="btn-text">Visit Store</div>
                 <div className="arrow-icon">
-                  <i className="fa-light fa-arrow-right" />
+                  <i className="fa-solid fa-arrow-right" />
                 </div>
                 <div className="arrow-icon">
-                  <i className="fa-light fa-arrow-right" />
+                  <i className="fa-solid fa-arrow-right" />
                 </div>
               </Link>
             </div>

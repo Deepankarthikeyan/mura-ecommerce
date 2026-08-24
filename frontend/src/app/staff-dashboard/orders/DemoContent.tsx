@@ -523,7 +523,7 @@ const OverviewTable: React.FC = () => {
                     onChange={handleSearchChange}
                     aria-label="Search orders"
                   />
-                  <i className="fa-light fa-magnifying-glass" aria-hidden="true" />
+                  <i className="fa-solid fa-magnifying-glass" aria-hidden="true" />
                 </div>
                 <select
                   className="staff-orders-date-select"

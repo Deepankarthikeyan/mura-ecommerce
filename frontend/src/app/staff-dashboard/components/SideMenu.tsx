@@ -22,22 +22,22 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
   {
     title: "Inventory",
-    icon: "fa-light fa-boxes-stacked",
+    icon: "fa-solid fa-boxes-stacked",
     children: [{ title: "Inventory", href: "/staff-dashboard/inventory" }],
   },
   {
     title: "Storefront",
-    icon: "fa-light fa-store",
+    icon: "fa-solid fa-store",
     children: [{ title: "Homepage & branding", href: "/staff-dashboard/storefront" }],
   },
   {
     title: "Orders",
-    icon: "fa-light fa-bag-shopping",
+    icon: "fa-solid fa-bag-shopping",
     children: [{ title: "Orders", href: "/staff-dashboard/orders" }],
   },
   {
     title: "Reports and analytics",
-    icon: "fa-light fa-chart-mixed",
+    icon: "fa-solid fa-chart-mixed",
     adminOnly: true,
     children: [
       { title: "Sales Report", href: "/staff-dashboard/reports-analytics/sales" },
@@ -57,19 +57,19 @@ const menuItems: MenuItem[] = [
   },
   {
     title: "SEO",
-    icon: "fa-light fa-magnifying-glass-chart",
+    icon: "fa-solid fa-magnifying-glass-chart",
     children: [{ title: "Settings", href: "/staff-dashboard/seo" }],
   },
   {
     title: "Discounts and Coupons",
-    icon: "fa-light fa-percent",
+    icon: "fa-solid fa-percent",
     children: [
       { title: "Discounts and Coupons", href: "/staff-dashboard/discounts-coupons" },
     ],
   },
   {
     title: "User Profile",
-    icon: "fa-light fa-user",
+    icon: "fa-solid fa-user",
     children: [
       { title: "Profile Setting", href: "/staff-dashboard/profile-setting" },
     ],

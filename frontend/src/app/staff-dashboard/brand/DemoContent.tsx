@@ -13,10 +13,10 @@ function DemoContent() {
       <a href="#" className="rts-btn btn-primary radious-sm with-icon">
         <div className="btn-text">Search</div>
         <div className="arrow-icon">
-          <i className="fa-light fa-magnifying-glass" />
+          <i className="fa-solid fa-magnifying-glass" />
         </div>
         <div className="arrow-icon">
-          <i className="fa-light fa-magnifying-glass" />
+          <i className="fa-solid fa-magnifying-glass" />
         </div>
       </a>
     </form>

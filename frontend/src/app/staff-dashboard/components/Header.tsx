@@ -49,7 +49,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
 
   const languages = ["English", "Bangla", "Hindi", "Latin"];
   const profileMenu = [
-    // { icon: "fa-light fa-user", text: "Profile Setting", href: "profile-setting.html" },
+    // { icon: "fa-solid fa-user", text: "Profile Setting", href: "profile-setting.html" },
     // { icon: "fa-regular fa-gear", text: "Settings", href: "#" },
   ];
 
@@ -57,8 +57,8 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
     <header className="header-one">
       <div className="headerleft">
         <div className="collups-show-icon" onClick={onToggleSidebar}>
-          <i className="fa-light fa-bars-staggered toggle-sidebar-open" aria-hidden="true" />
-          <i className="fa-light fa-arrow-right toggle-sidebar-closed" aria-hidden="true" />
+          <i className="fa-solid fa-bars-staggered toggle-sidebar-open" aria-hidden="true" />
+          <i className="fa-solid fa-arrow-right toggle-sidebar-closed" aria-hidden="true" />
         </div>
       </div>
       <div className="header-right">
@@ -168,7 +168,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             onClick={() => togglePopup('profile')}
           >
             <div className="avatar header-user-avatar" aria-hidden="true">
-              <i className="fa-light fa-user" />
+              <i className="fa-solid fa-user" />
             </div>
             <div
               className="user_information_main_wrapper slide-down__click"
@@ -176,7 +176,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             >
               <div className="user_header">
                 <div className="main-avatar" aria-hidden="true">
-                  <i className="fa-light fa-user" />
+                  <i className="fa-solid fa-user" />
                 </div>
                 <div className="user_naim-information">
                   <h3 className="title">{user?.username || 'User'}</h3>
@@ -205,7 +205,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
                   style={{ background: 'none', border: 'none', cursor: 'pointer', width: '100%', textAlign: 'left' }}
                 >
                   Logout
-                  <i className="fa-light fa-arrow-right" />
+                  <i className="fa-solid fa-arrow-right" />
                 </button>
               </div>
             </div>
