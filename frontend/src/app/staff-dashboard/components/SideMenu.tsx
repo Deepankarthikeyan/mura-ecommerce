@@ -26,6 +26,11 @@ const menuItems: MenuItem[] = [
     children: [{ title: "Inventory", href: "/staff-dashboard/inventory" }],
   },
   {
+    title: "Storefront",
+    icon: "fa-light fa-store",
+    children: [{ title: "Homepage & branding", href: "/staff-dashboard/storefront" }],
+  },
+  {
     title: "Orders",
     icon: "fa-light fa-bag-shopping",
     children: [{ title: "Orders", href: "/staff-dashboard/orders" }],

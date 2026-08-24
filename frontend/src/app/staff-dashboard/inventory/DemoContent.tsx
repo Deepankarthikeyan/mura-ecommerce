@@ -160,7 +160,7 @@ function emptyProductForm(): ProductEditForm {
     stock: "250",
     reviews: "10",
     ratings: "5",
-    tags: "Herbal, Medicine",
+    tags: "saree",
     author: "",
     publishedDate: "",
   };
@@ -1354,7 +1354,11 @@ const OverviewTable: React.FC = () => {
                       style={inputStyle}
                       value={editForm.tags}
                       onChange={(e) => updateEditField("tags", e.target.value)}
+                      placeholder="e.g. bestseller, deal-of-day, silk"
                     />
+                    <p style={{ fontSize: 12, color: "#666", margin: "4px 0 0" }}>
+                      Use <code>deal-of-day</code> for Deals of the Day and <code>bestseller</code> for Best Selling section on the homepage.
+                    </p>
                   </div>
                   <div>
                     <label style={labelStyle}>Author</label>

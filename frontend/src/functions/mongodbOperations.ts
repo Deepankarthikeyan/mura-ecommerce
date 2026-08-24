@@ -2700,3 +2700,40 @@ export async function deleteCouponById(couponId: string) {
     throw new Error("Error deleting coupon: " + msg);
   }
 }
+
+const STOREFRONT_SETTINGS_COLLECTION = "storefront_settings";
+
+export async function getStorefrontSettingsRaw(): Promise<string | null> {
+  try {
+    const db = (await getMongoClientPromise()).db();
+    const doc = await db.collection(STOREFRONT_SETTINGS_COLLECTION).findOne({ key: "main" });
+    const content = typeof doc?.content === "string" ? doc.content : "";
+    return content.trim() ? content : null;
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : "Fetch failed";
+    throw new Error("Error fetching storefront settings: " + msg);
+  }
+}
+
+export async function upsertStorefrontSettings(content: string) {
+  const trimmed = String(content ?? "").trim();
+  if (!trimmed) {
+    throw new Error("Storefront settings content is required");
+  }
+  try {
+    JSON.parse(trimmed);
+  } catch {
+    throw new Error("Storefront settings must be valid JSON");
+  }
+  try {
+    const db = (await getMongoClientPromise()).db();
+    return db.collection(STOREFRONT_SETTINGS_COLLECTION).updateOne(
+      { key: "main" },
+      { $set: { key: "main", content: trimmed, updatedAt: new Date() } },
+      { upsert: true }
+    );
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : "Save failed";
+    throw new Error("Error saving storefront settings: " + msg);
+  }
+}

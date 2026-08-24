@@ -12,37 +12,32 @@ import MuraiLayout from "./MuraiLayout";
 import MuraiDiwaliBanner from "./MuraiDiwaliBanner";
 import MuraiDealsProduct from "./MuraiDealsProduct";
 import MuraiProductCard from "./MuraiProductCard";
-import {
-  filterHomeTabProducts,
-  productCardImage,
-} from "@/lib/murai/productUtils";
+import { productCardImage } from "@/lib/murai/productUtils";
 import { useProducts } from "@/lib/murai/useProducts";
-
-const HOME_TABS = [
-  { id: "featured", paneId: "tab-featured", gridId: "sarees-featured", label: "Silk Sarees" },
-  { id: "trending", paneId: "tab-trending", gridId: "sarees-trending", label: "Cotton Sarees" },
-  { id: "newarrival", paneId: "tab-newarrival", gridId: "sarees-newarrival", label: "Designer Sarees" },
-] as const;
-
-type HomeTabId = (typeof HOME_TABS)[number]["id"];
+import { useStorefrontSettings } from "@/lib/storefront/useStorefrontSettings";
+import { filterHomeTabByConfig, pickBestSellers, pickDealProduct } from "@/lib/storefront/productSections";
+import { renderMultiline } from "@/lib/storefront/renderMultiline";
+import type { HomeTab } from "@/lib/storefront/types";
 
 export default function MuraiHomePage() {
   const { products, loading } = useProducts();
-  const [activeTab, setActiveTab] = useState<HomeTabId>("featured");
+  const { settings } = useStorefrontSettings();
+  const homeTabs = settings.homeTabs;
+  const [activeTab, setActiveTab] = useState(homeTabs[0]?.id ?? "featured");
   const [countdown, setCountdown] = useState({ days: "00", hours: "00", mins: "00", secs: "00" });
   const tabsListRef = useRef<HTMLDivElement>(null);
   const [arrowState, setArrowState] = useState({ prevDisabled: true, nextDisabled: false });
 
   const tabProducts = useMemo(
     () =>
-      HOME_TABS.reduce(
+      homeTabs.reduce(
         (acc, tab) => {
-          acc[tab.id] = filterHomeTabProducts(products, tab.id);
+          acc[tab.id] = filterHomeTabByConfig(products, tab);
           return acc;
         },
-        {} as Record<HomeTabId, typeof products>
+        {} as Record<string, typeof products>
       ),
-    [products]
+    [products, homeTabs]
   );
 
   const updateArrowState = useCallback(() => {
@@ -62,7 +57,7 @@ export default function MuraiHomePage() {
     list.scrollBy({ left: direction * step, behavior: "smooth" });
   };
 
-  const selectTab = (tabId: HomeTabId, button?: HTMLButtonElement | null) => {
+  const selectTab = (tabId: string, button?: HTMLButtonElement | null) => {
     setActiveTab(tabId);
     if (button && tabsListRef.current) {
       const listRect = tabsListRef.current.getBoundingClientRect();
@@ -73,8 +68,10 @@ export default function MuraiHomePage() {
   };
 
   useEffect(() => {
-    const end = new Date();
-    end.setDate(end.getDate() + 3);
+    const configured = settings.homeSections.dealsEndDate?.trim();
+    const end = configured ? new Date(configured) : new Date();
+    if (!configured) end.setDate(end.getDate() + 3);
+
     const tick = () => {
       const diff = Math.max(0, end.getTime() - Date.now());
       const days = Math.floor(diff / 86400000);
@@ -91,7 +88,7 @@ export default function MuraiHomePage() {
     tick();
     const id = window.setInterval(tick, 1000);
     return () => window.clearInterval(id);
-  }, []);
+  }, [settings.homeSections.dealsEndDate]);
 
   useEffect(() => {
     const list = tabsListRef.current;
@@ -105,8 +102,23 @@ export default function MuraiHomePage() {
     };
   }, [updateArrowState]);
 
-  const dealProduct = products[0];
-  const bestSellers = products.slice(0, 4);
+  const dealProduct = pickDealProduct(products, settings.homeSections.dealsProductTag);
+  const bestSellers = pickBestSellers(products, settings.homeSections.bestSellerTag);
+
+  const tallBanner = settings.promoBanners.find((b) => b.layout === "tall");
+  const smallBanners = settings.promoBanners.filter((b) => b.layout === "small");
+  const wideBanner = settings.promoBanners.find((b) => b.layout === "wide");
+
+  const renderBanner = (banner: (typeof settings.promoBanners)[number], className: string) => (
+    <Link href={banner.href} className={className}>
+      <img src={banner.image} alt={banner.subtitle} loading="lazy" />
+      <div className="banner-card-content">
+        <span className="banner-card-subtitle">{banner.subtitle}</span>
+        <h3>{renderMultiline(banner.title)}</h3>
+        <span className="banner-card-link">{banner.linkLabel}</span>
+      </div>
+    </Link>
+  );
 
   return (
     <MuraiLayout activePage="home">
@@ -120,14 +132,14 @@ export default function MuraiHomePage() {
           navigation
           className="hero-swiper"
         >
-          {[1, 2, 3].map((n) => (
-            <SwiperSlide key={n}>
-              <div className={`hero-slide slide-${n}`}>
+          {settings.heroSlides.map((slide, n) => (
+            <SwiperSlide key={`${slide.slideClass}-${n}`}>
+              <div className={`hero-slide ${slide.slideClass}`}>
                 <div className="hero-slide-content">
-                  <p className="hero-slide-tag">Saree Sale</p>
-                  <h2>Handcrafted Silk<br />Sarees On Sale</h2>
-                  <p>Up To 70% Off On Premium Sarees.<br />Silk, Cotton &amp; Designer Collection!</p>
-                  <Link href="/shop" className="btn btn-primary">Shop Sale Sarees →</Link>
+                  <p className="hero-slide-tag">{slide.tag}</p>
+                  <h2>{renderMultiline(slide.title)}</h2>
+                  <p>{renderMultiline(slide.subtitle)}</p>
+                  <Link href={slide.ctaLink} className="btn btn-primary">{slide.ctaLabel}</Link>
                 </div>
               </div>
             </SwiperSlide>
@@ -137,48 +149,21 @@ export default function MuraiHomePage() {
 
       <section className="banner-section">
         <div className="banner-grid">
-          <Link href="/shop?category=silk" className="banner-card tall">
-            <img src="/murai/images/sarees/banarasi.webp" alt="Silk Saree Sale" loading="lazy" />
-            <div className="banner-card-content">
-              <span className="banner-card-subtitle">40% Off</span>
-              <h3>Silk Saree<br />Sale</h3>
-              <span className="banner-card-link">View Discounts →</span>
-            </div>
-          </Link>
+          {tallBanner ? renderBanner(tallBanner, "banner-card tall") : null}
           <div className="banner-right">
             <div className="banner-right-top">
-              <Link href="/shop?category=kanjivaram" className="banner-card">
-                <img src="/murai/images/sarees/paithani.webp" alt="Banarasi Sarees" loading="lazy" />
-                <div className="banner-card-content">
-                  <span className="banner-card-subtitle">Banarasi</span>
-                  <h3>Up to 50% Off<br />Banarasi Sarees</h3>
-                  <span className="banner-card-link">View Discounts →</span>
-                </div>
-              </Link>
-              <Link href="/shop?category=cotton" className="banner-card">
-                <img src="/murai/images/sarees/cotton-block.webp" alt="Cotton Sarees" loading="lazy" />
-                <div className="banner-card-content">
-                  <span className="banner-card-subtitle">Cotton Sarees</span>
-                  <h3>Free Shipping Over<br />Order ₹999</h3>
-                  <span className="banner-card-link">View Discounts →</span>
-                </div>
-              </Link>
+              {smallBanners.map((banner) => (
+                <span key={banner.href + banner.title}>{renderBanner(banner, "banner-card")}</span>
+              ))}
             </div>
-            <Link href="/shop?category=kanjivaram" className="banner-card">
-              <img src="/murai/images/sarees/kanjivaram.webp" alt="Kanjivaram Sarees" loading="lazy" />
-              <div className="banner-card-content">
-                <span className="banner-card-subtitle">35% Off</span>
-                <h3>Kanjivaram Silk<br />Saree Sale</h3>
-                <span className="banner-card-link">View Discounts →</span>
-              </div>
-            </Link>
+            {wideBanner ? renderBanner(wideBanner, "banner-card") : null}
           </div>
         </div>
       </section>
 
       <section className="products-section">
         <div className="products-section-inner">
-          <div className="section-heading"><h2>Sale Sarees</h2></div>
+          <div className="section-heading"><h2>{settings.homeSections.saleTitle}</h2></div>
           <div className="product-tabs-wrap">
             <button
               className="product-tabs-arrow product-tabs-arrow--prev"
@@ -192,7 +177,7 @@ export default function MuraiHomePage() {
               </svg>
             </button>
             <div className="product-tabs" role="tablist" aria-label="Saree categories" ref={tabsListRef}>
-              {HOME_TABS.map((tab) => (
+              {homeTabs.map((tab: HomeTab) => (
                 <button
                   key={tab.id}
                   className={`product-tab ${activeTab === tab.id ? "active" : ""}`}
@@ -218,15 +203,15 @@ export default function MuraiHomePage() {
             </button>
           </div>
 
-          {HOME_TABS.map((tab) => {
-            const items = tabProducts[tab.id];
+          {homeTabs.map((tab) => {
+            const items = tabProducts[tab.id] ?? [];
             return (
               <div
-                key={tab.paneId}
-                id={tab.paneId}
+                key={tab.id}
+                id={`tab-${tab.id}`}
                 className={`tab-pane ${activeTab === tab.id ? "active" : ""}`}
               >
-                <div className="suruchi-products-grid" id={tab.gridId}>
+                <div className="suruchi-products-grid" id={`sarees-${tab.id}`}>
                   {items.length ? (
                     items.map((p) => (
                       <MuraiProductCard key={`${tab.id}-${p._id ?? p.productId}`} product={p} style="home" />
@@ -246,9 +231,9 @@ export default function MuraiHomePage() {
       <section className="deals-section">
         <div className="deals-inner">
           <div className="deals-content">
-            <p className="deals-tag">Hurry up and Get 25% Discount</p>
-            <h2>Deals Of The Day</h2>
-            <p>Don&apos;t miss out on our exclusive daily saree deals. Limited stock on handwoven silk and cotton sarees.</p>
+            <p className="deals-tag">{settings.homeSections.dealsTag}</p>
+            <h2>{settings.homeSections.dealsTitle}</h2>
+            <p>{settings.homeSections.dealsDescription}</p>
             <div className="countdown">
               <div className="countdown-item"><span className="num">{countdown.days}</span><span className="label">Days</span></div>
               <div className="countdown-item"><span className="num">{countdown.hours}</span><span className="label">Hours</span></div>
@@ -261,7 +246,7 @@ export default function MuraiHomePage() {
       </section>
 
       <section className="bestseller-section">
-        <div className="section-heading"><h2>Best Selling Sarees</h2></div>
+        <div className="section-heading"><h2>{settings.homeSections.bestSellerTitle}</h2></div>
         <div className="bestseller-grid" id="sarees-bestseller">
           {bestSellers.map((p) => (
             <MuraiProductCard key={`best-${p._id ?? p.productId}`} product={p} style="bestseller" />
@@ -270,20 +255,15 @@ export default function MuraiHomePage() {
       </section>
 
       <section className="promo-banners">
-        <div className="promo-banner bg-1">
-          <div>
-            <h3>Up to 50% Off<br />Sarees</h3>
-            <p>Shop Silk &amp; Cotton</p>
-            <Link href="/shop" className="btn">Shop Now</Link>
+        {settings.promoBlocks.map((block) => (
+          <div key={block.bgClass + block.title} className={`promo-banner ${block.bgClass}`}>
+            <div>
+              <h3>{renderMultiline(block.title)}</h3>
+              <p>{block.subtitle}</p>
+              <Link href={block.ctaLink} className="btn">{block.ctaLabel}</Link>
+            </div>
           </div>
-        </div>
-        <div className="promo-banner bg-2">
-          <div>
-            <h3>Up to 70% Off<br />Sarees</h3>
-            <p>Limited time sale</p>
-            <Link href="/shop" className="btn">Discover Now</Link>
-          </div>
-        </div>
+        ))}
       </section>
 
       <section className="testimonial-section">
@@ -295,8 +275,8 @@ export default function MuraiHomePage() {
         </div>
         <div className="testimonial-section-inner">
           <div className="section-heading testimonial-heading">
-            <span className="testimonial-tag">✦ Client Love ✦</span>
-            <h2>Our Clients Say</h2>
+            <span className="testimonial-tag">{settings.homeSections.testimonialTag}</span>
+            <h2>{settings.homeSections.testimonialTitle}</h2>
           </div>
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -308,11 +288,7 @@ export default function MuraiHomePage() {
             autoplay={{ delay: 5500 }}
             className="testimonial-swiper"
           >
-            {[
-              { name: "Priya Sharma", img: "/murai/images/avatars/priya-sharma.svg", text: "The Banarasi silk saree I bought on sale is absolutely stunning! Rich zari work and the fabric quality is exceptional. Best saree purchase ever!" },
-              { name: "Laura Johnson", img: "/murai/images/avatars/laura-johnson.svg", text: "MuRa@23 has the best saree sale online! Got a beautiful Kanjivaram at 40% off. Fast delivery and elegant packaging. Highly recommended!" },
-              { name: "Richard Smith", img: "/murai/images/avatars/richard-smith.svg", text: "The silk saree I purchased exceeded my expectations. Gorgeous colors and the packaging was elegant. Perfect for gifting too." },
-            ].map((t) => (
+            {settings.testimonials.map((t) => (
               <SwiperSlide key={t.name}>
                 <div className="testimonial-showcase">
                   <div className="testimonial-showcase-visual">
@@ -323,7 +299,7 @@ export default function MuraiHomePage() {
                     </div>
                     <div className="testimonial-client-badge">Verified Client</div>
                     <p className="testimonial-showcase-name">{t.name}</p>
-                    <p className="testimonial-showcase-role">Saree Lover</p>
+                    <p className="testimonial-showcase-role">{t.role}</p>
                   </div>
                   <div className="testimonial-showcase-content">
                     <div className="testimonial-bubble">
@@ -346,18 +322,14 @@ export default function MuraiHomePage() {
       />
 
       <section className="blog-section">
-        <div className="section-heading"><h2>From The Blog</h2></div>
+        <div className="section-heading"><h2>{settings.homeSections.blogTitle}</h2></div>
         <div className="blog-grid">
-          {[
-            { title: "How to Choose the Perfect Silk Saree", img: "/murai/images/sarees/banarasi.webp" },
-            { title: "Banarasi vs Kanjivaram: A Complete Guide", img: "/murai/images/sarees/kanjivaram.webp" },
-            { title: "5 Ways to Style Your Saree for Modern Occasions", img: "/murai/images/sarees/georgette-party.webp" },
-          ].map((b) => (
+          {settings.blogPosts.map((b) => (
             <article key={b.title} className="blog-card">
               <div className="blog-card-img"><img src={b.img} alt="" loading="lazy" /></div>
               <div className="blog-card-body">
-                <p className="blog-date">February 03, 2026</p>
-                <h3><a href="#">{b.title}</a></h3>
+                <p className="blog-date">{b.date}</p>
+                <h3><Link href={b.href}>{b.title}</Link></h3>
               </div>
             </article>
           ))}
@@ -366,8 +338,8 @@ export default function MuraiHomePage() {
 
       <section className="newsletter-section">
         <div className="newsletter-inner">
-          <h2>Join Our Newsletter</h2>
-          <p>Enter your email address to subscribe our notification of our new post &amp; features by email.</p>
+          <h2>{settings.homeSections.newsletterTitle}</h2>
+          <p>{settings.homeSections.newsletterDescription}</p>
           <form className="newsletter-form-large newsletter-form" onSubmit={(e) => e.preventDefault()}>
             <input type="email" placeholder="Enter your email address" required />
             <button type="submit">Subscribe</button>
@@ -377,30 +349,9 @@ export default function MuraiHomePage() {
 
       <section className="service-bar">
         <div className="service-bar-grid">
-          {[
-            {
-              title: "Shipping",
-              text: "From handpicked sellers",
-              icon: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635" /></svg>,
-            },
-            {
-              title: "Payment",
-              text: "Secure checkout",
-              icon: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>,
-            },
-            {
-              title: "Return",
-              text: "30-day easy returns",
-              icon: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" /></svg>,
-            },
-            {
-              title: "Support",
-              text: "Dedicated help team",
-              icon: <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.15-6.24.43-.813.108-1.745.832-1.745 1.951v3.135" /></svg>,
-            },
-          ].map((s) => (
-            <div key={s.title} className="service-item">
-              <div className="service-icon">{s.icon}</div>
+          {settings.serviceBar.map((s, i) => (
+            <div key={`${s.title}-${i}`} className="service-item">
+              <div className="service-icon" />
               <div><h4>{s.title}</h4><p>{s.text}</p></div>
             </div>
           ))}

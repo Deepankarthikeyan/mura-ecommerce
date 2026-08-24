@@ -6,6 +6,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { useCart } from "@/components/header/CartContext";
 import { useUser } from "@/components/header/UserContext";
 import { useWishlist } from "@/components/header/WishlistContext";
+import { useCategories } from "@/lib/storefront/useCategories";
+import { useStorefrontSettings } from "@/lib/storefront/useStorefrontSettings";
 
 const NAV = [
   { href: "/", label: "Home", id: "home" },
@@ -25,6 +27,8 @@ export default function MuraiHeader({ activePage }: MuraiHeaderProps) {
   const { cartItems } = useCart();
   const { wishlistItems } = useWishlist();
   const { isAuthenticated, user } = useUser();
+  const { settings } = useStorefrontSettings();
+  const { categories } = useCategories();
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -62,19 +66,21 @@ export default function MuraiHeader({ activePage }: MuraiHeaderProps) {
     router.push(q ? `/shop?search=${encodeURIComponent(q)}` : "/shop");
   };
 
+  const { site, topbar } = settings;
+
   return (
     <>
       <div id="site-header-mount">
         <div className="suruchi-topbar">
           <div className="suruchi-topbar-inner">
             <div className="suruchi-topbar-left">
-              <span>Big Saree Sale — Up to 70% Off</span>
-              <Link href="/shop">Shop Sale Sarees</Link>
-              <a href="mailto:murapodanur@gmail.com">murapodanur@gmail.com</a>
+              <span>{topbar.promoText}</span>
+              <Link href={topbar.promoLink}>{topbar.promoLinkLabel}</Link>
+              <a href={`mailto:${site.email}`}>{site.email}</a>
             </div>
             <div className="suruchi-topbar-right">
-              <a href="#">English ▾</a>
-              <a href="#">₹ INR ▾</a>
+              <a href="#">{site.language} ▾</a>
+              <a href="#">{site.currency} ▾</a>
             </div>
           </div>
         </div>
@@ -92,17 +98,17 @@ export default function MuraiHeader({ activePage }: MuraiHeaderProps) {
           </svg>
         </button>
 
-        <Link href="/" className="suruchi-logo" aria-label="MuRa@23 Home">
-          <img src="/murai/images/mura-newlogo.png" alt="MuRa@23" width={129} height={80} />
+        <Link href="/" className="suruchi-logo" aria-label={`${site.name} Home`}>
+          <img src={site.logo} alt={site.name} width={129} height={80} />
         </Link>
 
         <form className="suruchi-search" onSubmit={onSearch}>
           <select aria-label="Category" defaultValue="all">
-            <option>All Sarees</option>
-            <option>Silk Sarees</option>
-            <option>Cotton Sarees</option>
-            <option>Banarasi</option>
-            <option>Kanjivaram</option>
+            {categories.map((cat) => (
+              <option key={cat.key} value={cat.key}>
+                {cat.label}
+              </option>
+            ))}
           </select>
           <input
             type="text"
@@ -151,7 +157,7 @@ export default function MuraiHeader({ activePage }: MuraiHeaderProps) {
         <div className="suruchi-nav-inner">
           <div className="suruchi-nav-header">
             <Link href="/" className="suruchi-nav-logo" onClick={() => setMenuOpen(false)}>
-              <img src="/murai/images/mura-newlogo.png" alt="MuRa@23" width={97} height={60} />
+              <img src={site.logo} alt={site.name} width={97} height={60} />
             </Link>
             <button className="suruchi-nav-close" type="button" aria-label="Close menu" onClick={() => setMenuOpen(false)}>
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">

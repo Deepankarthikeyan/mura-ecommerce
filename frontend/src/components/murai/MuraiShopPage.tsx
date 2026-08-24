@@ -8,12 +8,14 @@ import MuraiFeaturesBar from "./MuraiFeaturesBar";
 import MuraiProductCard from "./MuraiProductCard";
 import { filterProducts, formatInr, sortProducts } from "@/lib/murai/productUtils";
 import { useProducts } from "@/lib/murai/useProducts";
+import { useCategories } from "@/lib/storefront/useCategories";
 
 function ShopContent() {
   const searchParams = useSearchParams();
   const urlSearch = searchParams.get("search") ?? "";
   const urlCategory = searchParams.get("category") ?? "all";
   const { products, loading } = useProducts();
+  const { categories } = useCategories();
 
   const [category, setCategory] = useState(urlCategory);
   const [sort, setSort] = useState("latest");
@@ -78,23 +80,17 @@ function ShopContent() {
           <div className="shop-sidebar-body">
             <h3 className="sidebar-title">Saree Types</h3>
             <ul className="sidebar-list">
-              {[
-                ["all", "All Sarees"],
-                ["silk", "Silk Sarees"],
-                ["cotton", "Cotton Sarees"],
-                ["kanjivaram", "Kanjivaram"],
-                ["party", "Party Wear"],
-              ].map(([key, label]) => (
-                <li key={key}>
+              {categories.map((cat) => (
+                <li key={cat.key}>
                   <a
                     href="#"
-                    className={category === key ? "active" : ""}
+                    className={category === cat.key ? "active" : ""}
                     onClick={(e) => {
                       e.preventDefault();
-                      setCategory(key);
+                      setCategory(cat.key);
                     }}
                   >
-                    {label}
+                    {cat.label}
                   </a>
                 </li>
               ))}
