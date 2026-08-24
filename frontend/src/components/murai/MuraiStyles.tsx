@@ -18,6 +18,7 @@ export function MuraiStyles() {
       <style>{`:root { --font-body: 'Jost', sans-serif; --font-heading: 'Playfair Display', serif; }
 .banner-card--empty { background: linear-gradient(135deg, #f3f3f3 0%, #e8e8e8 100%); pointer-events: none; }
 .banner-card--empty::after { opacity: 0.15; }
+.banner-section .banner-grid + .banner-grid { margin-top: 24px; }
 .promo-banner--empty { min-height: 220px; }
 `}</style>
     </>

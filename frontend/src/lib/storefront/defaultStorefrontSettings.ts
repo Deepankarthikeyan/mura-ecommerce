@@ -1,4 +1,5 @@
 import type { StorefrontSettings } from "./types";
+import { createEmptyPromoBannerSlots, normalizePromoBanners } from "./promoBannerSlots";
 
 /** Minimal shell shown on a fresh deploy before staff saves storefront settings. */
 export function getEmptyStorefrontSettings(): StorefrontSettings {
@@ -20,7 +21,7 @@ export function getEmptyStorefrontSettings(): StorefrontSettings {
       promoLinkLabel: "Shop Now",
     },
     heroSlides: [],
-    promoBanners: [],
+    promoBanners: createEmptyPromoBannerSlots(),
     homeTabs: [{ id: "all", label: "All Products", filter: "all" }],
     homeSections: {
       saleTitle: "Sale Sarees",
@@ -134,6 +135,38 @@ export function getStorefrontTemplateSettings(): StorefrontSettings {
         linkLabel: "View Discounts →",
         href: "/shop?category=kanjivaram",
         image: "/murai/images/sarees/kanjivaram.webp",
+        layout: "wide",
+      },
+      {
+        title: "Party Wear\nSaree Sale",
+        subtitle: "30% Off",
+        linkLabel: "View Discounts →",
+        href: "/shop?category=party",
+        image: "/murai/images/sarees/georgette-party.webp",
+        layout: "tall",
+      },
+      {
+        title: "Designer\nGeorgette",
+        subtitle: "New Arrivals",
+        linkLabel: "View Discounts →",
+        href: "/shop",
+        image: "/murai/images/sarees/georgette-party.webp",
+        layout: "small",
+      },
+      {
+        title: "Paithani\nCollection",
+        subtitle: "25% Off",
+        linkLabel: "View Discounts →",
+        href: "/shop?category=silk",
+        image: "/murai/images/sarees/paithani.webp",
+        layout: "small",
+      },
+      {
+        title: "Festive Sale\nSarees",
+        subtitle: "Limited Time",
+        linkLabel: "View Discounts →",
+        href: "/shop",
+        image: "/murai/images/sarees/banarasi.webp",
         layout: "wide",
       },
     ],
@@ -255,7 +288,7 @@ export function mergeStorefrontSettings(
     site: { ...empty.site, ...saved.site },
     topbar: { ...empty.topbar, ...saved.topbar },
     heroSlides: saved.heroSlides ?? empty.heroSlides,
-    promoBanners: saved.promoBanners ?? empty.promoBanners,
+    promoBanners: normalizePromoBanners(saved.promoBanners),
     homeTabs: saved.homeTabs?.length ? saved.homeTabs : empty.homeTabs,
     homeSections: { ...empty.homeSections, ...saved.homeSections },
     promoBlocks: saved.promoBlocks ?? empty.promoBlocks,

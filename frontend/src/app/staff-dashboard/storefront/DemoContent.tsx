@@ -13,6 +13,12 @@ import type {
   Testimonial,
 } from "@/lib/storefront/types";
 import { getEmptyStorefrontSettings, getStorefrontTemplateSettings } from "@/lib/storefront/defaultStorefrontSettings";
+import {
+  PROMO_BANNER_IMAGE_SIZES,
+  PROMO_BANNER_SLOT_COUNT,
+  promoBannerSizeHint,
+  normalizePromoBanners,
+} from "@/lib/storefront/promoBannerSlots";
 
 type Tab = "site" | "hero" | "banners" | "home" | "content" | "footer";
 
@@ -85,7 +91,12 @@ export default function DemoContent() {
     setLoading(true);
     try {
       const { data } = await axios.get("/api/storefront");
-      if (data?.success && data.settings) setSettings(data.settings);
+      if (data?.success && data.settings) {
+        setSettings({
+          ...data.settings,
+          promoBanners: normalizePromoBanners(data.settings.promoBanners),
+        });
+      }
     } catch {
       toast.error("Failed to load storefront settings");
     } finally {
@@ -190,7 +201,10 @@ export default function DemoContent() {
             disabled={saving}
             onClick={() => {
               if (window.confirm("Load the MuRa demo template? This replaces unsaved form values.")) {
-                setSettings(getStorefrontTemplateSettings());
+                setSettings({
+                  ...getStorefrontTemplateSettings(),
+                  promoBanners: normalizePromoBanners(getStorefrontTemplateSettings().promoBanners),
+                });
               }
             }}
           >
@@ -262,16 +276,44 @@ export default function DemoContent() {
 
         {tab === "banners" && (
           <div style={{ marginTop: 20 }}>
+            <div style={cardStyle}>
+              <h4 style={{ marginTop: 0 }}>Homepage banner image sizes</h4>
+              <p style={{ fontSize: 14, color: "#666", marginTop: 0 }}>
+                The homepage shows <strong>{PROMO_BANNER_SLOT_COUNT} promo banners</strong> in two rows of four. Upload images at these sizes for best quality:
+              </p>
+              <ul style={{ fontSize: 14, color: "#444", lineHeight: 1.7, paddingLeft: 20 }}>
+                <li>
+                  <strong>Tall (Banners 1 &amp; 5):</strong> {PROMO_BANNER_IMAGE_SIZES.tall.width}×
+                  {PROMO_BANNER_IMAGE_SIZES.tall.height}px
+                </li>
+                <li>
+                  <strong>Small (Banners 2, 3, 6 &amp; 7):</strong> {PROMO_BANNER_IMAGE_SIZES.small.width}×
+                  {PROMO_BANNER_IMAGE_SIZES.small.height}px
+                </li>
+                <li>
+                  <strong>Wide (Banners 4 &amp; 8):</strong> {PROMO_BANNER_IMAGE_SIZES.wide.width}×
+                  {PROMO_BANNER_IMAGE_SIZES.wide.height}px
+                </li>
+              </ul>
+              <p style={{ fontSize: 13, color: "#888", marginBottom: 0 }}>
+                Use JPG or WebP. Product images are added separately in{" "}
+                <a href="/staff-dashboard/inventory">Inventory → Add product</a>.
+              </p>
+            </div>
             {settings.promoBanners.map((banner, i) => (
               <div key={i} style={cardStyle}>
-                <h4 style={{ marginTop: 0 }}>Banner {i + 1}</h4>
+                <h4 style={{ marginTop: 0 }}>
+                  Banner {i + 1} {i < 4 ? "(Row 1)" : "(Row 2)"} — {banner.layout}
+                </h4>
+                <p style={{ fontSize: 13, color: "#666", marginTop: 0 }}>
+                  Recommended image: {promoBannerSizeHint(banner.layout)}
+                </p>
                 <div style={{ display: "grid", gap: 12, maxWidth: 720 }}>
                   <Field label="Title" value={banner.title} onChange={(v) => updateBanner(i, { title: v })} multiline />
                   <Field label="Subtitle" value={banner.subtitle} onChange={(v) => updateBanner(i, { subtitle: v })} />
                   <Field label="Link label" value={banner.linkLabel} onChange={(v) => updateBanner(i, { linkLabel: v })} />
                   <Field label="Link URL" value={banner.href} onChange={(v) => updateBanner(i, { href: v })} />
                   <Field label="Image URL" value={banner.image} onChange={(v) => updateBanner(i, { image: v })} />
-                  <Field label="Layout (tall | small | wide)" value={banner.layout} onChange={(v) => updateBanner(i, { layout: v as PromoBanner["layout"] })} />
                 </div>
               </div>
             ))}
