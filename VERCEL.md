@@ -1,6 +1,6 @@
 # MuRa@23 — Vercel deployment
 
-The Next.js storefront lives in **`frontend/`**.
+This repository is **frontend-only**. The Next.js app (storefront + staff panel + API routes) lives in **`frontend/`**.
 
 ## Quick deploy (recommended)
 
