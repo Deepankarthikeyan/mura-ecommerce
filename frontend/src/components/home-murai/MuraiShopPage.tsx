@@ -206,8 +206,6 @@ function MuraiShopContent() {
       .map((name) => ({ id: name, label: name }));
     return [{ id: ALL_CATEGORY, label: "All Sarees" }, ...sareeTypes, ...apiExtras];
   }, [categories]);
-  const exactCategory = categories.find((name) => name.toLowerCase() === category.toLowerCase());
-
   const topRated = useMemo(
     () =>
       [...catalog]

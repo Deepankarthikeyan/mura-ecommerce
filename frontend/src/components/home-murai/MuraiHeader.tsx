@@ -121,11 +121,6 @@ export default function MuraiHeader() {
           <form id="suruchi-search" className={`suruchi-search${searchOpen ? " is-open" : ""}`} onSubmit={onSearch}>
             <select aria-label="Category" value={category} onChange={(e) => setCategory(e.target.value)}>
               <option value="All Sarees">All Sarees</option>
-              {SAREE_CATEGORIES.map((cat) => (
-                <option key={cat.key} value={cat.key}>
-                  {cat.label}
-                </option>
-              ))}
             </select>
             <input
               type="text"
