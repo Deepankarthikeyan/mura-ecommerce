@@ -34,7 +34,6 @@ export default function MuraiHeader() {
   const spacerRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [sareesOpen, setSareesOpen] = useState(false);
-  const [hoveredSareeKey, setHoveredSareeKey] = useState(SAREE_CATEGORIES[0].key);
   const [searchOpen, setSearchOpen] = useState(false);
   const [navFixed, setNavFixed] = useState(false);
   const [search, setSearch] = useState("");
@@ -45,8 +44,6 @@ export default function MuraiHeader() {
   const [signupContinue, setSignupContinue] = useState<RegistrationReadyPayload | null>(null);
 
   const cartCount = cartItems.filter((item) => item.active).reduce((sum, item) => sum + item.quantity, 0);
-  const hoveredSaree =
-    SAREE_CATEGORIES.find((cat) => cat.key === hoveredSareeKey) ?? SAREE_CATEGORIES[0];
 
   useEffect(() => {
     const update = () => {
@@ -258,28 +255,18 @@ export default function MuraiHeader() {
               </Link>
 
               <div className="suruchi-sarees-mega">
-                <div className="suruchi-sarees-mega-inner">
-                  <ul className="suruchi-sarees-cats">
-                    {SAREE_CATEGORIES.map((cat) => (
-                      <li key={cat.key}>
-                        <Link
-                          href={`/shop?category=${cat.key}`}
-                          className={hoveredSareeKey === cat.key ? "is-hovered" : ""}
-                          onMouseEnter={() => setHoveredSareeKey(cat.key)}
-                          onFocus={() => setHoveredSareeKey(cat.key)}
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          {cat.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="suruchi-sarees-preview">
-                    <Link href={`/shop?category=${hoveredSaree.key}`} onClick={() => setMenuOpen(false)}>
-                      <img src={hoveredSaree.image} alt={hoveredSaree.label} />
-                      <span>{hoveredSaree.label}</span>
+                <div className="suruchi-sarees-grid">
+                  {SAREE_CATEGORIES.map((cat) => (
+                    <Link
+                      key={cat.key}
+                      href={`/shop?category=${cat.key}`}
+                      className="suruchi-saree-card"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <img src={cat.image} alt={cat.label} loading="lazy" />
+                      <span>{cat.label}</span>
                     </Link>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -291,15 +278,19 @@ export default function MuraiHeader() {
               >
                 Sarees
               </button>
-              <ul className="suruchi-sarees-mobile-list">
+              <div className={`suruchi-sarees-mobile-grid${sareesOpen ? " is-open" : ""}`}>
                 {SAREE_CATEGORIES.map((cat) => (
-                  <li key={cat.key}>
-                    <Link href={`/shop?category=${cat.key}`} onClick={() => setMenuOpen(false)}>
-                      {cat.label}
-                    </Link>
-                  </li>
+                  <Link
+                    key={cat.key}
+                    href={`/shop?category=${cat.key}`}
+                    className="suruchi-saree-card"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <img src={cat.image} alt={cat.label} loading="lazy" />
+                    <span>{cat.label}</span>
+                  </Link>
                 ))}
-              </ul>
+              </div>
             </li>
 
             {NAV_ITEMS.slice(1).map((item) => (
