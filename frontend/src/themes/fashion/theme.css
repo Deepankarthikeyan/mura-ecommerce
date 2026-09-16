@@ -1,0 +1,710 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap");
+
+/* Fashion — tokens match colours.ts; DB-saved colours override via --color-* !important. */
+[data-website-theme="fashion"] {
+  --color-primary: #d10056;
+  --color-primary-2: #d10056;
+  --color-primary-3: #fff9eb;
+  --color-primary-dark: #a80045;
+  --color-primary-light: #fff9eb;
+  --color-secondary: #222222;
+  --color-heading-1: #111111;
+  --color-body: #555555;
+  --color-on-primary: #ffffff;
+  --color-white: #fff;
+  --color-success: #3eb75e;
+  --color-danger: #dc2626;
+  --color-warning: #ffb800;
+  --color-info: #1ba2db;
+  --color-background: #ffffff;
+  --background: #ffffff;
+  --foreground: #111111;
+  --color-footer-muted: #a0a0a0;
+  --color-card-border: #eaeaea;
+  --font-primary: "Montserrat", sans-serif;
+  --font-secondary: "Playfair Display", serif;
+  --font-heading: "Playfair Display", serif;
+  --h1: 56px;
+  --h2: 32px;
+  --h3: 24px;
+  --h4: 18px;
+  --h5: 16px;
+  --h6: 14px;
+  --font-size-b1: 15px;
+  --font-size-b2: 14px;
+  --font-size-b3: 13px;
+  --radius: 0px;
+}
+
+html[data-website-theme="fashion"],
+html[data-website-theme="fashion"] body {
+  font-family: var(--font-primary);
+  color: var(--color-body);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+}
+
+[data-website-theme="fashion"] h1,
+[data-website-theme="fashion"] h2,
+[data-website-theme="fashion"] h3,
+[data-website-theme="fashion"] .title-left,
+[data-website-theme="fashion"] .banner-area-start-4 .title {
+  font-family: var(--font-heading);
+  color: var(--color-heading-1);
+  font-weight: 700;
+}
+
+[data-website-theme="fashion"] p,
+[data-website-theme="fashion"] a,
+[data-website-theme="fashion"] li,
+[data-website-theme="fashion"] span,
+[data-website-theme="fashion"] button,
+[data-website-theme="fashion"] input,
+[data-website-theme="fashion"] select,
+[data-website-theme="fashion"] label {
+  font-family: var(--font-primary);
+}
+
+/* Sharp corners on UI chrome; keep true circles. */
+[data-website-theme="fashion"] .rts-btn,
+[data-website-theme="fashion"] .rts-btn.radious-sm,
+[data-website-theme="fashion"] .rts-btn.btn-primary,
+[data-website-theme="fashion"] .btn-border-only,
+[data-website-theme="fashion"] .single-service-area-style-one,
+[data-website-theme="fashion"] input,
+[data-website-theme="fashion"] select,
+[data-website-theme="fashion"] textarea,
+[data-website-theme="fashion"] .form-control,
+[data-website-theme="fashion"] .our-products-search-input,
+[data-website-theme="fashion"] .our-products-category-select,
+[data-website-theme="fashion"] .search-header input,
+[data-website-theme="fashion"] .search-header button,
+[data-website-theme="fashion"] .nice-select,
+[data-website-theme="fashion"] .badge,
+[data-website-theme="fashion"] .quantity-edit,
+[data-website-theme="fashion"] .quantity-edit .input,
+[data-website-theme="fashion"] .quantity-edit .button {
+  border-radius: 0 !important;
+}
+
+/* ---------- Header / top bar ---------- */
+[data-website-theme="fashion"] .header-top-area,
+[data-website-theme="fashion"] .theme-bg-primary,
+[data-website-theme="fashion"] .bg-theme-primary {
+  background-color: var(--color-primary) !important;
+}
+
+[data-website-theme="fashion"] .header-top-area,
+[data-website-theme="fashion"] .bwtween-area-header-top,
+[data-website-theme="fashion"] .follow-us-social span,
+[data-website-theme="fashion"] .follow-us-social a,
+[data-website-theme="fashion"] .header-top-area p,
+[data-website-theme="fashion"] .header-top-area a {
+  color: var(--color-on-primary) !important;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+[data-website-theme="fashion"] .bg-white,
+[data-website-theme="fashion"] .rts-header-nav-area-one {
+  background: var(--color-background) !important;
+}
+
+[data-website-theme="fashion"] .header-menu-links,
+[data-website-theme="fashion"] .header-menu-links a,
+[data-website-theme="fashion"] .header-menu-links button,
+[data-website-theme="fashion"] .nav-area .parent-nav > li > a,
+[data-website-theme="fashion"] .rts-header-nav-area-one .nav-area ul li a {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-heading-1) !important;
+}
+
+[data-website-theme="fashion"] .nav-area .parent-nav > li > a:hover,
+[data-website-theme="fashion"] .header-menu-links a:hover,
+[data-website-theme="fashion"] .theme-link-hover:hover {
+  color: var(--color-primary) !important;
+  background: var(--color-primary-light);
+}
+
+[data-website-theme="fashion"] .btn-border-only {
+  border-radius: 0 !important;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+[data-website-theme="fashion"] .search-header input,
+[data-website-theme="fashion"] .category-search-wrapper input {
+  border-radius: 0 !important;
+  font-family: var(--font-primary);
+}
+
+[data-website-theme="fashion"] .search-header button,
+[data-website-theme="fashion"] .category-search-wrapper .rts-btn {
+  border-radius: 0 !important;
+  background: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+}
+
+/* ---------- Buttons ---------- */
+[data-website-theme="fashion"] .rts-btn.btn-primary {
+  background: var(--color-primary) !important;
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+  border-radius: 0 !important;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[data-website-theme="fashion"] .rts-btn.btn-primary:hover,
+[data-website-theme="fashion"] .rts-btn.btn-primary:focus,
+[data-website-theme="fashion"] .rts-btn.with-icon:hover {
+  background: var(--color-primary-dark) !important;
+  background-color: var(--color-primary-dark) !important;
+  border-color: var(--color-primary-dark) !important;
+  color: var(--color-on-primary) !important;
+}
+
+/* ---------- Hero / banner ---------- */
+[data-website-theme="fashion"] .banner-area-start-4 .pre {
+  color: var(--color-warning) !important;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+[data-website-theme="fashion"] .banner-area-start-4 .title {
+  font-family: var(--font-heading);
+  color: #fff !important;
+  font-size: 52px;
+  line-height: 1.15;
+  font-weight: 700;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+}
+
+[data-website-theme="fashion"] .banner-area-start-4 p {
+  color: rgba(255, 255, 255, 0.92) !important;
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: 500;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+[data-website-theme="fashion"] .banner-four-nav {
+  position: absolute;
+  inset: 0;
+  right: auto;
+  bottom: auto;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  gap: 0;
+}
+
+[data-website-theme="fashion"] .banner-four-nav__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  height: 48px;
+  width: 48px;
+  border-radius: 50% !important;
+  border: none !important;
+  background: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+[data-website-theme="fashion"] .banner-four-prev {
+  left: 24px;
+}
+
+[data-website-theme="fashion"] .banner-four-next {
+  right: 24px;
+}
+
+[data-website-theme="fashion"] .banner-four-nav__btn i {
+  color: var(--color-on-primary) !important;
+}
+
+[data-website-theme="fashion"] .banner-four-nav__btn:hover {
+  background: var(--color-primary-dark) !important;
+}
+
+@media only screen and (max-width: 767px) {
+  [data-website-theme="fashion"] .banner-area-start-4 .title {
+    font-size: 32px;
+  }
+
+  [data-website-theme="fashion"] .banner-four-nav__btn {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+/* ---------- Product cards ---------- */
+[data-website-theme="fashion"] .single-shopping-card-one {
+  background: #fff !important;
+  border: 1px solid #eeeeee;
+  border-radius: 6px !important;
+  overflow: hidden;
+  padding: 0 !important;
+  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .image-and-action-area-wrapper {
+  background: #fff !important;
+  margin: 0;
+  padding: 0;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .thumbnail-preview {
+  position: relative;
+  display: block !important;
+  width: 100% !important;
+  height: 260px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  border-radius: 0 !important;
+  overflow: hidden;
+  background: #f8f8f8 !important;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .thumbnail-preview-inner {
+  height: 260px !important;
+  width: 100% !important;
+  background: #f8f8f8 !important;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .thumbnail-preview img,
+[data-website-theme="fashion"] .single-shopping-card-one .thumbnail-preview-inner img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  object-fit: cover !important;
+  transform: none !important;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one:hover .thumbnail-preview img {
+  transform: scale(1.03) !important;
+}
+
+[data-website-theme="fashion"] .fashion-sale-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 6;
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 2px;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .body-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 18px 16px 16px;
+  text-align: center;
+}
+
+[data-website-theme="fashion"] .fashion-category {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--color-primary);
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .body-content a {
+  text-align: center;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .body-content a .title,
+[data-website-theme="fashion"] .single-shopping-card-one .title {
+  font-family: var(--font-primary) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.35;
+  color: #1f2937 !important;
+  text-align: center;
+  margin: 0 0 8px !important;
+}
+
+[data-website-theme="fashion"] .ayurvedha-availability,
+[data-website-theme="fashion"] .single-shopping-card-one .availability,
+[data-website-theme="fashion"] .single-shopping-card-one .quantity-edit,
+[data-website-theme="fashion"] .ayurvedha-add-label,
+[data-website-theme="fashion"] .single-shopping-card-one .add-to-card .arrow-icon {
+  display: none !important;
+}
+
+[data-website-theme="fashion"] .fashion-add-label {
+  display: inline-block !important;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .price-area {
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .price-area .current {
+  color: var(--color-primary) !important;
+  font-family: var(--font-primary);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .price-area .previous {
+  color: #64748b !important;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: line-through;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .price-area .previous::after {
+  display: none !important;
+}
+
+[data-website-theme="fashion"] .fashion-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  margin: 0 0 4px;
+}
+
+[data-website-theme="fashion"] .fashion-rating i,
+[data-website-theme="fashion"] .fashion-rating .fa-star {
+  color: #ffcc00 !important;
+  font-size: 12px;
+}
+
+[data-website-theme="fashion"] .fashion-card-divider {
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: #f1f5f9;
+  margin: 14px 0 14px;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .cart-counter-action {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: stretch;
+  gap: 8px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .cart-counter-action .rts-btn.add-to-card,
+[data-website-theme="fashion"] .single-shopping-card-one .add-to-card {
+  flex: 1 1 auto;
+  width: auto;
+  max-width: none !important;
+  min-height: 42px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 10px 14px !important;
+  border-radius: 4px !important;
+  background: var(--color-primary) !important;
+  background-color: var(--color-primary) !important;
+  border: none !important;
+  color: var(--color-on-primary) !important;
+  font-family: var(--font-primary);
+  font-size: 13px !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+[data-website-theme="fashion"] .single-shopping-card-one .add-to-card:hover {
+  background: var(--color-primary-dark) !important;
+  color: var(--color-on-primary) !important;
+}
+
+[data-website-theme="fashion"] .fashion-wishlist-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  border-radius: 4px;
+  color: #111111;
+  cursor: pointer;
+  line-height: 1;
+}
+
+[data-website-theme="fashion"] .fashion-wishlist-btn i {
+  font-size: 18px;
+  color: #111111;
+}
+
+[data-website-theme="fashion"] .fashion-wishlist-btn:hover {
+  border-color: var(--color-primary);
+}
+
+[data-website-theme="fashion"] .fashion-wishlist-btn:hover i {
+  color: var(--color-primary);
+}
+
+[data-website-theme="fashion"] .title-left {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-heading-1) !important;
+}
+
+[data-website-theme="fashion"] .our-products-search-input,
+[data-website-theme="fashion"] .our-products-category-select {
+  border-radius: 0 !important;
+  color: var(--color-heading-1) !important;
+  font-family: var(--font-primary);
+}
+
+/* ---------- Service / features bar ---------- */
+[data-website-theme="fashion"] .rts-shorts-service-area.bg_primary,
+[data-website-theme="fashion"] .rts-shorts-service-area {
+  background: var(--color-primary-light) !important;
+}
+
+[data-website-theme="fashion"] .single-short-service-area-start .information .title {
+  color: var(--color-heading-1) !important;
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+[data-website-theme="fashion"] .single-short-service-area-start .information p.disc {
+  color: var(--color-body) !important;
+  font-size: 14px;
+}
+
+[data-website-theme="fashion"] .single-short-service-area-start .icon-area {
+  background: #fff !important;
+  border-radius: 50% !important;
+}
+
+/* ---------- Footer ---------- */
+[data-website-theme="fashion"] .rts-footer-area {
+  background-color: var(--color-secondary) !important;
+}
+
+[data-website-theme="fashion"] .rts-footer-area .footer-title,
+[data-website-theme="fashion"] .rts-footer-area h3,
+[data-website-theme="fashion"] .rts-footer-area h3.footer-title {
+  color: #fff !important;
+  font-family: var(--font-primary) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+}
+
+[data-website-theme="fashion"] .rts-footer-area a,
+[data-website-theme="fashion"] .rts-footer-area p,
+[data-website-theme="fashion"] .rts-footer-area li,
+[data-website-theme="fashion"] .footer-product-columns a {
+  color: var(--color-footer-muted) !important;
+  font-family: var(--font-primary);
+  font-size: 14px;
+}
+
+[data-website-theme="fashion"] .rts-footer-area a:hover,
+[data-website-theme="fashion"] .footer-product-columns a:hover {
+  color: var(--color-primary) !important;
+}
+
+[data-website-theme="fashion"] .rts-copyright-area,
+[data-website-theme="fashion"] .rts-copyright-area.bg_primary {
+  background: var(--color-secondary) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-website-theme="fashion"] .rts-copyright-area p,
+[data-website-theme="fashion"] .rts-copyright-area a,
+[data-website-theme="fashion"] .rts-copyright-area .disc {
+  color: var(--color-footer-muted) !important;
+  font-family: var(--font-primary) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+[data-website-theme="fashion"] .bg_light-1 {
+  background: var(--color-background) !important;
+}
+
+[data-website-theme="fashion"] .bg_primary {
+  background: var(--color-primary) !important;
+}
+
+[data-website-theme="fashion"] .rts-shorts-service-area.bg_primary {
+  background: var(--color-primary-light) !important;
+}
+
+[data-website-theme="fashion"] .rts-copyright-area.bg_primary {
+  background: var(--color-secondary) !important;
+}
+
+/* ---------- Discounts bento ---------- */
+[data-website-theme="fashion"] .discounts-bento__card {
+  border-radius: 12px;
+}
+
+[data-website-theme="fashion"] .discounts-bento__overlay {
+  background: linear-gradient(
+    105deg,
+    rgba(110, 12, 55, 0.82) 0%,
+    rgba(209, 0, 86, 0.38) 42%,
+    transparent 78%
+  );
+}
+
+[data-website-theme="fashion"] .discounts-bento__tag {
+  color: var(--color-warning) !important;
+  font-family: var(--font-primary);
+}
+
+[data-website-theme="fashion"] h3.discounts-bento__headline {
+  font-family: var(--font-heading) !important;
+  color: #fff !important;
+}
+
+[data-website-theme="fashion"] .discounts-bento__cta {
+  font-family: var(--font-primary);
+  color: #fff !important;
+}
+
+/* ---------- Category products ---------- */
+[data-website-theme="fashion"] .category-products-title {
+  font-family: var(--font-heading);
+  color: var(--color-heading-1) !important;
+}
+
+[data-website-theme="fashion"] .category-products-tab {
+  font-family: var(--font-primary);
+}
+
+[data-website-theme="fashion"] .category-products-tab.is-active {
+  border-bottom-color: var(--color-primary);
+}
+
+[data-website-theme="fashion"] .category-products-section .single-shopping-card-one .thumbnail-preview,
+[data-website-theme="fashion"] .category-products-section .single-shopping-card-one .thumbnail-preview-inner {
+  height: 280px !important;
+}
+
+/* ---------- Deals of the day ---------- */
+[data-website-theme="fashion"] .deals-of-the-day {
+  background: #fdf2f0;
+}
+
+[data-website-theme="fashion"] h2.deals-of-the-day__title {
+  font-family: var(--font-heading) !important;
+  color: var(--color-primary) !important;
+}
+
+[data-website-theme="fashion"] .deals-of-the-day__eyebrow,
+[data-website-theme="fashion"] .deals-of-the-day__copy,
+[data-website-theme="fashion"] .deals-of-the-day__cta,
+[data-website-theme="fashion"] .deals-of-the-day__product-title {
+  font-family: var(--font-primary);
+}
+
+/* ---------- Newsletter ---------- */
+[data-website-theme="fashion"] .newsletter-banner {
+  background: var(--color-primary);
+}
+
+[data-website-theme="fashion"] h2.newsletter-banner__title {
+  font-family: var(--font-heading) !important;
+  color: #fff !important;
+}
+
+[data-website-theme="fashion"] .newsletter-banner__copy {
+  font-family: var(--font-primary);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+[data-website-theme="fashion"] .newsletter-banner__form {
+  border-radius: 0;
+}
+
+[data-website-theme="fashion"] .newsletter-banner__input {
+  background: rgba(0, 0, 0, 0.18);
+  color: #fff;
+}
+
+[data-website-theme="fashion"] .newsletter-banner__submit {
+  background: var(--color-primary-dark);
+  font-family: var(--font-primary);
+}
+
+/* ---------- Recommendations ---------- */
+[data-website-theme="fashion"] .feature-product-list-wrapper .title-area .title {
+  font-family: var(--font-heading) !important;
+  color: var(--color-heading-1) !important;
+}
+
+[data-website-theme="fashion"] .feature-product-list-wrapper .single-product-list .body-content .top a .title {
+  font-family: var(--font-heading);
+  color: var(--color-heading-1) !important;
+}
+
+[data-website-theme="fashion"] .feature-product-list-wrapper .single-product-list .body-content .price-area .current {
+  color: var(--color-primary) !important;
+}
+
+[data-website-theme="fashion"] .add-area-start-feature .inner-add-content .tag,
+[data-website-theme="fashion"] .add-area-start-feature .inner-add-content .plus-icon {
+  background: var(--color-primary);
+}
+
+[data-website-theme="fashion"] .add-area-start-feature .inner-add-content .title {
+  font-family: var(--font-heading) !important;
+  color: var(--color-heading-1) !important;
+}
+
+[data-website-theme="fashion"] .add-area-start-feature .inner-add-content .title span {
+  color: var(--color-primary);
+}
