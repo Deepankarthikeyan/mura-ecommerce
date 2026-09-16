@@ -2431,7 +2431,7 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(8px);
-  width: min(980px, 98vw);
+  width: min(1120px, 98vw);
   background: var(--suruchi-white);
   border: 1px solid var(--suruchi-border);
   border-radius: 0 0 12px 12px;
@@ -2441,7 +2441,7 @@
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
   z-index: 1200;
   pointer-events: none;
-  padding: 14px 16px;
+  padding: 18px 20px;
 }
 
 .murai-home .suruchi-nav-dropdown:hover .suruchi-sarees-mega{
@@ -2454,7 +2454,7 @@
 .murai-home .suruchi-sarees-grid{
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 10px;
+  gap: 14px;
   justify-items: center;
 }
 
@@ -2463,11 +2463,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 6px;
+  gap: 10px;
   width: 100%;
-  max-width: 112px;
+  max-width: 140px;
   margin: 0 auto;
-  padding: 6px 4px !important;
+  padding: 8px 6px !important;
   border-radius: 6px;
   text-align: center;
   text-transform: none !important;
@@ -2487,22 +2487,22 @@
 
 .murai-home .suruchi-nav a.suruchi-saree-card img{
   display: block;
-  width: 88px;
-  height: 106px;
+  width: 110px;
+  height: 132px;
   margin: 0 auto;
   flex-shrink: 0;
   object-fit: cover;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .murai-home .suruchi-nav a.suruchi-saree-card span{
   display: block;
   width: 100%;
   margin: 0 auto;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.35;
   color: var(--suruchi-dark);
   text-align: center;
   text-transform: none !important;
@@ -2517,25 +2517,25 @@
 
 @media (max-width: 1100px) {
   .murai-home .suruchi-sarees-mega{
-    width: min(920px, 98vw);
-    padding: 12px;
+    width: min(1020px, 98vw);
+    padding: 14px 16px;
   }
 
   .murai-home .suruchi-sarees-grid{
-    gap: 8px;
+    gap: 10px;
   }
 
   .murai-home .suruchi-nav a.suruchi-saree-card{
-    max-width: 100px;
+    max-width: 120px;
   }
 
   .murai-home .suruchi-nav a.suruchi-saree-card img{
-    width: 76px;
-    height: 92px;
+    width: 92px;
+    height: 110px;
   }
 
   .murai-home .suruchi-nav a.suruchi-saree-card span{
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 
