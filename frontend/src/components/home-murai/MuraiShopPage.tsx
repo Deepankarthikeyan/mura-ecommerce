@@ -11,6 +11,11 @@ import MuraiShopFooter from "./MuraiShopFooter";
 import { MuraiProductCard } from "./MuraiProductCard";
 import { formatInr, type MuraiSaree } from "./murai-data";
 import { mapApiProducts } from "./muraiProducts";
+import {
+  getSareeCategoryByKey,
+  productMatchesSareeCategory,
+  SAREE_CATEGORIES,
+} from "@/lib/storefront/sareeCategories";
 
 const ALL_CATEGORY = "all";
 
@@ -43,6 +48,9 @@ function productMatchesCategory(productCategory: string, selected: string) {
   const hay = productCategory.toLowerCase();
   const selectedLower = selected.toLowerCase();
   if (hay === selectedLower) return true;
+  if (getSareeCategoryByKey(selectedLower)) {
+    return productMatchesSareeCategory(productCategory, selectedLower);
+  }
   const mapped = CATEGORY_KEYWORDS[selected];
   if (mapped && mapped !== ALL_CATEGORY) {
     return hay.includes(mapped);
@@ -191,10 +199,13 @@ function MuraiShopContent() {
     return list;
   }, [appliedMax, appliedMin, catalog, category, sort]);
 
-  const sidebarCategories = useMemo(
-    () => [{ id: ALL_CATEGORY, label: "All Sarees" }, ...categories.map((name) => ({ id: name, label: name }))],
-    [categories]
-  );
+  const sidebarCategories = useMemo(() => {
+    const sareeTypes = SAREE_CATEGORIES.map((cat) => ({ id: cat.key, label: cat.label }));
+    const apiExtras = categories
+      .filter((name) => !SAREE_CATEGORIES.some((cat) => cat.label.toLowerCase() === name.toLowerCase()))
+      .map((name) => ({ id: name, label: name }));
+    return [{ id: ALL_CATEGORY, label: "All Sarees" }, ...sareeTypes, ...apiExtras];
+  }, [categories]);
   const exactCategory = categories.find((name) => name.toLowerCase() === category.toLowerCase());
 
   const topRated = useMemo(
@@ -245,9 +256,7 @@ function MuraiShopContent() {
                   const isActive =
                     category === ALL_CATEGORY
                       ? type.id === ALL_CATEGORY
-                      : exactCategory
-                        ? type.id.toLowerCase() === exactCategory.toLowerCase()
-                        : productMatchesCategory(type.id, category);
+                      : type.id.toLowerCase() === category.toLowerCase();
                   return (
                     <li key={type.id}>
                       <button

@@ -11,10 +11,10 @@ import RegisterDialog, {
 } from "@/components/auth/RegisterDialog";
 import AddressDialog from "@/components/auth/AddressDialog";
 import { getDashboardPrefix } from "@/lib/dashboardPaths";
+import { SAREE_CATEGORIES } from "@/lib/storefront/sareeCategories";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home", href: "/" },
-  { id: "shop", label: "Shop", href: "/shop" },
   { id: "about", label: "About", href: "/about" },
   { id: "contact", label: "Contact", href: "/contact" },
 ];
@@ -33,6 +33,8 @@ export default function MuraiHeader() {
   const navRef = useRef<HTMLElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [sareesOpen, setSareesOpen] = useState(false);
+  const [hoveredSareeKey, setHoveredSareeKey] = useState(SAREE_CATEGORIES[0].key);
   const [searchOpen, setSearchOpen] = useState(false);
   const [navFixed, setNavFixed] = useState(false);
   const [search, setSearch] = useState("");
@@ -43,6 +45,8 @@ export default function MuraiHeader() {
   const [signupContinue, setSignupContinue] = useState<RegistrationReadyPayload | null>(null);
 
   const cartCount = cartItems.filter((item) => item.active).reduce((sum, item) => sum + item.quantity, 0);
+  const hoveredSaree =
+    SAREE_CATEGORIES.find((cat) => cat.key === hoveredSareeKey) ?? SAREE_CATEGORIES[0];
 
   useEffect(() => {
     const update = () => {
@@ -91,7 +95,7 @@ export default function MuraiHeader() {
     event.preventDefault();
     const params = new URLSearchParams();
     if (search.trim()) params.set("search", search.trim());
-    if (category !== "All Sarees") params.set("category", category);
+    if (category && category !== "All Sarees") params.set("category", category);
     const query = params.toString();
     router.push(query ? `/shop?${query}` : "/shop");
     setSearchOpen(false);
@@ -119,12 +123,12 @@ export default function MuraiHeader() {
           </Link>
           <form id="suruchi-search" className={`suruchi-search${searchOpen ? " is-open" : ""}`} onSubmit={onSearch}>
             <select aria-label="Category" value={category} onChange={(e) => setCategory(e.target.value)}>
-              <option>All Sarees</option>
-              <option>Silk Sarees</option>
-              <option>Cotton Sarees</option>
-              <option>Banarasi</option>
-              <option>Kanjivaram</option>
-              <option>Party Wear</option>
+              <option value="All Sarees">All Sarees</option>
+              {SAREE_CATEGORIES.map((cat) => (
+                <option key={cat.key} value={cat.key}>
+                  {cat.label}
+                </option>
+              ))}
             </select>
             <input
               type="text"
@@ -229,7 +233,76 @@ export default function MuraiHeader() {
             </button>
           </div>
           <ul>
-            {NAV_ITEMS.map((item) => (
+            <li>
+              <Link href="/" className={isNavActive("/", pathname) ? "active" : ""} onClick={() => setMenuOpen(false)}>
+                Home
+              </Link>
+            </li>
+
+            <li
+              className={`suruchi-nav-dropdown ${sareesOpen ? "is-open" : ""}`}
+              onMouseEnter={() => setSareesOpen(true)}
+              onMouseLeave={() => setSareesOpen(false)}
+            >
+              <Link
+                href="/shop"
+                className={`suruchi-nav-dropdown-trigger ${isNavActive("/shop", pathname) ? "active" : ""}`}
+                onClick={() => setMenuOpen(false)}
+                aria-haspopup="true"
+                aria-expanded={sareesOpen}
+              >
+                Sarees
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor" aria-hidden="true">
+                  <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                </svg>
+              </Link>
+
+              <div className="suruchi-sarees-mega">
+                <div className="suruchi-sarees-mega-inner">
+                  <ul className="suruchi-sarees-cats">
+                    {SAREE_CATEGORIES.map((cat) => (
+                      <li key={cat.key}>
+                        <Link
+                          href={`/shop?category=${cat.key}`}
+                          className={hoveredSareeKey === cat.key ? "is-hovered" : ""}
+                          onMouseEnter={() => setHoveredSareeKey(cat.key)}
+                          onFocus={() => setHoveredSareeKey(cat.key)}
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          {cat.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="suruchi-sarees-preview">
+                    <Link href={`/shop?category=${hoveredSaree.key}`} onClick={() => setMenuOpen(false)}>
+                      <img src={hoveredSaree.image} alt={hoveredSaree.label} />
+                      <span>{hoveredSaree.label}</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                className="suruchi-sarees-mobile-toggle"
+                aria-expanded={sareesOpen}
+                onClick={() => setSareesOpen((open) => !open)}
+              >
+                Sarees
+              </button>
+              <ul className="suruchi-sarees-mobile-list">
+                {SAREE_CATEGORIES.map((cat) => (
+                  <li key={cat.key}>
+                    <Link href={`/shop?category=${cat.key}`} onClick={() => setMenuOpen(false)}>
+                      {cat.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+
+            {NAV_ITEMS.slice(1).map((item) => (
               <li key={item.id}>
                 <Link href={item.href} className={isNavActive(item.href, pathname) ? "active" : ""} onClick={() => setMenuOpen(false)}>
                   {item.label}

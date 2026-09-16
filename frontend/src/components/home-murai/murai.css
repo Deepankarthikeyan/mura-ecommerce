@@ -2407,6 +2407,131 @@
   background: var(--suruchi-cream);
 }
 
+.murai-home .suruchi-nav-dropdown{
+  position: relative;
+}
+
+.murai-home .suruchi-nav-dropdown-trigger{
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+.murai-home .suruchi-nav-dropdown-trigger svg{
+  transition: transform 0.2s ease;
+}
+
+.murai-home .suruchi-nav-dropdown:hover .suruchi-nav-dropdown-trigger svg,
+.murai-home .suruchi-nav-dropdown.is-open .suruchi-nav-dropdown-trigger svg{
+  transform: rotate(180deg);
+}
+
+.murai-home .suruchi-sarees-mega{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 520px;
+  background: var(--suruchi-white);
+  border: 1px solid var(--suruchi-border);
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 1200;
+  pointer-events: none;
+}
+
+.murai-home .suruchi-nav-dropdown:hover .suruchi-sarees-mega,
+.murai-home .suruchi-nav-dropdown.is-open .suruchi-sarees-mega{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.murai-home .suruchi-sarees-mega-inner{
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 0;
+}
+
+.murai-home .suruchi-sarees-cats{
+  list-style: none;
+  margin: 0;
+  padding: 12px 0;
+  border-right: 1px solid var(--suruchi-border);
+}
+
+.murai-home .suruchi-sarees-cats li{
+  margin: 0;
+}
+
+.murai-home .suruchi-sarees-cats a{
+  display: block;
+  padding: 12px 24px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  color: var(--suruchi-dark) !important;
+  background: transparent !important;
+  border-bottom: none !important;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.murai-home .suruchi-sarees-cats a:hover,
+.murai-home .suruchi-sarees-cats a.is-hovered,
+.murai-home .suruchi-sarees-cats a:focus{
+  color: var(--suruchi-primary) !important;
+  background: var(--suruchi-cream) !important;
+}
+
+.murai-home .suruchi-sarees-preview{
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.murai-home .suruchi-sarees-preview a{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 0 !important;
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+.murai-home .suruchi-sarees-preview img{
+  width: 180px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease;
+}
+
+.murai-home .suruchi-sarees-preview a:hover img{
+  transform: scale(1.02);
+}
+
+.murai-home .suruchi-sarees-preview span{
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--suruchi-primary);
+  text-align: center;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.murai-home .suruchi-sarees-mobile-toggle,
+.murai-home .suruchi-sarees-mobile-list{
+  display: none;
+}
+
 .murai-home .suruchi-mobile-toggle{
   display: none;
   background: none;
@@ -5415,6 +5540,46 @@
     padding: 16px 12px;
     font-size: 15px;
     border-bottom: 1px solid var(--suruchi-border);
+  }
+
+  .murai-home .suruchi-nav-dropdown-trigger,
+  .murai-home .suruchi-sarees-mega{
+    display: none !important;
+  }
+
+  .murai-home .suruchi-sarees-mobile-toggle{
+    display: block;
+    width: 100%;
+    padding: 16px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--suruchi-dark);
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--suruchi-border);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .murai-home .suruchi-sarees-mobile-list{
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 8px 16px;
+    background: var(--suruchi-cream);
+  }
+
+  .murai-home .suruchi-nav-dropdown.is-open .suruchi-sarees-mobile-list{
+    display: block;
+  }
+
+  .murai-home .suruchi-sarees-mobile-list a{
+    padding: 12px !important;
+    font-size: 14px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
   }
 
   .murai-home .suruchi-nav-header .suruchi-nav-close{
