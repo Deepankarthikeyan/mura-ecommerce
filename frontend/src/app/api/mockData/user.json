@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "username": "kumar",
+        "email": "kumar@gmail.com",
+        "password": "kumar@123",
+        "firstName": "Kumar",
+        "lastName": "Kumar",
+        "country": "India",
+        "addressLine1": "63, teachers colony, ghandipuram",
+        "city": "Coimbatore",
+        "state": "Tamil Nadu",
+        "zipcode": "641001",
+        "phone": "+91 98765 43210"
+    }
+]

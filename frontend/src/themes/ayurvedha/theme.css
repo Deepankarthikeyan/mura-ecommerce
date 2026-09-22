@@ -1,0 +1,52 @@
+/* Ayurvedha — current storefront tokens. Shared layout CSS is unchanged. */
+[data-website-theme="ayurvedha"] {
+  --color-primary: #629d23;
+  --color-primary-2: #629d23;
+  --color-primary-3: #f0f7e6;
+  --color-primary-dark: #4a7a1a;
+  --color-primary-light: #f0f7e6;
+  --color-secondary: #1f1f25;
+  --color-heading-1: #2c3c28;
+  --color-body: #6e777d;
+  --color-on-primary: #ffffff;
+  --color-white: #fff;
+  --color-success: #3eb75e;
+  --color-danger: #dc2626;
+  --color-warning: #ff8f3c;
+  --color-info: #1ba2db;
+  --color-background: #ffffff;
+  --background: #ffffff;
+  --foreground: #2c3c28;
+  --font-primary: "Barlow", sans-serif;
+  --font-secondary: "Barlow", sans-serif;
+}
+
+[data-website-theme="ayurvedha"] .fashion-sale-badge,
+[data-website-theme="ayurvedha"] .fashion-category,
+[data-website-theme="ayurvedha"] .fashion-rating,
+[data-website-theme="ayurvedha"] .fashion-card-divider,
+[data-website-theme="ayurvedha"] .fashion-wishlist-btn,
+[data-website-theme="ayurvedha"] .fashion-add-label {
+  display: none !important;
+}
+
+[data-website-theme="ayurvedha"] .category-products-section .fashion-sale-badge {
+  display: inline-block !important;
+}
+
+[data-website-theme="ayurvedha"] .category-products-section .fashion-category {
+  display: block !important;
+}
+
+[data-website-theme="ayurvedha"] .category-products-section .fashion-rating,
+[data-website-theme="ayurvedha"] .category-products-section .fashion-wishlist-btn {
+  display: flex !important;
+}
+
+[data-website-theme="ayurvedha"] .category-products-section .fashion-card-divider {
+  display: block !important;
+}
+
+[data-website-theme="ayurvedha"] .category-products-section .fashion-add-label {
+  display: inline-block !important;
+}
