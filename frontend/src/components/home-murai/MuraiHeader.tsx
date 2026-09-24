@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/components/header/CartContext";
@@ -31,6 +31,7 @@ export default function MuraiHeader() {
   const mountRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
+  const megaCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [navFixed, setNavFixed] = useState(false);
@@ -91,6 +92,27 @@ export default function MuraiHeader() {
   useEffect(() => {
     if (!menuOpen) setSareesMenuOpen(false);
   }, [menuOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (megaCloseTimerRef.current) clearTimeout(megaCloseTimerRef.current);
+    };
+  }, []);
+
+  const openMegaMenu = () => {
+    if (megaCloseTimerRef.current) {
+      clearTimeout(megaCloseTimerRef.current);
+      megaCloseTimerRef.current = null;
+    }
+    setSareesMenuOpen(true);
+  };
+
+  const scheduleMegaMenuClose = (event: MouseEvent<HTMLElement>) => {
+    const next = event.relatedTarget;
+    if (next instanceof Node && event.currentTarget.contains(next)) return;
+    if (megaCloseTimerRef.current) clearTimeout(megaCloseTimerRef.current);
+    megaCloseTimerRef.current = setTimeout(() => setSareesMenuOpen(false), 280);
+  };
 
   const onSearch = (event: FormEvent) => {
     event.preventDefault();
@@ -223,12 +245,8 @@ export default function MuraiHeader() {
         ref={navRef}
       >
         <div
-          className="suruchi-nav-body"
-          onMouseLeave={(event) => {
-            const next = event.relatedTarget;
-            if (next instanceof Node && event.currentTarget.contains(next)) return;
-            setSareesMenuOpen(false);
-          }}
+          className={`suruchi-nav-body${sareesMenuOpen ? " mega-hover" : ""}`}
+          onMouseLeave={scheduleMegaMenuClose}
         >
           <div className="suruchi-nav-inner">
             <div className="suruchi-nav-header">
@@ -253,7 +271,8 @@ export default function MuraiHeader() {
                   className={`suruchi-nav-trigger suruchi-mega-trigger${isShopActive ? " active" : ""}`}
                   aria-expanded={sareesMenuOpen}
                   aria-haspopup="true"
-                  onMouseEnter={() => setSareesMenuOpen(true)}
+                  onMouseEnter={openMegaMenu}
+                  onFocus={openMegaMenu}
                   onClick={() => setSareesMenuOpen((open) => !open)}
                 >
                   Sarees
@@ -269,7 +288,11 @@ export default function MuraiHeader() {
               ))}
             </ul>
           </div>
-          <div className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}>
+          <div
+            className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}
+            onMouseEnter={openMegaMenu}
+            onFocus={openMegaMenu}
+          >
             <div className="suruchi-mega-menu-inner">
               <div className="suruchi-mega-grid">
                 {SAREE_MEGA_MENU.map((item) => (
