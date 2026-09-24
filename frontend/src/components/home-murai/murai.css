@@ -2457,9 +2457,23 @@
 
 .murai-home .suruchi-mega-menu{
   display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 2100;
   background: var(--suruchi-white);
   border-top: 1px solid var(--suruchi-border);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.murai-home .suruchi-mega-menu::before{
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
 }
 
 .murai-home .suruchi-mega-menu.is-open{
@@ -2467,32 +2481,23 @@
 }
 
 @media (min-width: 993px) {
-  .murai-home .suruchi-mega-menu{
-    position: static;
-    z-index: 2100;
-    margin-top: 0;
-    padding-top: 0;
-  }
-
-  .murai-home .suruchi-nav-body:has(.has-mega-menu:hover) .suruchi-mega-menu,
-  .murai-home .suruchi-nav-body:has(.suruchi-mega-menu:hover) .suruchi-mega-menu,
-  .murai-home .suruchi-nav-body.mega-hover .suruchi-mega-menu,
+  .murai-home .suruchi-nav:has(.has-mega-menu:hover) .suruchi-mega-menu,
+  .murai-home .suruchi-nav:has(.suruchi-mega-menu:hover) .suruchi-mega-menu,
+  .murai-home .suruchi-nav.mega-open .suruchi-mega-menu,
   .murai-home .suruchi-mega-menu.is-open{
     display: block;
   }
 
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-mega-caret,
   .murai-home .suruchi-nav.mega-open .suruchi-mega-caret,
-  .murai-home .suruchi-nav-body:has(.suruchi-mega-menu:hover) .suruchi-mega-caret,
-  .murai-home .suruchi-nav-body.mega-hover .suruchi-mega-caret,
+  .murai-home .suruchi-nav:has(.suruchi-mega-menu:hover) .suruchi-mega-caret,
   .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-mega-caret{
     transform: rotate(-135deg) translateY(1px);
   }
 
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-nav-trigger,
   .murai-home .suruchi-nav.mega-open .suruchi-nav-trigger,
-  .murai-home .suruchi-nav-body:has(.suruchi-mega-menu:hover) .suruchi-nav-trigger,
-  .murai-home .suruchi-nav-body.mega-hover .suruchi-nav-trigger,
+  .murai-home .suruchi-nav:has(.suruchi-mega-menu:hover) .suruchi-nav-trigger,
   .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-nav-trigger{
     color: var(--suruchi-primary);
     background: var(--suruchi-cream);
@@ -2502,32 +2507,32 @@
 .murai-home .suruchi-mega-menu-inner{
   max-width: 1400px;
   margin: 0 auto;
-  padding: 14px 20px 18px;
+  padding: 12px 20px 14px;
 }
 
 .murai-home .suruchi-mega-grid{
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
   overflow-x: auto;
   scrollbar-width: thin;
 }
 
 .murai-home .suruchi-mega-card{
-  flex: 0 0 124px;
+  flex: 0 0 110px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   text-align: center;
 }
 
 .murai-home .suruchi-mega-card-image{
   display: block;
-  width: 124px;
-  height: 165px;
-  border-radius: 6px;
+  width: 110px;
+  height: 140px;
+  border-radius: 5px;
   overflow: hidden;
   background: var(--suruchi-beige);
 }
@@ -2541,7 +2546,7 @@
 .murai-home .suruchi-mega-card-label{
   display: block;
   width: 100%;
-  max-width: 124px;
+  max-width: 110px;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.2;
@@ -5608,9 +5613,17 @@
     width: 100%;
   }
 
+  .murai-home .suruchi-mega-menu{
+    position: static;
+  }
+
+  .murai-home .suruchi-mega-menu::before{
+    display: none;
+  }
+
   .murai-home .suruchi-mega-card-image{
     width: 100%;
-    height: 165px;
+    height: 140px;
   }
 
   .murai-home .suruchi-mega-card-label{

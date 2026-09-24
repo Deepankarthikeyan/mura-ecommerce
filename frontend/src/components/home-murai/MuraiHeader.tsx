@@ -243,11 +243,9 @@ export default function MuraiHeader() {
         className={`suruchi-nav${menuOpen ? " open" : ""}${navFixed ? " is-scrolled" : ""}${sareesMenuOpen ? " mega-open" : ""}`}
         id="suruchi-nav"
         ref={navRef}
+        onMouseLeave={scheduleMegaMenuClose}
       >
-        <div
-          className={`suruchi-nav-body${sareesMenuOpen ? " mega-hover" : ""}`}
-          onMouseLeave={scheduleMegaMenuClose}
-        >
+        <div className="suruchi-nav-body">
           <div className="suruchi-nav-inner">
             <div className="suruchi-nav-header">
               <Link href="/" className="suruchi-nav-logo" aria-label="MuRa@23 Home">
@@ -288,30 +286,30 @@ export default function MuraiHeader() {
               ))}
             </ul>
           </div>
-          <div
-            className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}
-            onMouseEnter={openMegaMenu}
-            onFocus={openMegaMenu}
-          >
-            <div className="suruchi-mega-menu-inner">
-              <div className="suruchi-mega-grid">
-                {SAREE_MEGA_MENU.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className="suruchi-mega-card"
-                    onClick={() => {
-                      setSareesMenuOpen(false);
-                      setMenuOpen(false);
-                    }}
-                  >
-                    <span className="suruchi-mega-card-image">
-                      <img src={item.image} alt="" loading="lazy" decoding="async" />
-                    </span>
-                    <span className="suruchi-mega-card-label">{item.label}</span>
-                  </Link>
-                ))}
-              </div>
+        </div>
+        <div
+          className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}
+          onMouseEnter={openMegaMenu}
+          onFocus={openMegaMenu}
+        >
+          <div className="suruchi-mega-menu-inner">
+            <div className="suruchi-mega-grid">
+              {SAREE_MEGA_MENU.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="suruchi-mega-card"
+                  onClick={() => {
+                    setSareesMenuOpen(false);
+                    setMenuOpen(false);
+                  }}
+                >
+                  <span className="suruchi-mega-card-image">
+                    <img src={item.image} alt="" loading="lazy" decoding="async" />
+                  </span>
+                  <span className="suruchi-mega-card-label">{item.label}</span>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
