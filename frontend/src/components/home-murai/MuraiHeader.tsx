@@ -221,9 +221,15 @@ export default function MuraiHeader() {
         className={`suruchi-nav${menuOpen ? " open" : ""}${navFixed ? " is-scrolled" : ""}${sareesMenuOpen ? " mega-open" : ""}`}
         id="suruchi-nav"
         ref={navRef}
-        onMouseLeave={() => setSareesMenuOpen(false)}
       >
-        <div className="suruchi-nav-body">
+        <div
+          className="suruchi-nav-body"
+          onMouseLeave={(event) => {
+            const next = event.relatedTarget;
+            if (next instanceof Node && event.currentTarget.contains(next)) return;
+            setSareesMenuOpen(false);
+          }}
+        >
           <div className="suruchi-nav-inner">
             <div className="suruchi-nav-header">
               <Link href="/" className="suruchi-nav-logo" aria-label="MuRa@23 Home">
@@ -263,10 +269,7 @@ export default function MuraiHeader() {
               ))}
             </ul>
           </div>
-          <div
-            className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}
-            onMouseEnter={() => setSareesMenuOpen(true)}
-          >
+          <div className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}>
             <div className="suruchi-mega-menu-inner">
               <div className="suruchi-mega-grid">
                 {SAREE_MEGA_MENU.map((item) => (

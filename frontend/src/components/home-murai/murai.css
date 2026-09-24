@@ -2188,6 +2188,7 @@
   position: relative;
   z-index: 2000;
   background: var(--suruchi-white);
+  overflow: visible;
 }
 
 .murai-home .suruchi-header-main{
@@ -2459,10 +2460,10 @@
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 1100;
+  z-index: 2100;
   display: none;
-  margin-top: -1px;
-  padding-top: 1px;
+  margin-top: -6px;
+  padding-top: 6px;
   background: var(--suruchi-white);
   border-top: 1px solid var(--suruchi-border);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
@@ -2473,14 +2474,22 @@
 }
 
 @media (min-width: 993px) {
+  .murai-home .suruchi-nav-body:has(.has-mega-menu:hover) .suruchi-mega-menu,
+  .murai-home .suruchi-nav-body:has(.suruchi-mega-menu:hover) .suruchi-mega-menu,
+  .murai-home .suruchi-mega-menu.is-open{
+    display: block;
+  }
+
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-mega-caret,
   .murai-home .suruchi-nav.mega-open .suruchi-mega-caret,
+  .murai-home .suruchi-nav-body:has(.suruchi-mega-menu:hover) .suruchi-mega-caret,
   .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-mega-caret{
     transform: rotate(-135deg) translateY(1px);
   }
 
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-nav-trigger,
   .murai-home .suruchi-nav.mega-open .suruchi-nav-trigger,
+  .murai-home .suruchi-nav-body:has(.suruchi-mega-menu:hover) .suruchi-nav-trigger,
   .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-nav-trigger{
     color: var(--suruchi-primary);
     background: var(--suruchi-cream);
@@ -5572,6 +5581,10 @@
     box-shadow: none;
     border-top: none;
     background: var(--suruchi-bg);
+  }
+
+  .murai-home .suruchi-mega-menu.is-open{
+    display: block;
   }
 
   .murai-home .suruchi-mega-menu-inner{
