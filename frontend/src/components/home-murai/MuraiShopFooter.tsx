@@ -66,6 +66,9 @@ export default function MuraiShopFooter() {
             <li><Link href="/shop">Shop</Link></li>
             <li><Link href="/contact">Contact</Link></li>
             <li><Link href="/faq">FAQ</Link></li>
+            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+            <li><Link href="/terms-condition">Terms &amp; Conditions</Link></li>
+            <li><Link href="/shipping-policy">Shipping &amp; Returns</Link></li>
           </ul>
         </div>
         <div className="shop-footer-col">

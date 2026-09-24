@@ -4,7 +4,7 @@ import MuraiHeader from "./MuraiHeader";
 import MuraiShopBenefits from "./MuraiShopBenefits";
 import MuraiShopFooter from "./MuraiShopFooter";
 
-export default function MuraiReturnPolicyPage() {
+export default function MuraiShippingReturnPolicyPage() {
   return (
     <div className="murai-home" data-page="policy">
       <MuraiHeader />
@@ -21,13 +21,13 @@ export default function MuraiReturnPolicyPage() {
             />
             <div className="container">
               <div className="breadcrumb__content">
-                <h1 className="breadcrumb__content--title">Return &amp; Refund Policy</h1>
+                <h1 className="breadcrumb__content--title">Shipping &amp; Return Policy</h1>
                 <ul className="breadcrumb__content--menu">
                   <li className="breadcrumb__content--menu__items">
                     <Link href="/">Home</Link>
                   </li>
                   <li className="breadcrumb__content--menu__items">
-                    <span>Returns</span>
+                    <span>Shipping &amp; Return Policy</span>
                   </li>
                 </ul>
               </div>
@@ -37,12 +37,19 @@ export default function MuraiReturnPolicyPage() {
 
         <section className="section policy-section">
           <article className="policy-card">
+            <h2>1. Shipping Policy</h2>
             <p>
-              See also our full <Link href="/shipping-policy">Shipping &amp; Return Policy</Link> for shipping
-              timelines and order cancellation details.
+              The domestic shipping of the products will be through different shipping partners. All our shipping
+              outside India is done through leading international courier partners. After the order is
+              dispatched, you will receive tracking details in your email. Delivery is typically completed within{" "}
+              <strong>6–7 business days</strong> from the date of dispatch in case of domestic shipping and{" "}
+              <strong>7–14 business days</strong> from the date of dispatch in case of international shipping.
             </p>
 
-            <h2>Return and Replacement / Refund Policy</h2>
+            <h2>2. Order Cancellation Policy</h2>
+            <p>At present, <strong>orders once placed cannot be modified or cancelled</strong>.</p>
+
+            <h2>3. Return and Replacement / Refund Policy</h2>
             <p>
               We will accept a return and replacement, only if the product has a manufacturing defect or is
               damaged during shipping. If your package appears damaged or there is any reason to suspect a
@@ -78,7 +85,7 @@ export default function MuraiReturnPolicyPage() {
               method, typically within <strong>7–10 business days</strong>.
             </p>
             <p>
-              Need help? <Link href="/contact">Contact our support team</Link>.
+              Need help with a return? <Link href="/contact">Contact our support team</Link>.
             </p>
           </article>
         </section>
