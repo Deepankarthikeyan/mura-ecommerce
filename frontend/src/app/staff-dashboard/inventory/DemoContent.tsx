@@ -63,6 +63,10 @@ interface DbProduct {
   tags?: string[];
   author?: string;
   publishedDate?: string;
+  urlSlug?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string;
 }
 
 interface ProductRow {
@@ -97,6 +101,10 @@ interface ProductEditForm {
   tags: string;
   author: string;
   publishedDate: string;
+  urlSlug: string;
+  seoTitle: string;
+  seoDescription: string;
+  seoKeywords: string;
 }
 
 function collectProductImageUrls(doc: Record<string, unknown>): string[] {
@@ -141,6 +149,10 @@ function docToForm(doc: Record<string, unknown>): ProductEditForm {
     tags,
     author: String(doc.author ?? ""),
     publishedDate: String(doc.publishedDate ?? ""),
+    urlSlug: String(doc.urlSlug ?? ""),
+    seoTitle: String(doc.seoTitle ?? ""),
+    seoDescription: String(doc.seoDescription ?? ""),
+    seoKeywords: String(doc.seoKeywords ?? ""),
   };
 }
 
@@ -163,6 +175,10 @@ function emptyProductForm(): ProductEditForm {
     tags: "Herbal, Medicine",
     author: "",
     publishedDate: "",
+    urlSlug: "",
+    seoTitle: "",
+    seoDescription: "",
+    seoKeywords: "",
   };
 }
 
@@ -189,6 +205,10 @@ function formToUpdates(form: ProductEditForm): Record<string, unknown> {
       .filter(Boolean),
     author: form.author.trim(),
     publishedDate: form.publishedDate.trim(),
+    urlSlug: form.urlSlug.trim(),
+    seoTitle: form.seoTitle.trim(),
+    seoDescription: form.seoDescription.trim(),
+    seoKeywords: form.seoKeywords.trim(),
   };
   const imageUrls = form.images
     .map((s) => s.trim())
@@ -1267,6 +1287,15 @@ const OverviewTable: React.FC = () => {
                     />
                   </div>
                   <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={labelStyle}>Storefront URL slug (/shop/…)</label>
+                    <input
+                      style={inputStyle}
+                      value={editForm.urlSlug}
+                      onChange={(e) => updateEditField("urlSlug", e.target.value)}
+                      placeholder="midnight-pearl-black-ivory-maheshwari-handloom-saree"
+                    />
+                  </div>
+                  <div style={{ gridColumn: "1 / -1" }}>
                     <label style={labelStyle}>Title</label>
                     <input
                       style={inputStyle}
@@ -1354,6 +1383,36 @@ const OverviewTable: React.FC = () => {
                       style={inputStyle}
                       value={editForm.tags}
                       onChange={(e) => updateEditField("tags", e.target.value)}
+                    />
+                  </div>
+                  <div style={{ gridColumn: "1 / -1", marginTop: 4, paddingTop: 16, borderTop: "1px solid #e5e7eb" }}>
+                    <p style={{ margin: "0 0 12px", fontSize: 13, fontWeight: 700, color: "#0d6efd" }}>SEO</p>
+                  </div>
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={labelStyle}>SEO title</label>
+                    <input
+                      style={inputStyle}
+                      value={editForm.seoTitle}
+                      onChange={(e) => updateEditField("seoTitle", e.target.value)}
+                      placeholder="Midnight Pearl Black & Ivory Maheshwari Handloom Silk Cotton Saree | Mura23"
+                    />
+                  </div>
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={labelStyle}>SEO meta description</label>
+                    <textarea
+                      style={{ ...inputStyle, minHeight: 72, resize: "vertical" }}
+                      value={editForm.seoDescription}
+                      onChange={(e) => updateEditField("seoDescription", e.target.value)}
+                      rows={3}
+                    />
+                  </div>
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={labelStyle}>SEO keywords (comma-separated)</label>
+                    <textarea
+                      style={{ ...inputStyle, minHeight: 72, resize: "vertical" }}
+                      value={editForm.seoKeywords}
+                      onChange={(e) => updateEditField("seoKeywords", e.target.value)}
+                      rows={3}
                     />
                   </div>
                   <div>
