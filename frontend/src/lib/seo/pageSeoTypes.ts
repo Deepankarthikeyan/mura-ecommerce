@@ -154,7 +154,10 @@ export function getDefaultPageSeoConfig(path: string): {
     "/privacy-policy": { title: "Privacy Policy", description: "Privacy policy for MuRa@23." },
     "/terms-condition": { title: "Terms & Conditions", description: "Terms for the MuRa@23 online store." },
     "/cookies-policy": { title: "Cookies Policy", description: "Cookies policy for MuRa@23." },
-    "/shipping-policy": { title: "Shipping Policy", description: "Shipping information for MuRa@23 orders." },
+    "/shipping-policy": {
+      title: "Shipping & Return Policy",
+      description: "Shipping, cancellation, and return policy for MuRa@23 orders.",
+    },
     "/return-refund-replacement-policy": {
       title: "Return & Refund Policy",
       description: "Return and refund policy for MuRa@23.",

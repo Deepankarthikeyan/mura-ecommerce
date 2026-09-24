@@ -15,6 +15,7 @@ import { SAREE_MEGA_MENU } from "./sareeMegaMenu";
 
 const NAV_ITEMS = [
   { id: "about", label: "About", href: "/about" },
+  { id: "privacy", label: "Privacy Policy", href: "/privacy-policy" },
   { id: "contact", label: "Contact", href: "/contact" },
 ];
 
