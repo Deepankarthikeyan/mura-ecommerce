@@ -64,6 +64,7 @@ export const KNOWN_STATIC_SEO_PATHS: SeoPathEntry[] = [
   { path: "/", label: "Home", kind: "static" },
   { path: "/about", label: "About", kind: "static" },
   { path: "/contact", label: "Contact", kind: "static" },
+  { path: "/faq", label: "FAQ", kind: "static" },
   { path: "/blog", label: "Blog index", kind: "static" },
   { path: "/shop", label: "Shop", kind: "static" },
   { path: "/store", label: "Store", kind: "static" },

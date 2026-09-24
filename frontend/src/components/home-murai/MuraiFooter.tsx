@@ -19,6 +19,7 @@ export default function MuraiFooter() {
             <li><Link href="/about">About</Link></li>
             <li><Link href="/shop">Shop</Link></li>
             <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/faq">FAQ</Link></li>
           </ul>
         </div>
         <div className="suruchi-footer-col">

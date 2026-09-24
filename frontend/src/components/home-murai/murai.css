@@ -1874,6 +1874,119 @@
   color: var(--color-text) !important;
 }
 
+.murai-home .faq-section{
+  padding: 56px 0 72px;
+  background: var(--color-cream);
+}
+
+.murai-home .faq-container{
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.murai-home .faq-intro{
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.murai-home .faq-intro h2{
+  font-family: var(--font-heading);
+  font-size: 32px;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.murai-home .faq-intro p{
+  color: var(--color-text-muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.murai-home .faq-intro a{
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.murai-home .faq-category{
+  margin-bottom: 32px;
+}
+
+.murai-home .faq-category-title{
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--color-primary);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.murai-home .faq-list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.murai-home .faq-item{
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.murai-home .faq-question{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.murai-home .faq-question:hover{
+  color: var(--color-primary);
+}
+
+.murai-home .faq-toggle{
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.murai-home .faq-item.is-open .faq-toggle{
+  transform: rotate(-135deg);
+}
+
+.murai-home .faq-answer{
+  padding: 0 18px 16px;
+  color: var(--color-text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.murai-home .faq-answer p{
+  margin: 0 0 10px;
+}
+
+.murai-home .faq-answer p:last-child{
+  margin-bottom: 0;
+}
+
+.murai-home .faq-answer-line{
+  padding-left: 4px;
+}
+
 .murai-home .form-row{
   display: grid;
   grid-template-columns: 1fr 1fr;

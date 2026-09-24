@@ -1,3 +1,4 @@
+import { MURAI_FAQ_ITEMS } from "@/data/muraiFaq";
 import {
   SITE_DESCRIPTION,
   SITE_EMAIL,
@@ -139,34 +140,11 @@ export function serviceCatalogSchema() {
   };
 }
 
-const FAQ_ITEMS = [
-  {
-    question: "What is MuRa@23?",
-    answer:
-      "MuRa@23 is a sale-saree store offering silk, cotton, Banarasi, Kanjivaram and designer sarees sourced from artisans across India.",
-  },
-  {
-    question: "Where is MuRa@23 located?",
-    answer:
-      "Our store is in Podanur, Coimbatore, Tamil Nadu, India. We also sell online across India.",
-  },
-  {
-    question: "What kinds of sarees do you sell?",
-    answer:
-      "We specialise in sale sarees only — silk, cotton, Banarasi, Kanjivaram and designer weaves.",
-  },
-  {
-    question: "Do you ship across India?",
-    answer:
-      "Yes. Shipping options and delivery timelines are shown at checkout.",
-  },
-] as const;
-
 export function faqSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQ_ITEMS.map((faq) => ({
+    mainEntity: MURAI_FAQ_ITEMS.map((faq) => ({
       "@type": "Question",
       name: faq.question,
       acceptedAnswer: {
