@@ -111,7 +111,7 @@ export default function MuraiHeader() {
     const next = event.relatedTarget;
     if (next instanceof Node && event.currentTarget.contains(next)) return;
     if (megaCloseTimerRef.current) clearTimeout(megaCloseTimerRef.current);
-    megaCloseTimerRef.current = setTimeout(() => setSareesMenuOpen(false), 280);
+    megaCloseTimerRef.current = setTimeout(() => setSareesMenuOpen(false), 350);
   };
 
   const onSearch = (event: FormEvent) => {
@@ -243,7 +243,6 @@ export default function MuraiHeader() {
         className={`suruchi-nav${menuOpen ? " open" : ""}${navFixed ? " is-scrolled" : ""}${sareesMenuOpen ? " mega-open" : ""}`}
         id="suruchi-nav"
         ref={navRef}
-        onMouseLeave={scheduleMegaMenuClose}
       >
         <div className="suruchi-nav-body">
           <div className="suruchi-nav-inner">
@@ -263,19 +262,43 @@ export default function MuraiHeader() {
                   Home
                 </Link>
               </li>
-              <li className={`suruchi-nav-item has-mega-menu${sareesMenuOpen ? " is-open" : ""}`}>
+              <li
+                className={`suruchi-nav-item has-mega-menu${sareesMenuOpen ? " is-open" : ""}`}
+                onMouseEnter={openMegaMenu}
+                onMouseLeave={scheduleMegaMenuClose}
+              >
                 <button
                   type="button"
                   className={`suruchi-nav-trigger suruchi-mega-trigger${isShopActive ? " active" : ""}`}
                   aria-expanded={sareesMenuOpen}
                   aria-haspopup="true"
-                  onMouseEnter={openMegaMenu}
-                  onFocus={openMegaMenu}
                   onClick={() => setSareesMenuOpen((open) => !open)}
                 >
                   Sarees
                   <span className="suruchi-mega-caret" aria-hidden="true" />
                 </button>
+                <div className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}>
+                  <div className="suruchi-mega-menu-inner">
+                    <div className="suruchi-mega-grid">
+                      {SAREE_MEGA_MENU.map((item) => (
+                        <Link
+                          key={item.label}
+                          href={item.href}
+                          className="suruchi-mega-card"
+                          onClick={() => {
+                            setSareesMenuOpen(false);
+                            setMenuOpen(false);
+                          }}
+                        >
+                          <span className="suruchi-mega-card-image">
+                            <img src={item.image} alt="" loading="lazy" decoding="async" />
+                          </span>
+                          <span className="suruchi-mega-card-label">{item.label}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </li>
               {NAV_ITEMS.map((item) => (
                 <li key={item.id}>
@@ -285,32 +308,6 @@ export default function MuraiHeader() {
                 </li>
               ))}
             </ul>
-          </div>
-        </div>
-        <div
-          className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}
-          onMouseEnter={openMegaMenu}
-          onFocus={openMegaMenu}
-        >
-          <div className="suruchi-mega-menu-inner">
-            <div className="suruchi-mega-grid">
-              {SAREE_MEGA_MENU.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="suruchi-mega-card"
-                  onClick={() => {
-                    setSareesMenuOpen(false);
-                    setMenuOpen(false);
-                  }}
-                >
-                  <span className="suruchi-mega-card-image">
-                    <img src={item.image} alt="" loading="lazy" decoding="async" />
-                  </span>
-                  <span className="suruchi-mega-card-label">{item.label}</span>
-                </Link>
-              ))}
-            </div>
           </div>
         </div>
       </nav>
