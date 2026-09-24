@@ -11,10 +11,9 @@ import RegisterDialog, {
 } from "@/components/auth/RegisterDialog";
 import AddressDialog from "@/components/auth/AddressDialog";
 import { getDashboardPrefix } from "@/lib/dashboardPaths";
+import { SAREE_MEGA_MENU } from "./sareeMegaMenu";
 
 const NAV_ITEMS = [
-  { id: "home", label: "Home", href: "/" },
-  { id: "shop", label: "Shop", href: "/shop" },
   { id: "about", label: "About", href: "/about" },
   { id: "contact", label: "Contact", href: "/contact" },
 ];
@@ -41,8 +40,10 @@ export default function MuraiHeader() {
   const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
   const [signupContinue, setSignupContinue] = useState<RegistrationReadyPayload | null>(null);
+  const [sareesMenuOpen, setSareesMenuOpen] = useState(false);
 
   const cartCount = cartItems.filter((item) => item.active).reduce((sum, item) => sum + item.quantity, 0);
+  const isShopActive = pathname === "/shop" || pathname.startsWith("/shop/");
 
   useEffect(() => {
     const update = () => {
@@ -86,6 +87,10 @@ export default function MuraiHeader() {
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) setSareesMenuOpen(false);
+  }, [menuOpen]);
 
   const onSearch = (event: FormEvent) => {
     event.preventDefault();
@@ -229,6 +234,45 @@ export default function MuraiHeader() {
             </button>
           </div>
           <ul>
+            <li>
+              <Link href="/" className={isNavActive("/", pathname) ? "active" : ""} onClick={() => setMenuOpen(false)}>
+                Home
+              </Link>
+            </li>
+            <li className={`suruchi-nav-item has-mega-menu${sareesMenuOpen ? " is-open" : ""}`}>
+              <button
+                type="button"
+                className={`suruchi-nav-trigger suruchi-mega-trigger${isShopActive ? " active" : ""}`}
+                aria-expanded={sareesMenuOpen}
+                aria-haspopup="true"
+                onClick={() => setSareesMenuOpen((open) => !open)}
+              >
+                Sarees
+                <span className="suruchi-mega-caret" aria-hidden="true" />
+              </button>
+              <div className="suruchi-mega-menu">
+                <div className="suruchi-mega-menu-inner">
+                  <div className="suruchi-mega-grid">
+                    {SAREE_MEGA_MENU.map((item) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        className="suruchi-mega-card"
+                        onClick={() => {
+                          setSareesMenuOpen(false);
+                          setMenuOpen(false);
+                        }}
+                      >
+                        <span className="suruchi-mega-card-image">
+                          <img src={item.image} alt={item.label} loading="lazy" decoding="async" />
+                        </span>
+                        <span className="suruchi-mega-card-label">{item.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </li>
             {NAV_ITEMS.map((item) => (
               <li key={item.id}>
                 <Link href={item.href} className={isNavActive(item.href, pathname) ? "active" : ""} onClick={() => setMenuOpen(false)}>
