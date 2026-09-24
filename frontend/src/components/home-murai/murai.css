@@ -2408,6 +2408,10 @@
   background: var(--suruchi-cream);
 }
 
+.murai-home .suruchi-nav-body{
+  position: relative;
+}
+
 .murai-home .suruchi-nav-item.has-mega-menu{
   position: static;
 }
@@ -2457,23 +2461,26 @@
   right: 0;
   z-index: 1100;
   display: none;
+  margin-top: -1px;
+  padding-top: 1px;
   background: var(--suruchi-white);
   border-top: 1px solid var(--suruchi-border);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.murai-home .suruchi-mega-menu.is-open{
+  display: block;
 }
 
 @media (min-width: 993px) {
-  .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-mega-menu,
-  .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-mega-menu{
-    display: block;
-  }
-
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-mega-caret,
+  .murai-home .suruchi-nav.mega-open .suruchi-mega-caret,
   .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-mega-caret{
     transform: rotate(-135deg) translateY(1px);
   }
 
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-nav-trigger,
+  .murai-home .suruchi-nav.mega-open .suruchi-nav-trigger,
   .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-nav-trigger{
     color: var(--suruchi-primary);
     background: var(--suruchi-cream);
@@ -2483,24 +2490,24 @@
 .murai-home .suruchi-mega-menu-inner{
   max-width: 1400px;
   margin: 0 auto;
-  padding: 22px 20px 26px;
+  padding: 10px 20px 16px;
 }
 
 .murai-home .suruchi-mega-grid{
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 18px;
+  gap: 12px;
   overflow-x: auto;
   scrollbar-width: thin;
 }
 
 .murai-home .suruchi-mega-card{
-  flex: 0 0 132px;
+  flex: 0 0 108px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-align: center;
 }
 
@@ -2520,12 +2527,17 @@
 }
 
 .murai-home .suruchi-mega-card-label{
-  font-size: 13px;
+  display: block;
+  width: 100%;
+  font-size: 12px;
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 1.3;
   color: #2a6f7d;
   letter-spacing: 0;
   text-transform: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .murai-home .suruchi-mega-card:hover .suruchi-mega-card-label{
@@ -5553,12 +5565,10 @@
     border-bottom: none;
   }
 
-  .murai-home .suruchi-nav-item.has-mega-menu.is-open .suruchi-mega-menu{
-    display: block;
-  }
-
   .murai-home .suruchi-mega-menu{
     position: static;
+    margin-top: 0;
+    padding-top: 0;
     box-shadow: none;
     border-top: none;
     background: var(--suruchi-bg);
@@ -5571,7 +5581,7 @@
   .murai-home .suruchi-mega-grid{
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+    gap: 12px;
     justify-content: stretch;
     overflow: visible;
   }

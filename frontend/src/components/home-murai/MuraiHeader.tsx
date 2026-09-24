@@ -218,69 +218,76 @@ export default function MuraiHeader() {
       </div>
 
       <nav
-        className={`suruchi-nav${menuOpen ? " open" : ""}${navFixed ? " is-scrolled" : ""}`}
+        className={`suruchi-nav${menuOpen ? " open" : ""}${navFixed ? " is-scrolled" : ""}${sareesMenuOpen ? " mega-open" : ""}`}
         id="suruchi-nav"
         ref={navRef}
+        onMouseLeave={() => setSareesMenuOpen(false)}
       >
-        <div className="suruchi-nav-inner">
-          <div className="suruchi-nav-header">
-            <Link href="/" className="suruchi-nav-logo" aria-label="MuRa@23 Home">
-              <img src="/murai/mura-newlogo.png" alt="MuRa@23" width={97} height={60} decoding="async" />
-            </Link>
-            <button className="suruchi-nav-close" aria-label="Close menu" type="button" onClick={() => setMenuOpen(false)}>
-              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
-            </button>
-          </div>
-          <ul>
-            <li>
-              <Link href="/" className={isNavActive("/", pathname) ? "active" : ""} onClick={() => setMenuOpen(false)}>
-                Home
+        <div className="suruchi-nav-body">
+          <div className="suruchi-nav-inner">
+            <div className="suruchi-nav-header">
+              <Link href="/" className="suruchi-nav-logo" aria-label="MuRa@23 Home">
+                <img src="/murai/mura-newlogo.png" alt="MuRa@23" width={97} height={60} decoding="async" />
               </Link>
-            </li>
-            <li className={`suruchi-nav-item has-mega-menu${sareesMenuOpen ? " is-open" : ""}`}>
-              <button
-                type="button"
-                className={`suruchi-nav-trigger suruchi-mega-trigger${isShopActive ? " active" : ""}`}
-                aria-expanded={sareesMenuOpen}
-                aria-haspopup="true"
-                onClick={() => setSareesMenuOpen((open) => !open)}
-              >
-                Sarees
-                <span className="suruchi-mega-caret" aria-hidden="true" />
+              <button className="suruchi-nav-close" aria-label="Close menu" type="button" onClick={() => setMenuOpen(false)}>
+                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
               </button>
-              <div className="suruchi-mega-menu">
-                <div className="suruchi-mega-menu-inner">
-                  <div className="suruchi-mega-grid">
-                    {SAREE_MEGA_MENU.map((item) => (
-                      <Link
-                        key={item.label}
-                        href={item.href}
-                        className="suruchi-mega-card"
-                        onClick={() => {
-                          setSareesMenuOpen(false);
-                          setMenuOpen(false);
-                        }}
-                      >
-                        <span className="suruchi-mega-card-image">
-                          <img src={item.image} alt={item.label} loading="lazy" decoding="async" />
-                        </span>
-                        <span className="suruchi-mega-card-label">{item.label}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </li>
-            {NAV_ITEMS.map((item) => (
-              <li key={item.id}>
-                <Link href={item.href} className={isNavActive(item.href, pathname) ? "active" : ""} onClick={() => setMenuOpen(false)}>
-                  {item.label}
+            </div>
+            <ul>
+              <li>
+                <Link href="/" className={isNavActive("/", pathname) ? "active" : ""} onClick={() => setMenuOpen(false)}>
+                  Home
                 </Link>
               </li>
-            ))}
-          </ul>
+              <li className={`suruchi-nav-item has-mega-menu${sareesMenuOpen ? " is-open" : ""}`}>
+                <button
+                  type="button"
+                  className={`suruchi-nav-trigger suruchi-mega-trigger${isShopActive ? " active" : ""}`}
+                  aria-expanded={sareesMenuOpen}
+                  aria-haspopup="true"
+                  onMouseEnter={() => setSareesMenuOpen(true)}
+                  onClick={() => setSareesMenuOpen((open) => !open)}
+                >
+                  Sarees
+                  <span className="suruchi-mega-caret" aria-hidden="true" />
+                </button>
+              </li>
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <Link href={item.href} className={isNavActive(item.href, pathname) ? "active" : ""} onClick={() => setMenuOpen(false)}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div
+            className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}
+            onMouseEnter={() => setSareesMenuOpen(true)}
+          >
+            <div className="suruchi-mega-menu-inner">
+              <div className="suruchi-mega-grid">
+                {SAREE_MEGA_MENU.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="suruchi-mega-card"
+                    onClick={() => {
+                      setSareesMenuOpen(false);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    <span className="suruchi-mega-card-image">
+                      <img src={item.image} alt="" loading="lazy" decoding="async" />
+                    </span>
+                    <span className="suruchi-mega-card-label">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
       <div
