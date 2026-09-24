@@ -34,6 +34,9 @@ const UPDATABLE_KEYS = new Set([
   "tags",
   "author",
   "publishedDate",
+  "seoTitle",
+  "seoDescription",
+  "seoKeywords",
 ]);
 
 function sanitizeProductUpdates(raw: Record<string, unknown>): Record<string, unknown> {

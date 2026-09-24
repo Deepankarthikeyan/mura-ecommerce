@@ -135,6 +135,12 @@ export type BuildPageMetadataOptions = {
   ogType?: "website" | "article";
   /** When set, unresolved fields fall back to this template path (e.g. product/blog templates). */
   templatePath?: string;
+  /** Explicit title/description/keywords that override template output (e.g. per-product SEO). */
+  fixedBasic?: {
+    title?: string;
+    description?: string;
+    keywords?: string;
+  };
 };
 
 export async function buildPageMetadataForPath(
@@ -185,16 +191,23 @@ export async function buildPageMetadataForPath(
     vars,
   );
 
-  const title = isLegacyBrandText(titleRaw)
-    ? normalized === "/"
-      ? ""
-      : siteName
-    : titleRaw || (normalized === "/" ? "" : siteName);
-  const description =
-    truncateText(isLegacyBrandText(descriptionRaw) ? "" : descriptionRaw, 160) ||
-    truncateText(isLegacyBrandText(globalBasic.description) ? "" : globalBasic.description, 160) ||
-    SITE_DESCRIPTION;
-  const keywords = keywordsRaw || globalBasic.keywords;
+  const fixedTitle = options.fixedBasic?.title?.trim();
+  const fixedDescription = options.fixedBasic?.description?.trim();
+  const fixedKeywords = options.fixedBasic?.keywords?.trim();
+
+  const title = fixedTitle
+    ? fixedTitle
+    : isLegacyBrandText(titleRaw)
+      ? normalized === "/"
+        ? ""
+        : siteName
+      : titleRaw || (normalized === "/" ? "" : siteName);
+  const description = fixedDescription
+    ? truncateText(fixedDescription, 160)
+    : truncateText(isLegacyBrandText(descriptionRaw) ? "" : descriptionRaw, 160) ||
+      truncateText(isLegacyBrandText(globalBasic.description) ? "" : globalBasic.description, 160) ||
+      SITE_DESCRIPTION;
+  const keywords = fixedKeywords || keywordsRaw || globalBasic.keywords;
 
   const ogImage = resolveImageUrl(
     applySeoTemplate(firstImageUrl(pageSeo.og?.images), vars),
@@ -211,15 +224,23 @@ export async function buildPageMetadataForPath(
 
   const resolvedTitle = title || siteName;
   const canonical = normalizeCanonicalPath(pageSeo.canonical?.url, canonicalPath);
-  const ogTitle = isLegacyBrandText(ogTitleRaw) ? resolvedTitle : ogTitleRaw || resolvedTitle;
-  const ogDescription =
-    truncateText(isLegacyBrandText(ogDescriptionRaw) ? "" : ogDescriptionRaw, 200) || description;
-  const twitterTitle = isLegacyBrandText(twitterTitleRaw)
-    ? resolvedTitle
-    : twitterTitleRaw || resolvedTitle;
-  const twitterDescription =
-    truncateText(isLegacyBrandText(twitterDescriptionRaw) ? "" : twitterDescriptionRaw, 200) ||
-    description;
+  const ogTitle = fixedTitle
+    ? fixedTitle
+    : isLegacyBrandText(ogTitleRaw)
+      ? resolvedTitle
+      : ogTitleRaw || resolvedTitle;
+  const ogDescription = fixedDescription
+    ? truncateText(fixedDescription, 200)
+    : truncateText(isLegacyBrandText(ogDescriptionRaw) ? "" : ogDescriptionRaw, 200) || description;
+  const twitterTitle = fixedTitle
+    ? fixedTitle
+    : isLegacyBrandText(twitterTitleRaw)
+      ? resolvedTitle
+      : twitterTitleRaw || resolvedTitle;
+  const twitterDescription = fixedDescription
+    ? truncateText(fixedDescription, 200)
+    : truncateText(isLegacyBrandText(twitterDescriptionRaw) ? "" : twitterDescriptionRaw, 200) ||
+      description;
 
   const metadata: Metadata = {
     ...(title ? { title } : {}),
@@ -325,6 +346,9 @@ export type ProductLike = {
   urlSlug?: string;
   slug?: string;
   productId?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string;
 };
 
 export type BlogPostLike = {
@@ -396,12 +420,21 @@ export async function buildProductPageMetadata(
     };
   }
 
+  const seoTitle = String(product.seoTitle ?? "").trim();
+  const seoDescription = String(product.seoDescription ?? "").trim();
+  const seoKeywords = String(product.seoKeywords ?? "").trim();
+
   return buildPageMetadataForPath(canonicalPath, {
     variables: productVariables(product),
     canonicalPath,
     image: ogImage,
     ogType: "website",
     templatePath: PRODUCT_SEO_TEMPLATE_PATH,
+    fixedBasic: {
+      ...(seoTitle ? { title: seoTitle } : {}),
+      ...(seoDescription ? { description: seoDescription } : {}),
+      ...(seoKeywords ? { keywords: seoKeywords } : {}),
+    },
   });
 }
 
@@ -443,7 +476,10 @@ export function buildProductJsonLd(
     "@context": "https://schema.org",
     "@type": "Product",
     name,
-    description: stripHtml(String(product.description ?? ""), 500) || name,
+    description:
+      String(product.seoDescription ?? "").trim() ||
+      stripHtml(String(product.description ?? ""), 500) ||
+      name,
     image: new URL(image, SITE_URL).href,
     url: new URL(`/shop/${canonicalSlug}`, SITE_URL).href,
     brand: { "@type": "Brand", name: SITE_NAME },
