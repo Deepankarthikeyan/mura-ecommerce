@@ -2763,9 +2763,12 @@
   align-items: center;
   width: 100%;
   height: var(--mega-image-height);
+  border: 2px solid transparent;
   border-radius: 8px;
+  box-sizing: border-box;
   overflow: hidden;
   background: var(--suruchi-beige);
+  transition: border-color 0.25s ease;
 }
 
 .murai-home .suruchi-mega-card-image img{
@@ -2774,6 +2777,11 @@
   object-fit: fill;
   border-radius: 8px;
   transition: transform 0.25s ease;
+}
+
+.murai-home .suruchi-mega-card:hover .suruchi-mega-card-image,
+.murai-home .suruchi-mega-card:focus-visible .suruchi-mega-card-image{
+  border-color: var(--suruchi-primary);
 }
 
 .murai-home .suruchi-mega-card:hover .suruchi-mega-card-image img,
@@ -2800,6 +2808,7 @@
 @media (prefers-reduced-motion: reduce) {
   .murai-home .suruchi-nav-trigger,
   .murai-home .suruchi-mega-menu,
+  .murai-home .suruchi-mega-card-image,
   .murai-home .suruchi-mega-card-image img{
     transition: none;
   }
