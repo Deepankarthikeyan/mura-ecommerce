@@ -2659,6 +2659,7 @@
   border: none;
   cursor: pointer;
   font-family: inherit;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .murai-home .suruchi-nav-trigger:hover,
@@ -2700,10 +2701,22 @@
 }
 
 @media (min-width: 993px) {
+  .murai-home .suruchi-mega-menu{
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+  }
+
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-mega-menu,
   .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-mega-menu,
   .murai-home .suruchi-mega-menu.is-open{
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-mega-caret,
@@ -2760,6 +2773,12 @@
   height: 100%;
   object-fit: fill;
   border-radius: 8px;
+  transition: transform 0.25s ease;
+}
+
+.murai-home .suruchi-mega-card:hover .suruchi-mega-card-image img,
+.murai-home .suruchi-mega-card:focus-visible .suruchi-mega-card-image img{
+  transform: scale(1.035);
 }
 
 .murai-home .suruchi-mega-card-label{
@@ -2776,6 +2795,14 @@
 
 .murai-home .suruchi-mega-card:hover .suruchi-mega-card-label{
   color: var(--suruchi-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .murai-home .suruchi-nav-trigger,
+  .murai-home .suruchi-mega-menu,
+  .murai-home .suruchi-mega-card-image img{
+    transition: none;
+  }
 }
 
 .murai-home .suruchi-mobile-toggle{
