@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { SITE_ADDRESS, SITE_PHONE } from "@/lib/brand";
+import { SITE_ADDRESS, SITE_MAP_URL, SITE_PHONE } from "@/lib/brand";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -48,7 +48,7 @@ export default function MuraiShopFooter() {
           </Link>
           <p>India&apos;s finest sale sarees — silk, cotton, Banarasi, Kanjivaram and designer sarees.</p>
           <p className="shop-footer-contact">
-            <Link href="/contact">{SITE_ADDRESS}</Link>
+            <a href={SITE_MAP_URL} target="_blank" rel="noopener noreferrer">{SITE_ADDRESS}</a>
             <br />
             <a href={`tel:${SITE_PHONE}`}>{SITE_PHONE}</a>
           </p>

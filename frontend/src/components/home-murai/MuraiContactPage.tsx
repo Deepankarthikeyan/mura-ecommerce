@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { SITE_ADDRESS, SITE_PHONE } from "@/lib/brand";
+import { SITE_ADDRESS, SITE_MAP_EMBED_URL, SITE_MAP_URL, SITE_PHONE } from "@/lib/brand";
 import { toast } from "react-toastify";
 import "./murai.css";
 import MuraiHeader from "./MuraiHeader";
@@ -77,7 +77,9 @@ export default function MuraiContactPage() {
                     <div>
                       <h4>Visit Our Store</h4>
                       <p>
-                        {SITE_ADDRESS}
+                        <a href={SITE_MAP_URL} target="_blank" rel="noopener noreferrer" aria-label={`View MuRa@23 on Google Maps: ${SITE_ADDRESS}`}>
+                          {SITE_ADDRESS}
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -194,7 +196,7 @@ export default function MuraiContactPage() {
 
             <div className="map-container">
               <iframe
-                src={`https://maps.google.com/maps?q=${encodeURIComponent(SITE_ADDRESS)}&z=17&output=embed`}
+                src={SITE_MAP_EMBED_URL}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
