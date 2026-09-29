@@ -58,7 +58,7 @@ function BackToTop() {
     return (
         <>
             {/* BACK TO TOP AREA START */}
-            <div className="progress-wrap">
+            <div className="progress-wrap" style={{ bottom: "calc(96px + env(safe-area-inset-bottom))" }}>
                 <svg
                     className="progress-circle svg-content"
                     width="100%"

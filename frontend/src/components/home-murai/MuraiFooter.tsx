@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE_ADDRESS, SITE_PHONE } from "@/lib/brand";
 
 export default function MuraiFooter() {
   return (
@@ -38,8 +39,8 @@ export default function MuraiFooter() {
           <h4>Contact</h4>
           <ul>
             <li><a href="mailto:murapodanur@gmail.com">murapodanur@gmail.com</a></li>
-            <li><a href="tel:02123333444">02 123 333 444</a></li>
-            <li><Link href="/contact">Podanur, Tamil Nadu, India</Link></li>
+            <li><a href={`tel:${SITE_PHONE}`}>{SITE_PHONE}</a></li>
+            <li><Link href="/contact">{SITE_ADDRESS}</Link></li>
           </ul>
         </div>
       </div>

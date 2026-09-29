@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { SITE_ADDRESS, SITE_PHONE } from "@/lib/brand";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -46,6 +47,11 @@ export default function MuraiShopFooter() {
             <img src="/murai/mura-newlogo.png" alt="MuRa@23" width={108} height={67} loading="lazy" decoding="async" />
           </Link>
           <p>India&apos;s finest sale sarees — silk, cotton, Banarasi, Kanjivaram and designer sarees.</p>
+          <p className="shop-footer-contact">
+            <Link href="/contact">{SITE_ADDRESS}</Link>
+            <br />
+            <a href={`tel:${SITE_PHONE}`}>{SITE_PHONE}</a>
+          </p>
           <div className="shop-footer-social">
             <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noreferrer">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v3H6v4h3v8h4v-8h3.2l.8-4H13V9c0-.6.4-1 1-1z" /></svg>

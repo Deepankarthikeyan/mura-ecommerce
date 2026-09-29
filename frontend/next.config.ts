@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Set the exact tunnel hostname when sharing a development preview.
+  allowedDevOrigins: process.env.DEV_PREVIEW_HOST ? [process.env.DEV_PREVIEW_HOST] : [],
+
   // Keep standalone for SSR support
   output: 'standalone',
 

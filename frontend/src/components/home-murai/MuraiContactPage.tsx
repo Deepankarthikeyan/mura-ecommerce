@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { SITE_ADDRESS, SITE_PHONE } from "@/lib/brand";
 import { toast } from "react-toastify";
 import "./murai.css";
 import MuraiHeader from "./MuraiHeader";
@@ -76,9 +77,7 @@ export default function MuraiContactPage() {
                     <div>
                       <h4>Visit Our Store</h4>
                       <p>
-                        Podanur
-                        <br />
-                        Coimbatore, Tamil Nadu 641023, India
+                        {SITE_ADDRESS}
                       </p>
                     </div>
                   </div>
@@ -92,7 +91,7 @@ export default function MuraiContactPage() {
                     <div>
                       <h4>Call Us</h4>
                       <p>
-                        <a href="tel:02123333444">02 123 333 444</a>
+                        <a href={`tel:${SITE_PHONE}`}>{SITE_PHONE}</a>
                         <br />
                         Mon–Sat, 9 AM – 6 PM IST
                       </p>
@@ -195,7 +194,7 @@ export default function MuraiContactPage() {
 
             <div className="map-container">
               <iframe
-                src="https://maps.google.com/maps?q=Podanur%20Coimbatore%20Tamil%20Nadu&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(SITE_ADDRESS)}&z=17&output=embed`}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

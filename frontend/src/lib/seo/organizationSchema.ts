@@ -5,6 +5,7 @@ import {
   SITE_LOGO,
   SITE_NAME,
   SITE_PHONE,
+  SITE_STREET_ADDRESS,
   SITE_URL,
 } from "../brand";
 
@@ -24,7 +25,7 @@ export function organizationSchema() {
     description: SITE_DESCRIPTION,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Podanur",
+      streetAddress: SITE_STREET_ADDRESS,
       addressLocality: "Coimbatore",
       addressRegion: "Tamil Nadu",
       postalCode: "641023",
@@ -66,7 +67,7 @@ export function localBusinessSchema() {
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Podanur",
+      streetAddress: SITE_STREET_ADDRESS,
       addressLocality: "Coimbatore",
       addressRegion: "Tamil Nadu",
       postalCode: "641023",
