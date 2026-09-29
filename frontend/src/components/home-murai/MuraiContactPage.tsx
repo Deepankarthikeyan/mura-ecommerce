@@ -197,11 +197,14 @@ export default function MuraiContactPage() {
             <div className="map-container">
               <iframe
                 src={SITE_MAP_EMBED_URL}
-                allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="MuRa@23 Store Location"
+                tabIndex={-1}
               />
+              <a className="map-open-link" href={SITE_MAP_URL} aria-label="Open MuRa@23 in Google Maps">
+                <span>Open in Google Maps ↗</span>
+              </a>
             </div>
           </div>
         </section>
