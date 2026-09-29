@@ -30,6 +30,8 @@ export const SITE_PHONE = "+919363252117";
 export const SITE_STREET_ADDRESS = "31, 3rd St, Arulmurugan Nagar, Cheran Nagar, Podanur";
 export const SITE_CITY_ADDRESS = "Coimbatore, Tamil Nadu 641023";
 export const SITE_ADDRESS = `${SITE_STREET_ADDRESS}, ${SITE_CITY_ADDRESS}`;
+export const SITE_MAP_URL = "https://maps.app.goo.gl/NWhx43LxiwbjmTEC8";
+export const SITE_MAP_EMBED_URL = "https://maps.google.com/maps?q=10.9567663%2C76.9907206&z=17&output=embed";
 export const SITE_WHATSAPP_URL = `https://wa.me/${SITE_PHONE.replace(/\D/g, "")}`;
 export const SITE_KEYWORDS = [
   "MuRa@23",
