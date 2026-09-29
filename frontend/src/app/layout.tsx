@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import FloatingWhatsApp from "../components/common/FloatingWhatsApp";
 import ClientProviders from "../components/providers/ClientProviders";
 import GoogleAnalytics from "../components/seo/GoogleAnalytics";
 import PageSeoJsonLd from "../components/seo/PageSeoJsonLd";
@@ -69,6 +70,7 @@ export default async function RootLayout({
         <ApplyThemeOnClient theme={websiteTheme} colors={websiteColors} />
         <GoogleAnalytics />
         <ClientProviders>{children}</ClientProviders>
+        <FloatingWhatsApp />
       </body>
     </html>
   );

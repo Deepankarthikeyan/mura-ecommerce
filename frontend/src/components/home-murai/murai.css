@@ -3047,15 +3047,21 @@
 }
 
 .murai-home .hero-slide.slide-1{ background-image: url('/murai/banners/black-ivory-saree.jpg'); }
-.murai-home .hero-slide.slide-1::before{
+.murai-home .hero-slide.slide-1::before,
+.murai-home .hero-slide.slide-4::before,
+.murai-home .hero-slide.slide-5::before{
   background: linear-gradient(90deg, rgba(27, 20, 15, 0.65), rgba(27, 20, 15, 0.25) 45%, transparent 75%);
 }
 
 @media (max-width: 992px) {
-  .murai-home .hero-slide.slide-1{
+  .murai-home .hero-slide.slide-1,
+  .murai-home .hero-slide.slide-4,
+  .murai-home .hero-slide.slide-5{
     background-position: right center;
   }
 }
+.murai-home .hero-slide.slide-4{ background-image: url('/murai/banners/yellow-turquoise-saree.jpg'); }
+.murai-home .hero-slide.slide-5{ background-image: url('/murai/banners/blue-ikat-saree.jpg'); }
 .murai-home .hero-slide.slide-2{ background-image: url('/murai/banners/hero-2.jpg'); }
 .murai-home .hero-slide.slide-3{ background-image: url('/murai/banners/hero-3.jpg'); }
 
@@ -7477,3 +7483,7 @@ html[data-website-theme] .murai-home .sale-sarees-tabs button.is-active,
     white-space: nowrap;
   }
 }
+
+.murai-home .shop-footer-contact a { color: inherit; }
+.murai-home .shop-footer-contact a:hover,
+.murai-home .shop-footer-contact a:focus-visible { text-decoration: underline; }

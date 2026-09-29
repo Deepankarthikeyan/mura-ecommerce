@@ -1,3 +1,5 @@
+import { SITE_ADDRESS } from "@/lib/brand";
+
 export type MuraiFaqItem = {
   id: string;
   question: string;
@@ -24,7 +26,7 @@ export const MURAI_FAQ_CATEGORIES: MuraiFaqCategory[] = [
         id: "about-where-buy",
         question: "Where can I buy MuRa@23 products in India?",
         answer:
-          "You can purchase MuRa@23 products both online from our website and in-store at our physical location: 31, Arul Murugan Nagar, Podanur, Coimbatore 641023, Tamil Nadu, India.",
+          `You can purchase MuRa@23 products both online from our website and in-store at our physical location: ${SITE_ADDRESS}.`,
       },
       {
         id: "about-gift-vouchers",
@@ -42,7 +44,7 @@ export const MURAI_FAQ_CATEGORIES: MuraiFaqCategory[] = [
         id: "products-manufacturing",
         question: "Where is your manufacturing unit located?",
         answer:
-          "Our manufacturing unit is at: 31, Arul Murugan Nagar, Podanur, Coimbatore 641023, Tamil Nadu, India.",
+          `Our manufacturing unit is at: ${SITE_ADDRESS}.`,
       },
       {
         id: "products-handcrafted",

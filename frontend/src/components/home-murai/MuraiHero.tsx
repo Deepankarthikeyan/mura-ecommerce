@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperType } from "swiper";
+import type { SwiperRef } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
-const SLIDES = [1, 2, 3] as const;
+const SLIDES = [1, 4, 5] as const;
 
 function Chevron({ dir }: { dir: "prev" | "next" }) {
   return (
@@ -25,18 +25,28 @@ function Chevron({ dir }: { dir: "prev" | "next" }) {
 }
 
 export default function MuraiHero() {
-  const [swiper, setSwiper] = useState<SwiperType | null>(null);
+  const swiperRef = useRef<SwiperRef>(null);
+
+  const changeSlide = (direction: "prev" | "next") => {
+    const swiper = swiperRef.current?.swiper;
+    if (!swiper || swiper.destroyed) return;
+
+    swiper.autoplay.stop();
+    if (direction === "next") swiper.slideNext();
+    else swiper.slidePrev();
+    swiper.autoplay.start();
+  };
 
   return (
     <section className="hero-slider">
       <Swiper
+        ref={swiperRef}
         className="hero-swiper"
         modules={[Autoplay, EffectFade]}
-        loop
+        rewind
         effect="fade"
         fadeEffect={{ crossFade: true }}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
-        onSwiper={setSwiper}
       >
         {SLIDES.map((n) => (
           <SwiperSlide key={n}>
@@ -61,7 +71,7 @@ export default function MuraiHero() {
         type="button"
         className="hero-nav hero-nav-prev"
         aria-label="Previous slide"
-        onClick={() => swiper?.slidePrev()}
+        onClick={() => changeSlide("prev")}
       >
         <Chevron dir="prev" />
       </button>
@@ -69,7 +79,7 @@ export default function MuraiHero() {
         type="button"
         className="hero-nav hero-nav-next"
         aria-label="Next slide"
-        onClick={() => swiper?.slideNext()}
+        onClick={() => changeSlide("next")}
       >
         <Chevron dir="next" />
       </button>

@@ -1,14 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
-import { SITE_EMAIL, SITE_NAME, SITE_PHONE } from "./brand";
+import { SITE_EMAIL, SITE_NAME, SITE_PHONE, SITE_STREET_ADDRESS, SITE_CITY_ADDRESS } from "./brand";
 
 export const MURA_EMAIL = {
   name: SITE_NAME,
   tagline: "India's finest sale sarees",
   email: SITE_EMAIL,
   phone: SITE_PHONE,
-  addressLine1: "Podanur",
-  addressLine2: "Coimbatore, Tamil Nadu 641023, India",
+  addressLine1: SITE_STREET_ADDRESS,
+  addressLine2: SITE_CITY_ADDRESS,
   primary: "#cf0653",
   primaryDark: "#a00543",
   cream: "#FFFDE9",
