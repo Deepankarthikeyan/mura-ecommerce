@@ -1170,8 +1170,8 @@
 }
 
 .murai-home .category-page-banner > img {
-  object-fit: contain;
-  object-position: right center;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .murai-home .category-page-banner::after {
