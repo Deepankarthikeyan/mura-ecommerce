@@ -11,6 +11,7 @@ import MuraiShopFooter from "./MuraiShopFooter";
 import { MuraiProductCard } from "./MuraiProductCard";
 import { formatInr, type MuraiSaree } from "./murai-data";
 import { mapApiProducts } from "./muraiProducts";
+import { getSareeCategoryBanner } from "./sareeMegaMenu";
 
 const ALL_CATEGORY = "all";
 
@@ -55,6 +56,7 @@ function MuraiShopContent() {
   const searchParams = useSearchParams();
   const search = (searchParams.get("search") ?? "").trim().toLowerCase();
   const category = selectedCategoryFromQuery(searchParams.get("category"));
+  const categoryBanner = getSareeCategoryBanner(category);
   const [catalog, setCatalog] = useState<MuraiSaree[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -207,8 +209,8 @@ function MuraiShopContent() {
 
   return (
     <main className="shop-page-main">
-      <section className="shop-hero">
-        <img src="/murai/banners/banner-shop.jpg" alt="Only one, only yours — exclusive silk sarees" className="shop-hero-img" />
+      <section className="shop-hero category-page-banner">
+        <img src={categoryBanner.image} alt={categoryBanner.label} className="shop-hero-img" width={1536} height={1024} />
         <div className="shop-hero-inner">
           <div className="shop-hero-crumb">
             <h1>Shop</h1>

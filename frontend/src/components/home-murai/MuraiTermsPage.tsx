@@ -11,13 +11,13 @@ export default function MuraiTermsPage() {
       <MuraiHeader />
       <main>
         <section className="breadcrumb__section">
-          <div className="breadcrumb__bg">
+          <div className="breadcrumb__bg category-page-banner">
             <img
               className="breadcrumb__bg-image"
-              src="/murai/banners/banner-shop.jpg"
+              src="/murai/categories/kalamkari.webp"
               alt=""
-              width={1600}
-              height={334}
+              width={1536}
+              height={1024}
               decoding="async"
             />
             <div className="container">

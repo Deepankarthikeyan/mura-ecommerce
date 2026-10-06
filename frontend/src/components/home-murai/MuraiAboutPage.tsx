@@ -44,13 +44,13 @@ export default function MuraiAboutPage() {
       <MuraiHeader />
       <main>
         <section className="breadcrumb__section">
-          <div className="breadcrumb__bg">
+          <div className="breadcrumb__bg category-page-banner">
             <img
               className="breadcrumb__bg-image"
-              src="/murai/banners/banner-about.jpg"
+              src="/murai/categories/chanderi.webp"
               alt=""
-              width={1600}
-              height={334}
+              width={1536}
+              height={1024}
               decoding="async"
             />
             <div className="container">
@@ -72,10 +72,12 @@ export default function MuraiAboutPage() {
         <section className="about-section">
           <div className="about-container">
             <div className="about-grid">
-              <div className="about-image">
+              <div className="about-image about-image--founder">
                 <img
-                  src="/murai/sarees/kanjivaram.webp"
-                  alt="MuRa@23 saree collection"
+                  src="/murai/about/founder.webp"
+                  alt="Meet the founder of MuRa@23, M Kanni Priya"
+                  width={1080}
+                  height={1096}
                   loading="lazy"
                   decoding="async"
                 />
@@ -115,8 +117,10 @@ export default function MuraiAboutPage() {
               </div>
               <div className="about-image">
                 <img
-                  src="/murai/sarees/banarasi.webp"
-                  alt="Handcrafted saree from MuRa@23"
+                  src="/murai/categories/handloom.webp"
+                  alt="Handloom saree from MuRa@23"
+                  width={1536}
+                  height={1024}
                   loading="lazy"
                   decoding="async"
                 />
@@ -130,8 +134,10 @@ export default function MuraiAboutPage() {
             <div className="about-grid">
               <div className="about-image">
                 <img
-                  src="/murai/sarees/patola.webp"
-                  alt="MuRa@23 vision"
+                  src="/murai/categories/maheswari.webp"
+                  alt="Pink Maheswari saree from MuRa@23"
+                  width={1536}
+                  height={1024}
                   loading="lazy"
                   decoding="async"
                 />
@@ -163,8 +169,10 @@ export default function MuraiAboutPage() {
               </div>
               <div className="about-image">
                 <img
-                  src="/murai/sarees/tussar.webp"
-                  alt="MuRa@23 mission"
+                  src="/murai/categories/kalamkari.webp"
+                  alt="Kalamkari saree from MuRa@23"
+                  width={1536}
+                  height={1024}
                   loading="lazy"
                   decoding="async"
                 />
