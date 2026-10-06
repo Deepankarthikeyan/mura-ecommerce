@@ -1,54 +1,36 @@
 import Link from "next/link";
 
+const CATEGORIES = [
+  { name: "Chanderi Saree", category: "Chanderi Saree", image: "/murai/categories/chanderi.webp" },
+  { name: "Cotton Saree", category: "Cotton Saree", image: "/murai/categories/cotton.webp" },
+  { name: "Handloom Saree", category: "Handloom Saree", image: "/murai/categories/handloom.webp" },
+  { name: "Ikat Saree", category: "Ikat Saree", image: "/murai/categories/ikat.webp" },
+  { name: "Kalamkari Saree", category: "Kalamkari Saree", image: "/murai/categories/kalamkari.webp" },
+  { name: "Maheswari Saree", category: "Maheshwari Saree", image: "/murai/categories/maheswari.webp" },
+  { name: "Narayanpet Saree", category: "Narayanpet Saree", image: "/murai/categories/narayanpet.webp" },
+];
+
+function CategoryCard({ item, tall = false }: { item: (typeof CATEGORIES)[number]; tall?: boolean }) {
+  return (
+    <Link href={`/shop?category=${encodeURIComponent(item.category)}`} className={`banner-card${tall ? " tall" : ""}`}>
+      <img src={item.image} alt={item.name} loading="lazy" decoding="async" />
+      <div className="banner-card-content">
+        <h3>{item.name}</h3>
+        <span className="banner-card-link">Shop Now →</span>
+      </div>
+    </Link>
+  );
+}
+
 export default function MuraiBannerGrid() {
   return (
-    <section className="banner-section">
+    <section className="banner-section" aria-label="Shop saree categories">
       <div className="banner-grid">
-        <Link href="/shop" className="banner-card tall">
-          <img src="/murai/sarees/banarasi.webp" alt="Silk Saree Sale" loading="lazy" decoding="async" />
-          <div className="banner-card-content">
-            <h3>
-              Silk Saree
-              <br />
-              Sale
-            </h3>
-            <span className="banner-card-link">Shop Now →</span>
-          </div>
-        </Link>
+        <CategoryCard item={CATEGORIES[0]} tall />
         <div className="banner-right">
-          <div className="banner-right-top">
-            <Link href="/shop" className="banner-card">
-              <img src="/murai/sarees/paithani.webp" alt="Banarasi Sarees" loading="lazy" decoding="async" />
-              <div className="banner-card-content">
-                <span className="banner-card-subtitle">Banarasi</span>
-                <h3>Banarasi Sarees</h3>
-                <span className="banner-card-link">Shop Now →</span>
-              </div>
-            </Link>
-            <Link href="/shop" className="banner-card">
-              <img src="/murai/sarees/cotton-block.webp" alt="Cotton Sarees" loading="lazy" decoding="async" />
-              <div className="banner-card-content">
-                <span className="banner-card-subtitle">Cotton Sarees</span>
-                <h3>
-                  Free Shipping Over
-                  <br />
-                  Order ₹999
-                </h3>
-                <span className="banner-card-link">Shop Now →</span>
-              </div>
-            </Link>
-          </div>
-          <Link href="/shop" className="banner-card">
-            <img src="/murai/sarees/kanjivaram.webp" alt="Kanjivaram Sarees" loading="lazy" decoding="async" />
-            <div className="banner-card-content">
-              <h3>
-                Kanjivaram Silk
-                <br />
-                Saree Sale
-              </h3>
-              <span className="banner-card-link">Shop Now →</span>
-            </div>
-          </Link>
+          {CATEGORIES.slice(1).map((item) => (
+            <CategoryCard key={item.category} item={item} />
+          ))}
         </div>
       </div>
     </section>

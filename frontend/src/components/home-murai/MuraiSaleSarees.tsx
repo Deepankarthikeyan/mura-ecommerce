@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { MuraiProductCard } from "./MuraiProductCard";
 import { mapApiProducts } from "./muraiProducts";
@@ -14,6 +14,9 @@ export default function MuraiSaleSarees() {
   const [active, setActive] = useState(ALL_TAB);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -65,6 +68,38 @@ export default function MuraiSaleSarees() {
   );
 
   useEffect(() => {
+    const element = tabsRef.current;
+    if (!element) return;
+
+    let cancelled = false;
+    const updateArrows = () => {
+      if (cancelled) return;
+      setCanScrollLeft(element.scrollLeft > 1);
+      setCanScrollRight(element.scrollLeft + element.clientWidth < element.scrollWidth - 1);
+    };
+    const observer = new ResizeObserver(updateArrows);
+    observer.observe(element);
+    element.addEventListener("scroll", updateArrows, { passive: true });
+    updateArrows();
+    document.fonts.ready.then(updateArrows);
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+      element.removeEventListener("scroll", updateArrows);
+    };
+  }, [tabs]);
+
+  const scrollTabs = (direction: number) => {
+    const element = tabsRef.current;
+    if (!element) return;
+    element.scrollBy({
+      left: direction * element.clientWidth * 0.75,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
+  };
+
+  useEffect(() => {
     if (!tabs.some((tab) => tab.id === active)) {
       setActive(ALL_TAB);
     }
@@ -81,19 +116,27 @@ export default function MuraiSaleSarees() {
         <header className="sale-sarees-head">
           <h2>Sale Sarees</h2>
           {tabs.length > 1 ? (
-            <div className="sale-sarees-tabs" role="tablist" aria-label="Saree categories">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  className={active === tab.id ? "is-active" : undefined}
-                  type="button"
-                  role="tab"
-                  aria-selected={active === tab.id}
-                  onClick={() => setActive(tab.id)}
-                >
-                  {tab.label}
-                </button>
-              ))}
+            <div className="sale-sarees-tabs-wrap">
+              <button className="sale-sarees-tabs-arrow" type="button" aria-label="Scroll categories left" disabled={!canScrollLeft} onClick={() => scrollTabs(-1)}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+              </button>
+              <div ref={tabsRef} className="sale-sarees-tabs" role="tablist" aria-label="Saree categories">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    className={active === tab.id ? "is-active" : undefined}
+                    type="button"
+                    role="tab"
+                    aria-selected={active === tab.id}
+                    onClick={() => setActive(tab.id)}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+              <button className="sale-sarees-tabs-arrow" type="button" aria-label="Scroll categories right" disabled={!canScrollRight} onClick={() => scrollTabs(1)}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+              </button>
             </div>
           ) : null}
         </header>

@@ -8,7 +8,7 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
-const SLIDES = [1, 4, 5] as const;
+const SLIDES = [1, 4, 6, 7] as const;
 
 function Chevron({ dir }: { dir: "prev" | "next" }) {
   return (

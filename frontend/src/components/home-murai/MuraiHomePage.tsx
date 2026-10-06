@@ -10,7 +10,7 @@ import MuraiBestsellers from "./MuraiBestsellers";
 import MuraiPromoBanners from "./MuraiPromoBanners";
 import MuraiTestimonials from "./MuraiTestimonials";
 import MuraiDiwaliBanner from "./MuraiDiwaliBanner";
-import MuraiBlog from "./MuraiBlog";
+import MuraiInstagram from "./MuraiInstagram";
 import MuraiNewsletter from "./MuraiNewsletter";
 import MuraiServiceBar from "./MuraiServiceBar";
 import MuraiFooter from "./MuraiFooter";
@@ -28,7 +28,7 @@ export default function MuraiHomePage() {
         <MuraiPromoBanners />
         <MuraiTestimonials />
         <MuraiDiwaliBanner />
-        <MuraiBlog />
+        <MuraiInstagram />
         <MuraiNewsletter />
         <MuraiServiceBar />
       </main>
