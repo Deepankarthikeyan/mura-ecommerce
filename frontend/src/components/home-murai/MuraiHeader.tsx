@@ -14,8 +14,9 @@ import { getDashboardPrefix } from "@/lib/dashboardPaths";
 import { SAREE_MEGA_MENU } from "./sareeMegaMenu";
 
 const NAV_ITEMS = [
-  { id: "about", label: "About Us", href: "/about" },
-  { id: "contact", label: "Contact Us", href: "/contact" },
+  { id: "about", label: "About", href: "/about" },
+  { id: "privacy", label: "Privacy Policy", href: "/privacy-policy" },
+  { id: "contact", label: "Contact", href: "/contact" },
 ];
 
 function isNavActive(href: string, pathname: string) {
@@ -99,18 +100,6 @@ export default function MuraiHeader() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!sareesMenuOpen) return;
-    const cancelCloseOnScroll = () => {
-      if (megaCloseTimerRef.current) {
-        clearTimeout(megaCloseTimerRef.current);
-        megaCloseTimerRef.current = null;
-      }
-    };
-    window.addEventListener("scroll", cancelCloseOnScroll, { passive: true });
-    return () => window.removeEventListener("scroll", cancelCloseOnScroll);
-  }, [sareesMenuOpen]);
-
   const openMegaMenu = () => {
     if (megaCloseTimerRef.current) {
       clearTimeout(megaCloseTimerRef.current);
@@ -123,15 +112,7 @@ export default function MuraiHeader() {
     const next = event.relatedTarget;
     if (next instanceof Node && event.currentTarget.contains(next)) return;
     if (megaCloseTimerRef.current) clearTimeout(megaCloseTimerRef.current);
-    megaCloseTimerRef.current = setTimeout(() => setSareesMenuOpen(false), 450);
-  };
-
-  const keepMegaMenuOpen = () => {
-    if (megaCloseTimerRef.current) {
-      clearTimeout(megaCloseTimerRef.current);
-      megaCloseTimerRef.current = null;
-    }
-    setSareesMenuOpen(true);
+    megaCloseTimerRef.current = setTimeout(() => setSareesMenuOpen(false), 350);
   };
 
   const onSearch = (event: FormEvent) => {
@@ -167,9 +148,11 @@ export default function MuraiHeader() {
           <form id="suruchi-search" className={`suruchi-search${searchOpen ? " is-open" : ""}`} onSubmit={onSearch}>
             <select aria-label="Category" value={category} onChange={(e) => setCategory(e.target.value)}>
               <option>All Sarees</option>
-              {SAREE_MEGA_MENU.map((item) => (
-                <option key={item.label} value={item.label}>{item.label}</option>
-              ))}
+              <option>Silk Sarees</option>
+              <option>Cotton Sarees</option>
+              <option>Banarasi</option>
+              <option>Kanjivaram</option>
+              <option>Party Wear</option>
             </select>
             <input
               type="text"
@@ -293,13 +276,9 @@ export default function MuraiHeader() {
                   onClick={() => setSareesMenuOpen((open) => !open)}
                 >
                   Sarees
-                  <span className="suruchi-mega-caret" aria-hidden="true">▾</span>
+                  <span className="suruchi-mega-caret" aria-hidden="true" />
                 </button>
-                <div
-                  className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}
-                  onMouseEnter={keepMegaMenuOpen}
-                  onMouseLeave={scheduleMegaMenuClose}
-                >
+                <div className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}>
                   <div className="suruchi-mega-menu-inner">
                     <div className="suruchi-mega-grid">
                       {SAREE_MEGA_MENU.map((item) => (

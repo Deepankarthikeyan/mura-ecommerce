@@ -2637,12 +2637,7 @@
   opacity: 0;
   overflow: hidden;
   pointer-events: none;
-  transform: translateY(-18px);
-  transition:
-    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.3s ease, max-width 0.3s ease, width 0.3s ease;
 }
 
 .murai-home .suruchi-nav.is-scrolled .suruchi-nav-logo{
@@ -2651,7 +2646,6 @@
   opacity: 1;
   pointer-events: auto;
   margin-right: 8px;
-  transform: translateY(0);
 }
 
   .murai-home .suruchi-nav.is-scrolled .suruchi-nav-inner{
@@ -2730,7 +2724,6 @@
   border: none;
   cursor: pointer;
   font-family: inherit;
-  text-decoration: none;
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -2742,20 +2735,16 @@
 }
 
 .murai-home .suruchi-mega-caret{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  height: auto;
-  margin-left: 2px;
-  font-size: 12px;
-  line-height: 1;
-  transform: translateY(1px);
-  transition: transform 0.25s ease;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.2s ease;
 }
 
 .murai-home .suruchi-nav-item.has-mega-menu.is-open .suruchi-mega-caret{
-  transform: translateY(1px) rotate(180deg);
+  transform: rotate(-135deg) translateY(1px);
 }
 
 .murai-home .suruchi-mega-menu{
@@ -2798,7 +2787,7 @@
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-mega-caret,
   .murai-home .suruchi-nav.mega-open .suruchi-mega-caret,
   .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-mega-caret{
-    transform: translateY(1px) rotate(180deg);
+    transform: rotate(-135deg) translateY(1px);
   }
 
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-nav-trigger,
