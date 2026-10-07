@@ -15,13 +15,9 @@ import { getSareeCategoryBanner } from "./sareeMegaMenu";
 
 const ALL_CATEGORY = "all";
 
-const CATEGORY_KEYWORDS: Record<string, string> = {
-  "All Sarees": ALL_CATEGORY,
-  "Silk Sarees": "silk",
-  "Cotton Sarees": "cotton",
-  Banarasi: "silk",
-  Kanjivaram: "kanjivaram",
-  "Party Wear": "party",
+const CATEGORY_ALIASES: Record<string, string> = {
+  "handloom saree": "Cotton Saree Club",
+  "kalamkari saree": "Cotton Saree Club",
 };
 
 type SortKey = "latest" | "price-asc" | "price-desc" | "name";
@@ -35,8 +31,8 @@ const SORT_OPTIONS: { value: SortKey; label: string }[] = [
 
 function selectedCategoryFromQuery(value: string | null) {
   const trimmed = value?.trim() ?? "";
-  if (!trimmed || CATEGORY_KEYWORDS[trimmed] === ALL_CATEGORY) return ALL_CATEGORY;
-  return trimmed;
+  if (!trimmed || trimmed.toLowerCase() === "all sarees") return ALL_CATEGORY;
+  return CATEGORY_ALIASES[trimmed.toLowerCase()] ?? trimmed;
 }
 
 function productMatchesCategory(productCategory: string, selected: string) {
@@ -44,9 +40,8 @@ function productMatchesCategory(productCategory: string, selected: string) {
   const hay = productCategory.toLowerCase();
   const selectedLower = selected.toLowerCase();
   if (hay === selectedLower) return true;
-  const mapped = CATEGORY_KEYWORDS[selected];
-  if (mapped && mapped !== ALL_CATEGORY) {
-    return hay.includes(mapped);
+  if (selectedLower === "cotton saree club") {
+    return hay.includes("cotton") || hay.includes("handloom") || hay.includes("kalamkari");
   }
   return hay.includes(selectedLower) || selectedLower.includes(hay);
 }
@@ -213,11 +208,17 @@ function MuraiShopContent() {
         <img src={categoryBanner.image} alt={categoryBanner.label} className="shop-hero-img" width={1536} height={1024} />
         <div className="shop-hero-inner">
           <div className="shop-hero-crumb">
-            <h1>Shop</h1>
+            <h1>{category === ALL_CATEGORY ? "Shop" : categoryBanner.label}</h1>
             <nav aria-label="Breadcrumb">
               <Link href="/">Home</Link>
               <span aria-hidden="true"> / </span>
-              <span>Shop</span>
+              <Link href="/shop">Shop</Link>
+              {category !== ALL_CATEGORY ? (
+                <>
+                  <span aria-hidden="true"> / </span>
+                  <span>{categoryBanner.label}</span>
+                </>
+              ) : null}
             </nav>
           </div>
         </div>

@@ -23,7 +23,7 @@ export default function MuraiFaqPage() {
           <div className="breadcrumb__bg category-page-banner">
             <img
               className="breadcrumb__bg-image"
-              src="/murai/categories/handloom.webp"
+              src="/murai/categories/cotton.webp"
               alt=""
               width={1536}
               height={1024}

@@ -1431,7 +1431,7 @@
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -3131,7 +3131,7 @@
 }
 .murai-home .hero-slide.slide-4{ background-image: url('/murai/banners/yellow-turquoise-saree.jpg'); }
 .murai-home .hero-slide.slide-5{ background-image: url('/murai/banners/blue-ikat-saree.jpg'); }
-.murai-home .hero-slide.slide-6{ background-image: url('/murai/banners/orange-saree.webp'); }
+.murai-home .hero-slide.slide-6{ background-image: url('/murai/banners/blue-saree.png'); }
 .murai-home .hero-slide.slide-7{ background-image: url('/murai/banners/pink-saree.webp'); }
 .murai-home .hero-slide.slide-2{ background-image: url('/murai/banners/hero-2.jpg'); }
 .murai-home .hero-slide.slide-3{ background-image: url('/murai/banners/hero-3.jpg'); }
@@ -4287,7 +4287,7 @@
 
 .murai-home .service-bar-grid{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   max-width: 1400px;
   margin: 0 auto;
@@ -7062,7 +7062,7 @@ html[data-website-theme] .murai-home .service-bar,
 html[data-website-theme] .murai-home .service-bar-grid,
 .murai-home .service-bar-grid {
   display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
+  grid-template-columns: repeat(3, 1fr) !important;
   gap: 24px !important;
   max-width: 1400px !important;
   padding: 0 20px !important;

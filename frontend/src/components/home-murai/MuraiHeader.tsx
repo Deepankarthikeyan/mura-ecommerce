@@ -148,11 +148,9 @@ export default function MuraiHeader() {
           <form id="suruchi-search" className={`suruchi-search${searchOpen ? " is-open" : ""}`} onSubmit={onSearch}>
             <select aria-label="Category" value={category} onChange={(e) => setCategory(e.target.value)}>
               <option>All Sarees</option>
-              <option>Silk Sarees</option>
-              <option>Cotton Sarees</option>
-              <option>Banarasi</option>
-              <option>Kanjivaram</option>
-              <option>Party Wear</option>
+              {SAREE_MEGA_MENU.map((item) => (
+                <option key={item.label} value={item.label}>{item.label}</option>
+              ))}
             </select>
             <input
               type="text"

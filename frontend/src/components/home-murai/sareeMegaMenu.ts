@@ -4,6 +4,12 @@ export type SareeMegaMenuItem = {
   image: string;
 };
 
+export const DEFAULT_SHOP_BANNER: SareeMegaMenuItem = {
+  label: "Shop Sarees",
+  href: "/shop",
+  image: "/murai/banners/banner-shop.jpg",
+};
+
 export const SAREE_MEGA_MENU: SareeMegaMenuItem[] = [
   {
     label: "Chanderi Saree",
@@ -16,19 +22,14 @@ export const SAREE_MEGA_MENU: SareeMegaMenuItem[] = [
     image: "/murai/categories/cotton.webp",
   },
   {
-    label: "Handloom Saree",
-    href: "/shop?category=Handloom%20Saree",
-    image: "/murai/categories/handloom.webp",
+    label: "Cotton Saree Club",
+    href: "/shop?category=Cotton%20Saree%20Club",
+    image: "/murai/categories/cotton.webp",
   },
   {
     label: "Ikat Saree",
     href: "/shop?category=Ikat%20Saree",
     image: "/murai/categories/ikat.webp",
-  },
-  {
-    label: "Kalamkari Saree",
-    href: "/shop?category=Kalamkari%20Saree",
-    image: "/murai/categories/kalamkari.webp",
   },
   {
     label: "Maheswari Saree",
@@ -42,9 +43,24 @@ export const SAREE_MEGA_MENU: SareeMegaMenuItem[] = [
   },
 ];
 
+const CATEGORY_ALIASES: Record<string, string> = {
+  handloom: "cotton saree club",
+  kalamkari: "cotton saree club",
+  "cotton saree clubit": "cotton saree club",
+};
+
 export function getSareeCategoryBanner(category: string): SareeMegaMenuItem {
-  const normalize = (value: string) => value.trim().toLowerCase()
-    .replace(/sarees?$/, "").replace("maheshwari", "maheswari").trim();
-  return SAREE_MEGA_MENU.find((item) => normalize(item.label) === normalize(category))
-    ?? SAREE_MEGA_MENU[0];
+  const normalize = (value: string) => {
+    const base = value.trim().toLowerCase()
+      .replace(/sarees?$/, "")
+      .replace("maheshwari", "maheswari")
+      .trim();
+    return CATEGORY_ALIASES[base] ?? base;
+  };
+
+  const normalized = normalize(category);
+  if (!normalized || normalized === "all") return DEFAULT_SHOP_BANNER;
+
+  return SAREE_MEGA_MENU.find((item) => normalize(item.label) === normalized)
+    ?? DEFAULT_SHOP_BANNER;
 }

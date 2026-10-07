@@ -14,7 +14,7 @@ export default function MuraiTermsPage() {
           <div className="breadcrumb__bg category-page-banner">
             <img
               className="breadcrumb__bg-image"
-              src="/murai/categories/kalamkari.webp"
+              src="/murai/categories/cotton.webp"
               alt=""
               width={1536}
               height={1024}
