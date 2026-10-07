@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperType } from "swiper";
+import type { SwiperRef } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -25,62 +25,65 @@ function Chevron({ dir }: { dir: "prev" | "next" }) {
 }
 
 export default function MuraiHero() {
-  const [swiper, setSwiper] = useState<SwiperType | null>(null);
+  const swiperRef = useRef<SwiperRef>(null);
 
   const changeSlide = (direction: "prev" | "next") => {
+    const swiper = swiperRef.current?.swiper;
     if (!swiper || swiper.destroyed) return;
-    swiper.autoplay.stop();
     if (direction === "next") swiper.slideNext();
     else swiper.slidePrev();
-    swiper.autoplay.start();
   };
 
   return (
     <section className="hero-slider">
-      <Swiper
-        className="hero-swiper"
-        modules={[Autoplay, EffectFade]}
-        onSwiper={setSwiper}
-        rewind
-        effect="fade"
-        fadeEffect={{ crossFade: true }}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
-      >
-        {SLIDES.map((n) => (
-          <SwiperSlide key={n}>
-            <div className={`hero-slide slide-${n}`}>
-              <div className="hero-slide-content">
-                <p className="hero-slide-tag">Saree Sale</p>
-                <h2>
-                  Handcrafted Silk
-                  <br />
-                  Sarees On Sale
-                </h2>
-                <p>Silk, Cotton & Designer Collection!</p>
-                <Link href="/shop" className="btn btn-primary">
-                  Shop Sale Sarees →
-                </Link>
+      <div className="hero-slider-frame">
+        <Swiper
+          ref={swiperRef}
+          className="hero-swiper"
+          modules={[Autoplay, EffectFade]}
+          slidesPerView={1}
+          speed={700}
+          rewind
+          effect="fade"
+          fadeEffect={{ crossFade: true }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+        >
+          {SLIDES.map((n) => (
+            <SwiperSlide key={n}>
+              <div className={`hero-slide slide-${n}`}>
+                <div className="hero-slide-content">
+                  <p className="hero-slide-tag">Saree Sale</p>
+                  <h2>
+                    Handcrafted Silk
+                    <br />
+                    Sarees On Sale
+                  </h2>
+                  <p>Silk, Cotton & Designer Collection!</p>
+                  <Link href="/shop" className="btn btn-primary">
+                    Shop Sale Sarees →
+                  </Link>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <button
-        type="button"
-        className="hero-nav hero-nav-prev"
-        aria-label="Previous slide"
-        onClick={() => changeSlide("prev")}
-      >
-        <Chevron dir="prev" />
-      </button>
-      <button
-        type="button"
-        className="hero-nav hero-nav-next"
-        aria-label="Next slide"
-        onClick={() => changeSlide("next")}
-      >
-        <Chevron dir="next" />
-      </button>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <button
+          type="button"
+          className="hero-nav hero-nav-prev"
+          aria-label="Previous slide"
+          onClick={() => changeSlide("prev")}
+        >
+          <Chevron dir="prev" />
+        </button>
+        <button
+          type="button"
+          className="hero-nav hero-nav-next"
+          aria-label="Next slide"
+          onClick={() => changeSlide("next")}
+        >
+          <Chevron dir="next" />
+        </button>
+      </div>
     </section>
   );
 }

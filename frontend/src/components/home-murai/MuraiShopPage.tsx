@@ -50,7 +50,7 @@ function productMatchesCategory(productCategory: string, selected: string) {
 function MuraiShopContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const search = (searchParams.get("search") ?? "").trim().toLowerCase();
+  const searchQuery = (searchParams.get("search") ?? "").trim();
   const category = selectedCategoryFromQuery(searchParams.get("category"));
   const categoryBanner = getSareeCategoryBanner(category);
   const [catalog, setCatalog] = useState<MuraiSaree[]>([]);
@@ -101,7 +101,7 @@ function MuraiShopContent() {
       setError("");
       try {
         const params = new URLSearchParams();
-        if (search) params.set("search", search);
+        if (searchQuery) params.set("search", searchQuery);
         const query = params.toString();
         const [{ data: productsData }, { data: categoriesData }] = await Promise.all([
           axios.get(query ? `/api/products?${query}` : "/api/products"),
@@ -137,7 +137,7 @@ function MuraiShopContent() {
     return () => {
       cancelled = true;
     };
-  }, [search]);
+  }, [searchQuery]);
 
   const setCategory = (id: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -178,7 +178,7 @@ function MuraiShopContent() {
 
   const products = useMemo(() => {
     let list = catalog.filter((item) => {
-      if (!productMatchesCategory(item.category, category)) return false;
+      if (!searchQuery && !productMatchesCategory(item.category, category)) return false;
       if (appliedMin != null && item.price < appliedMin) return false;
       if (appliedMax != null && item.price > appliedMax) return false;
       return true;
@@ -187,7 +187,7 @@ function MuraiShopContent() {
     if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
     if (sort === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     return list;
-  }, [appliedMax, appliedMin, catalog, category, sort]);
+  }, [appliedMax, appliedMin, catalog, category, searchQuery, sort]);
 
   const sidebarCategories = useMemo(
     () => [{ id: ALL_CATEGORY, label: "All Sarees" }, ...categories.map((name) => ({ id: name, label: name }))],
@@ -317,7 +317,9 @@ function MuraiShopContent() {
               <p className="shop-results">
                 {isLoading
                   ? "Loading products…"
-                  : `Showing ${products.length} saree${products.length === 1 ? "" : "s"}`}
+                  : searchQuery
+                    ? `Showing ${products.length} result${products.length === 1 ? "" : "s"} for "${searchQuery}"`
+                    : `Showing ${products.length} saree${products.length === 1 ? "" : "s"}`}
               </p>
               <div className="shop-sort">
                 <label htmlFor="shop-sort" className="sr-only">

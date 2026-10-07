@@ -17,7 +17,9 @@ export default function MuraiBannerGrid() {
   return (
     <section className="banner-section" aria-label="Shop saree categories">
       <div className="banner-grid">
-        <CategoryCard item={SAREE_MEGA_MENU[0]} tall />
+        <div className="banner-left">
+          <CategoryCard item={SAREE_MEGA_MENU[0]} tall />
+        </div>
         <div className="banner-right">
           {SAREE_MEGA_MENU.slice(1).map((item) => (
             <CategoryCard key={item.label} item={item} />
