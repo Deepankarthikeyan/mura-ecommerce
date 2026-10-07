@@ -2637,7 +2637,12 @@
   opacity: 0;
   overflow: hidden;
   pointer-events: none;
-  transition: opacity 0.3s ease, max-width 0.3s ease, width 0.3s ease;
+  transform: translateY(-18px);
+  transition:
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .murai-home .suruchi-nav.is-scrolled .suruchi-nav-logo{
@@ -2646,6 +2651,7 @@
   opacity: 1;
   pointer-events: auto;
   margin-right: 8px;
+  transform: translateY(0);
 }
 
   .murai-home .suruchi-nav.is-scrolled .suruchi-nav-inner{
@@ -2736,16 +2742,20 @@
 }
 
 .murai-home .suruchi-mega-caret{
-  width: 8px;
-  height: 8px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg) translateY(-2px);
-  transition: transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  margin-left: 2px;
+  font-size: 12px;
+  line-height: 1;
+  transform: translateY(1px);
+  transition: transform 0.25s ease;
 }
 
 .murai-home .suruchi-nav-item.has-mega-menu.is-open .suruchi-mega-caret{
-  transform: rotate(-135deg) translateY(1px);
+  transform: translateY(1px) rotate(180deg);
 }
 
 .murai-home .suruchi-mega-menu{
@@ -2788,7 +2798,7 @@
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-mega-caret,
   .murai-home .suruchi-nav.mega-open .suruchi-mega-caret,
   .murai-home .suruchi-nav-item.has-mega-menu:focus-within .suruchi-mega-caret{
-    transform: rotate(-135deg) translateY(1px);
+    transform: translateY(1px) rotate(180deg);
   }
 
   .murai-home .suruchi-nav-item.has-mega-menu:hover .suruchi-nav-trigger,
@@ -2803,24 +2813,6 @@
   max-width: 1084px;
   margin: 0 auto;
   padding: 4px 12px;
-}
-
-.murai-home .suruchi-mega-shop-all{
-  display: flex;
-  justify-content: flex-end;
-  padding: 8px 8px 4px;
-}
-
-.murai-home .suruchi-mega-shop-all-link{
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--suruchi-primary);
-  text-decoration: none;
-  letter-spacing: 0.3px;
-}
-
-.murai-home .suruchi-mega-shop-all-link:hover{
-  text-decoration: underline;
 }
 
 .murai-home .suruchi-mega-grid{

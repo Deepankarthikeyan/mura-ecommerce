@@ -285,43 +285,22 @@ export default function MuraiHeader() {
                 onMouseEnter={openMegaMenu}
                 onMouseLeave={scheduleMegaMenuClose}
               >
-                <Link
-                  href="/shop"
+                <button
+                  type="button"
                   className={`suruchi-nav-trigger suruchi-mega-trigger${isShopActive ? " active" : ""}`}
                   aria-expanded={sareesMenuOpen}
                   aria-haspopup="true"
-                  onMouseEnter={openMegaMenu}
-                  onClick={(event) => {
-                    if (window.innerWidth <= 992) {
-                      event.preventDefault();
-                      setSareesMenuOpen((open) => !open);
-                      return;
-                    }
-                    setSareesMenuOpen(false);
-                    setMenuOpen(false);
-                  }}
+                  onClick={() => setSareesMenuOpen((open) => !open)}
                 >
                   Sarees
-                  <span className="suruchi-mega-caret" aria-hidden="true" />
-                </Link>
+                  <span className="suruchi-mega-caret" aria-hidden="true">▾</span>
+                </button>
                 <div
                   className={`suruchi-mega-menu${sareesMenuOpen ? " is-open" : ""}`}
                   onMouseEnter={keepMegaMenuOpen}
                   onMouseLeave={scheduleMegaMenuClose}
                 >
                   <div className="suruchi-mega-menu-inner">
-                    <div className="suruchi-mega-shop-all">
-                      <Link
-                        href="/shop"
-                        className="suruchi-mega-shop-all-link"
-                        onClick={() => {
-                          setSareesMenuOpen(false);
-                          setMenuOpen(false);
-                        }}
-                      >
-                        Shop All Sarees →
-                      </Link>
-                    </div>
                     <div className="suruchi-mega-grid">
                       {SAREE_MEGA_MENU.map((item) => (
                         <Link
