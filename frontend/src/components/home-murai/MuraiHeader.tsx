@@ -1,8 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState, type MouseEvent } from "react";
+import { FormEvent, Suspense, useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCart } from "@/components/header/CartContext";
 import { useUser } from "@/components/header/UserContext";
 import LoginDialog from "@/components/auth/LoginDialog";
@@ -24,9 +24,10 @@ function isNavActive(href: string, pathname: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export default function MuraiHeader() {
+function MuraiHeaderInner() {
   const router = useRouter();
   const pathname = usePathname() || "/";
+  const searchParams = useSearchParams();
   const { cartItems } = useCart();
   const { user, isAuthenticated } = useUser();
   const mountRef = useRef<HTMLDivElement>(null);
@@ -37,7 +38,6 @@ export default function MuraiHeader() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [navFixed, setNavFixed] = useState(false);
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All Sarees");
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
   const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
@@ -95,6 +95,10 @@ export default function MuraiHeader() {
   }, [menuOpen]);
 
   useEffect(() => {
+    setSearch(searchParams.get("search") ?? "");
+  }, [searchParams]);
+
+  useEffect(() => {
     return () => {
       if (megaCloseTimerRef.current) clearTimeout(megaCloseTimerRef.current);
     };
@@ -117,11 +121,13 @@ export default function MuraiHeader() {
 
   const onSearch = (event: FormEvent) => {
     event.preventDefault();
-    const params = new URLSearchParams();
-    if (search.trim()) params.set("search", search.trim());
-    if (category !== "All Sarees") params.set("category", category);
-    const query = params.toString();
-    router.push(query ? `/shop?${query}` : "/shop");
+    const term = search.trim();
+    if (!term) {
+      router.push("/shop");
+      setSearchOpen(false);
+      return;
+    }
+    router.push(`/shop?search=${encodeURIComponent(term)}`);
     setSearchOpen(false);
   };
 
@@ -145,20 +151,14 @@ export default function MuraiHeader() {
           <Link href="/" className="suruchi-logo" aria-label="MuRa@23 Home">
             <img src="/murai/mura-newlogo.png" alt="MuRa@23" width={129} height={80} decoding="async" />
           </Link>
-          <form id="suruchi-search" className={`suruchi-search${searchOpen ? " is-open" : ""}`} onSubmit={onSearch}>
-            <select aria-label="Category" value={category} onChange={(e) => setCategory(e.target.value)}>
-              <option>All Sarees</option>
-              <option>Silk Sarees</option>
-              <option>Cotton Sarees</option>
-              <option>Banarasi</option>
-              <option>Kanjivaram</option>
-              <option>Party Wear</option>
-            </select>
+          <form id="suruchi-search" className={`suruchi-search suruchi-search--simple${searchOpen ? " is-open" : ""}`} onSubmit={onSearch}>
             <input
-              type="text"
+              type="search"
+              name="search"
               placeholder="Search sarees..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              autoComplete="off"
             />
             <button type="submit" aria-label="Search">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -215,11 +215,11 @@ export default function MuraiHeader() {
               </svg>
               <span>Wish List</span>
             </Link> */}
-            <Link href="/cart" className="suruchi-header-action">
-              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+            <Link href="/cart" className="suruchi-header-action suruchi-header-action-cart">
+              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
               </svg>
-              <span>My Cart</span>
+              <span className="suruchi-header-action-label">My Cart</span>
               {cartCount > 0 ? <span className="suruchi-badge cart-count">{cartCount}</span> : null}
             </Link>
             <button
@@ -349,5 +349,13 @@ export default function MuraiHeader() {
         }}
       />
     </>
+  );
+}
+
+export default function MuraiHeader() {
+  return (
+    <Suspense fallback={null}>
+      <MuraiHeaderInner />
+    </Suspense>
   );
 }

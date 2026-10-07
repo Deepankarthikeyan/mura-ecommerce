@@ -23,16 +23,6 @@ const ITEMS = [
     ),
   },
   {
-    title: "Return",
-    text: "30-day easy returns",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4.5 12a7.5 7.5 0 0 1 12.3-5.7L19 4v5h-5l2.1-2.1A5.5 5.5 0 1 0 17.5 15" />
-        <path d="M19.5 12a7.5 7.5 0 0 1-12.3 5.7L5 20v-5h5L7.9 17.1A5.5 5.5 0 1 0 6.5 9" />
-      </svg>
-    ),
-  },
-  {
     title: "Support",
     text: "Dedicated help team",
     icon: (

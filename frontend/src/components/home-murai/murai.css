@@ -1431,7 +1431,7 @@
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -2522,6 +2522,16 @@
   overflow: hidden;
 }
 
+.murai-home .suruchi-search--simple input{
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+.murai-home .suruchi-search--simple select{
+  display: none !important;
+}
+
 .murai-home .suruchi-search select{
   padding: 12px 16px;
   border: none;
@@ -2560,13 +2570,26 @@
 }
 
 .murai-home .suruchi-header-action{
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 13px;
   font-weight: 500;
   color: var(--suruchi-dark);
   position: relative;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.murai-home .suruchi-header-action-cart{
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.murai-home .suruchi-header-action-cart .suruchi-header-action-label{
+  display: inline;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .murai-home button.suruchi-header-action{
@@ -3013,7 +3036,19 @@
     width: 100%;
     text-align: center;
   }
-  .murai-home .suruchi-header-action span{ display: none; }
+  .murai-home .suruchi-header-action:not(.suruchi-header-action-cart) > span:not(.suruchi-badge){
+    display: none;
+  }
+
+  .murai-home .suruchi-header-action-cart > .suruchi-header-action-label{
+    display: inline;
+    font-size: 11px;
+  }
+
+  .murai-home .suruchi-header-action-cart{
+    gap: 4px;
+  }
+
   .murai-home .suruchi-mobile-toggle{
     display: flex;
     align-items: center;
@@ -3084,8 +3119,20 @@
   overflow: hidden;
 }
 
+.murai-home .hero-slider-frame{
+  position: relative;
+}
+
 .murai-home .hero-slider .hero-swiper, .murai-home .hero-slider .swiper-wrapper, .murai-home .hero-slider .swiper-slide, .murai-home .hero-slide{
   min-height: 550px;
+}
+
+.murai-home .hero-slider .swiper-fade .swiper-slide{
+  pointer-events: none;
+}
+
+.murai-home .hero-slider .swiper-fade .swiper-slide-active{
+  pointer-events: auto;
 }
 
 .murai-home .hero-slider .swiper-slide{
@@ -3131,7 +3178,7 @@
 }
 .murai-home .hero-slide.slide-4{ background-image: url('/murai/banners/yellow-turquoise-saree.jpg'); }
 .murai-home .hero-slide.slide-5{ background-image: url('/murai/banners/blue-ikat-saree.jpg'); }
-.murai-home .hero-slide.slide-6{ background-image: url('/murai/banners/orange-saree.webp'); }
+.murai-home .hero-slide.slide-6{ background-image: url('/murai/banners/blue-saree.png'); }
 .murai-home .hero-slide.slide-7{ background-image: url('/murai/banners/pink-saree.webp'); }
 .murai-home .hero-slide.slide-2{ background-image: url('/murai/banners/hero-2.jpg'); }
 .murai-home .hero-slide.slide-3{ background-image: url('/murai/banners/hero-3.jpg'); }
@@ -3226,13 +3273,26 @@
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: 24px;
+  align-items: stretch;
+}
+
+.murai-home .banner-left,
+.murai-home .banner-right{
+  min-height: 0;
+  align-self: stretch;
+}
+
+.murai-home .banner-left{
+  display: grid;
+  grid-template-rows: 1fr;
 }
 
 .murai-home .banner-right{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(3, minmax(200px, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 24px;
+  min-height: 100%;
 }
 
 .murai-home .banner-card{
@@ -3241,6 +3301,7 @@
   overflow: hidden;
   display: block;
   min-height: 200px;
+  height: 100%;
   border: none;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   isolation: isolate;
@@ -3281,7 +3342,10 @@
   opacity: 1;
 }
 
-.murai-home .banner-card.tall{ min-height: 420px; }
+.murai-home .banner-card.tall{
+  min-height: 100%;
+  height: 100%;
+}
 
 .murai-home .banner-card-content{
   position: absolute;
@@ -4287,7 +4351,7 @@
 
 .murai-home .service-bar-grid{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   max-width: 1400px;
   margin: 0 auto;
@@ -6434,6 +6498,15 @@
     gap: 4px;
   }
 
+  .murai-home .suruchi-header-action-cart > .suruchi-header-action-label{
+    font-size: 10px;
+  }
+
+  .murai-home .suruchi-logo img{
+    height: 40px;
+    max-width: 88px;
+  }
+
   .murai-home .countdown{
     gap: 6px;
   }
@@ -6904,7 +6977,7 @@ html[data-website-theme] .murai-home .section-heading h2 {
 .murai-home .hero-slider .hero-nav {
   position: absolute;
   top: 50%;
-  z-index: 20;
+  z-index: 50;
   width: 48px;
   height: 48px;
   margin: 0;
@@ -6920,6 +6993,7 @@ html[data-website-theme] .murai-home .section-heading h2 {
   transform: translateY(-50%);
   cursor: pointer;
   pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .murai-home .hero-slider .hero-nav svg {
@@ -7062,7 +7136,7 @@ html[data-website-theme] .murai-home .service-bar,
 html[data-website-theme] .murai-home .service-bar-grid,
 .murai-home .service-bar-grid {
   display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
+  grid-template-columns: repeat(3, 1fr) !important;
   gap: 24px !important;
   max-width: 1400px !important;
   padding: 0 20px !important;
@@ -7296,8 +7370,10 @@ html[data-website-theme] .murai-home form.suruchi-search select,
 
 html[data-website-theme] .murai-home form.suruchi-search input,
 html[data-website-theme] .murai-home form.suruchi-search input[type="text"],
+html[data-website-theme] .murai-home form.suruchi-search input[type="search"],
 .murai-home form.suruchi-search input,
-.murai-home form.suruchi-search input[type="text"] {
+.murai-home form.suruchi-search input[type="text"],
+.murai-home form.suruchi-search input[type="search"] {
   flex: 1 1 auto !important;
   width: 100% !important;
   min-width: 0 !important;
@@ -7315,6 +7391,15 @@ html[data-website-theme] .murai-home form.suruchi-search input[type="text"],
   line-height: 48px !important;
   box-shadow: none !important;
   outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+.murai-home form.suruchi-search input[type="search"]::-webkit-search-decoration,
+.murai-home form.suruchi-search input[type="search"]::-webkit-search-cancel-button {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: none !important;
 }
 
 html[data-website-theme] .murai-home form.suruchi-search button,

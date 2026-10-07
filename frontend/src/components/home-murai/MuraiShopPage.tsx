@@ -15,13 +15,10 @@ import { getSareeCategoryBanner } from "./sareeMegaMenu";
 
 const ALL_CATEGORY = "all";
 
-const CATEGORY_KEYWORDS: Record<string, string> = {
-  "All Sarees": ALL_CATEGORY,
-  "Silk Sarees": "silk",
-  "Cotton Sarees": "cotton",
-  Banarasi: "silk",
-  Kanjivaram: "kanjivaram",
-  "Party Wear": "party",
+const CATEGORY_ALIASES: Record<string, string> = {
+  "handloom saree": "Cotton Saree",
+  "kalamkari saree": "Cotton Saree",
+  "cotton saree club": "Cotton Saree",
 };
 
 type SortKey = "latest" | "price-asc" | "price-desc" | "name";
@@ -35,8 +32,8 @@ const SORT_OPTIONS: { value: SortKey; label: string }[] = [
 
 function selectedCategoryFromQuery(value: string | null) {
   const trimmed = value?.trim() ?? "";
-  if (!trimmed || CATEGORY_KEYWORDS[trimmed] === ALL_CATEGORY) return ALL_CATEGORY;
-  return trimmed;
+  if (!trimmed || trimmed.toLowerCase() === "all sarees") return ALL_CATEGORY;
+  return CATEGORY_ALIASES[trimmed.toLowerCase()] ?? trimmed;
 }
 
 function productMatchesCategory(productCategory: string, selected: string) {
@@ -44,9 +41,8 @@ function productMatchesCategory(productCategory: string, selected: string) {
   const hay = productCategory.toLowerCase();
   const selectedLower = selected.toLowerCase();
   if (hay === selectedLower) return true;
-  const mapped = CATEGORY_KEYWORDS[selected];
-  if (mapped && mapped !== ALL_CATEGORY) {
-    return hay.includes(mapped);
+  if (selectedLower === "cotton saree") {
+    return hay.includes("cotton") || hay.includes("handloom") || hay.includes("kalamkari");
   }
   return hay.includes(selectedLower) || selectedLower.includes(hay);
 }
@@ -54,7 +50,7 @@ function productMatchesCategory(productCategory: string, selected: string) {
 function MuraiShopContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const search = (searchParams.get("search") ?? "").trim().toLowerCase();
+  const searchQuery = (searchParams.get("search") ?? "").trim();
   const category = selectedCategoryFromQuery(searchParams.get("category"));
   const categoryBanner = getSareeCategoryBanner(category);
   const [catalog, setCatalog] = useState<MuraiSaree[]>([]);
@@ -105,7 +101,7 @@ function MuraiShopContent() {
       setError("");
       try {
         const params = new URLSearchParams();
-        if (search) params.set("search", search);
+        if (searchQuery) params.set("search", searchQuery);
         const query = params.toString();
         const [{ data: productsData }, { data: categoriesData }] = await Promise.all([
           axios.get(query ? `/api/products?${query}` : "/api/products"),
@@ -141,7 +137,7 @@ function MuraiShopContent() {
     return () => {
       cancelled = true;
     };
-  }, [search]);
+  }, [searchQuery]);
 
   const setCategory = (id: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -182,7 +178,7 @@ function MuraiShopContent() {
 
   const products = useMemo(() => {
     let list = catalog.filter((item) => {
-      if (!productMatchesCategory(item.category, category)) return false;
+      if (!searchQuery && !productMatchesCategory(item.category, category)) return false;
       if (appliedMin != null && item.price < appliedMin) return false;
       if (appliedMax != null && item.price > appliedMax) return false;
       return true;
@@ -191,7 +187,7 @@ function MuraiShopContent() {
     if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
     if (sort === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     return list;
-  }, [appliedMax, appliedMin, catalog, category, sort]);
+  }, [appliedMax, appliedMin, catalog, category, searchQuery, sort]);
 
   const sidebarCategories = useMemo(
     () => [{ id: ALL_CATEGORY, label: "All Sarees" }, ...categories.map((name) => ({ id: name, label: name }))],
@@ -213,11 +209,17 @@ function MuraiShopContent() {
         <img src={categoryBanner.image} alt={categoryBanner.label} className="shop-hero-img" width={1536} height={1024} />
         <div className="shop-hero-inner">
           <div className="shop-hero-crumb">
-            <h1>Shop</h1>
+            <h1>{category === ALL_CATEGORY ? "Shop" : categoryBanner.label}</h1>
             <nav aria-label="Breadcrumb">
               <Link href="/">Home</Link>
               <span aria-hidden="true"> / </span>
-              <span>Shop</span>
+              <Link href="/shop">Shop</Link>
+              {category !== ALL_CATEGORY ? (
+                <>
+                  <span aria-hidden="true"> / </span>
+                  <span>{categoryBanner.label}</span>
+                </>
+              ) : null}
             </nav>
           </div>
         </div>
@@ -315,7 +317,9 @@ function MuraiShopContent() {
               <p className="shop-results">
                 {isLoading
                   ? "Loading products…"
-                  : `Showing ${products.length} saree${products.length === 1 ? "" : "s"}`}
+                  : searchQuery
+                    ? `Showing ${products.length} result${products.length === 1 ? "" : "s"} for "${searchQuery}"`
+                    : `Showing ${products.length} saree${products.length === 1 ? "" : "s"}`}
               </p>
               <div className="shop-sort">
                 <label htmlFor="shop-sort" className="sr-only">

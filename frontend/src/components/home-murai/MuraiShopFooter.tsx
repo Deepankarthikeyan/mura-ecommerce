@@ -2,9 +2,10 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { SITE_ADDRESS, SITE_MAP_URL, SITE_PHONE } from "@/lib/brand";
+import { SITE_ADDRESS, SITE_MAP_URL, SITE_PHONE, SITE_STORE_HOURS } from "@/lib/brand";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { SAREE_MEGA_MENU } from "./sareeMegaMenu";
 
 export default function MuraiShopFooter() {
   const [email, setEmail] = useState("");
@@ -51,6 +52,8 @@ export default function MuraiShopFooter() {
             <a href={SITE_MAP_URL} target="_blank" rel="noopener noreferrer">{SITE_ADDRESS}</a>
             <br />
             <a href={`tel:${SITE_PHONE}`}>{SITE_PHONE}</a>
+            <br />
+            <span>Store Hours: {SITE_STORE_HOURS}</span>
           </p>
           <div className="shop-footer-social">
             <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noreferrer">
@@ -70,9 +73,8 @@ export default function MuraiShopFooter() {
             <li><Link href="/">Home</Link></li>
             <li><Link href="/about">About Us</Link></li>
             <li><Link href="/shop">Shop</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/contact">Contact Us</Link></li>
             <li><Link href="/faq">FAQ</Link></li>
-            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
             <li><Link href="/terms-condition">Terms &amp; Conditions</Link></li>
             <li><Link href="/shipping-policy">Shipping &amp; Returns</Link></li>
           </ul>
@@ -80,10 +82,11 @@ export default function MuraiShopFooter() {
         <div className="shop-footer-col">
           <h4>Saree Types</h4>
           <ul>
-            <li><Link href="/shop?category=Silk+Sarees">Silk Sarees</Link></li>
-            <li><Link href="/shop?category=Cotton+Sarees">Cotton Sarees</Link></li>
-            <li><Link href="/shop?category=Banarasi">Banarasi</Link></li>
-            <li><Link href="/shop?category=Kanjivaram">Kanjivaram</Link></li>
+            {SAREE_MEGA_MENU.map((item) => (
+              <li key={item.label}>
+                <Link href={item.href}>{item.label}</Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="shop-footer-col">

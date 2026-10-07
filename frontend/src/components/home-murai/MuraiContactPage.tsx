@@ -2,18 +2,14 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { SITE_ADDRESS, SITE_MAP_EMBED_URL, SITE_MAP_URL, SITE_PHONE } from "@/lib/brand";
+import { SITE_ADDRESS, SITE_MAP_EMBED_URL, SITE_MAP_URL, SITE_PHONE, SITE_STORE_HOURS } from "@/lib/brand";
 import { toast } from "react-toastify";
 import "./murai.css";
 import MuraiHeader from "./MuraiHeader";
 import MuraiShopBenefits from "./MuraiShopBenefits";
 import MuraiShopFooter from "./MuraiShopFooter";
 
-const HOURS = [
-  { day: "Monday – Friday", time: "10:00 AM – 8:00 PM" },
-  { day: "Saturday", time: "10:00 AM – 9:00 PM" },
-  { day: "Sunday", time: "11:00 AM – 7:00 PM" },
-];
+const HOURS = [{ day: "Mon–Sun", time: SITE_STORE_HOURS }];
 
 export default function MuraiContactPage() {
   const [submitting, setSubmitting] = useState(false);
