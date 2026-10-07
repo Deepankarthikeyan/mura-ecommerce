@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import type { SwiperRef } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
 import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -25,12 +25,10 @@ function Chevron({ dir }: { dir: "prev" | "next" }) {
 }
 
 export default function MuraiHero() {
-  const swiperRef = useRef<SwiperRef>(null);
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
   const changeSlide = (direction: "prev" | "next") => {
-    const swiper = swiperRef.current?.swiper;
     if (!swiper || swiper.destroyed) return;
-
     swiper.autoplay.stop();
     if (direction === "next") swiper.slideNext();
     else swiper.slidePrev();
@@ -40,9 +38,9 @@ export default function MuraiHero() {
   return (
     <section className="hero-slider">
       <Swiper
-        ref={swiperRef}
         className="hero-swiper"
         modules={[Autoplay, EffectFade]}
+        onSwiper={setSwiper}
         rewind
         effect="fade"
         fadeEffect={{ crossFade: true }}

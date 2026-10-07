@@ -22,11 +22,6 @@ export const SAREE_MEGA_MENU: SareeMegaMenuItem[] = [
     image: "/murai/categories/cotton.webp",
   },
   {
-    label: "Cotton Saree Club",
-    href: "/shop?category=Cotton%20Saree%20Club",
-    image: "/murai/categories/cotton.webp",
-  },
-  {
     label: "Ikat Saree",
     href: "/shop?category=Ikat%20Saree",
     image: "/murai/categories/ikat.webp",
@@ -44,9 +39,10 @@ export const SAREE_MEGA_MENU: SareeMegaMenuItem[] = [
 ];
 
 const CATEGORY_ALIASES: Record<string, string> = {
-  handloom: "cotton saree club",
-  kalamkari: "cotton saree club",
-  "cotton saree clubit": "cotton saree club",
+  handloom: "cotton",
+  kalamkari: "cotton",
+  "cotton saree club": "cotton",
+  "cotton saree clubit": "cotton",
 };
 
 export function getSareeCategoryBanner(category: string): SareeMegaMenuItem {

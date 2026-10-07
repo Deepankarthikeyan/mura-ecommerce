@@ -16,8 +16,9 @@ import { getSareeCategoryBanner } from "./sareeMegaMenu";
 const ALL_CATEGORY = "all";
 
 const CATEGORY_ALIASES: Record<string, string> = {
-  "handloom saree": "Cotton Saree Club",
-  "kalamkari saree": "Cotton Saree Club",
+  "handloom saree": "Cotton Saree",
+  "kalamkari saree": "Cotton Saree",
+  "cotton saree club": "Cotton Saree",
 };
 
 type SortKey = "latest" | "price-asc" | "price-desc" | "name";
@@ -40,7 +41,7 @@ function productMatchesCategory(productCategory: string, selected: string) {
   const hay = productCategory.toLowerCase();
   const selectedLower = selected.toLowerCase();
   if (hay === selectedLower) return true;
-  if (selectedLower === "cotton saree club") {
+  if (selectedLower === "cotton saree") {
     return hay.includes("cotton") || hay.includes("handloom") || hay.includes("kalamkari");
   }
   return hay.includes(selectedLower) || selectedLower.includes(hay);

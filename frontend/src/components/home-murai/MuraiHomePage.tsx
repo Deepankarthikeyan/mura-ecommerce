@@ -5,15 +5,11 @@ import MuraiHeader from "./MuraiHeader";
 import MuraiHero from "./MuraiHero";
 import MuraiBannerGrid from "./MuraiBannerGrid";
 import MuraiSaleSarees from "./MuraiSaleSarees";
-import MuraiDeals from "./MuraiDeals";
-import MuraiBestsellers from "./MuraiBestsellers";
-import MuraiPromoBanners from "./MuraiPromoBanners";
 import MuraiTestimonials from "./MuraiTestimonials";
-import MuraiDiwaliBanner from "./MuraiDiwaliBanner";
 import MuraiInstagram from "./MuraiInstagram";
 import MuraiNewsletter from "./MuraiNewsletter";
 import MuraiServiceBar from "./MuraiServiceBar";
-import MuraiFooter from "./MuraiFooter";
+import MuraiShopFooter from "./MuraiShopFooter";
 
 export default function MuraiHomePage() {
   return (
@@ -23,16 +19,12 @@ export default function MuraiHomePage() {
         <MuraiHero />
         <MuraiBannerGrid />
         <MuraiSaleSarees />
-        <MuraiDeals />
-        <MuraiBestsellers />
-        <MuraiPromoBanners />
         <MuraiTestimonials />
-        <MuraiDiwaliBanner />
         <MuraiInstagram />
         <MuraiNewsletter />
         <MuraiServiceBar />
       </main>
-      <MuraiFooter />
+      <MuraiShopFooter />
     </div>
   );
 }

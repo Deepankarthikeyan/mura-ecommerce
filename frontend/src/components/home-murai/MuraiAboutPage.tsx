@@ -118,7 +118,7 @@ export default function MuraiAboutPage() {
               <div className="about-image">
                 <img
                   src="/murai/categories/cotton.webp"
-                  alt="Cotton Saree Club saree from MuRa@23"
+                  alt="Cotton saree from MuRa@23"
                   width={1536}
                   height={1024}
                   loading="lazy"
@@ -170,7 +170,7 @@ export default function MuraiAboutPage() {
               <div className="about-image">
                 <img
                   src="/murai/categories/cotton.webp"
-                  alt="Cotton Saree Club saree from MuRa@23"
+                  alt="Cotton saree from MuRa@23"
                   width={1536}
                   height={1024}
                   loading="lazy"
